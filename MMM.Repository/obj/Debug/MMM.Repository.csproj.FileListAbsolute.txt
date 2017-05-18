@@ -1,0 +1,8 @@
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Repository\bin\Debug\MMM.Repository.dll
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Repository\bin\Debug\MMM.Repository.pdb
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Repository\bin\Debug\Antlr3.Runtime.dll
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Repository\bin\Debug\VisualStudioGitIgnore.dll
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Repository\bin\Debug\Antlr3.Runtime.pdb
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Repository\obj\Debug\MMM.Repository.csprojResolveAssemblyReference.cache
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Repository\obj\Debug\MMM.Repository.dll
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Repository\obj\Debug\MMM.Repository.pdb

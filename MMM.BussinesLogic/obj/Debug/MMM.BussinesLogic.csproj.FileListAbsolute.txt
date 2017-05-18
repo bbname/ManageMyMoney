@@ -1,0 +1,8 @@
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.BussinesLogic\bin\Debug\MMM.BussinesLogic.dll
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.BussinesLogic\bin\Debug\MMM.BussinesLogic.pdb
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.BussinesLogic\bin\Debug\Antlr3.Runtime.dll
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.BussinesLogic\bin\Debug\VisualStudioGitIgnore.dll
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.BussinesLogic\bin\Debug\Antlr3.Runtime.pdb
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.BussinesLogic\obj\Debug\MMM.BussinesLogic.csprojResolveAssemblyReference.cache
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.BussinesLogic\obj\Debug\MMM.BussinesLogic.dll
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.BussinesLogic\obj\Debug\MMM.BussinesLogic.pdb
