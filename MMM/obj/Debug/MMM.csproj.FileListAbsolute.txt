@@ -87,3 +87,11 @@ C:\Users\PAN BB\Desktop\ManageMyMoney\MMM\bin\Microsoft.Owin.Security.MicrosoftA
 C:\Users\PAN BB\Desktop\ManageMyMoney\MMM\obj\Debug\MMM.csprojResolveAssemblyReference.cache
 C:\Users\PAN BB\Desktop\ManageMyMoney\MMM\obj\Debug\MMM.dll
 C:\Users\PAN BB\Desktop\ManageMyMoney\MMM\obj\Debug\MMM.pdb
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM\bin\Autofac.dll
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM\bin\Autofac.Integration.Mvc.dll
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM\bin\MMM.Model.dll
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM\bin\MMM.Service.dll
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM\bin\MMM.Model.pdb
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM\bin\MMM.Service.pdb
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM\bin\Autofac.xml
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM\bin\Autofac.Integration.Mvc.xml

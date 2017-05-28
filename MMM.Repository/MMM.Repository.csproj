@@ -99,7 +99,8 @@
   <ItemGroup>
     <Compile Include="AccountReadRepository.cs" />
     <Compile Include="AccountWriteRepository.cs" />
-    <Compile Include="IDetermineRepositoryAssembly.cs" />
+    <Compile Include="AutofacConfig\IDetermineRepositoryAssembly.cs" />
+    <Compile Include="AutofacConfig\RepositoryModule.cs" />
     <Compile Include="Interfaces\IAccountReadRepository.cs" />
     <Compile Include="Interfaces\IAccountWriteRepository.cs" />
     <Compile Include="Interfaces\ITransactionReadRepository.cs" />

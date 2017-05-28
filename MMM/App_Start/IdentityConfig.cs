@@ -11,7 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using MMM.Models;
-using DbContext = MMM.Models.DbContext;
+using MMM.Model;
 
 namespace MMM
 {

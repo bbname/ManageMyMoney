@@ -14,6 +14,11 @@ namespace MMM.Model
         {
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
+
         public static MmmContext Create()
         {
             return new MmmContext();

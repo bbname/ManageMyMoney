@@ -154,7 +154,11 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutofacConfig\IDetermineServiceAssembly.cs" />
+    <Compile Include="Interfaces\IWriteTestMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AutofacConfig\ServiceModule.cs" />
+    <Compile Include="WriteTestMessage.cs" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
