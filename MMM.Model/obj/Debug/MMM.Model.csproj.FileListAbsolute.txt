@@ -52,6 +52,8 @@ C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Model\bin\System.Web.Razor.xml
 C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Model\bin\System.Web.WebPages.xml
 C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Model\bin\System.Web.WebPages.Deployment.xml
 C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Model\bin\System.Web.WebPages.Razor.xml
-C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Model\obj\Debug\MMM.Model.csprojResolveAssemblyReference.cache
 C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Model\obj\Debug\MMM.Model.dll
 C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Model\obj\Debug\MMM.Model.pdb
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Model\obj\Debug\MMM.Model.csprojResolveAssemblyReference.cache
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Model\obj\Debug\MMM.Model.Migrations.init.resources
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Model\obj\Debug\MMM.Model.csproj.GenerateResource.Cache

@@ -10,7 +10,8 @@ namespace MMM.Model
     public class MmmContext : IdentityDbContext
     {
         public MmmContext()
-            : base("DefaultConnection")
+            //: base("DefaultConnection") For local database to see in server explorer in visual studio.
+            : base("SQLServerConnection")
         {
         }
 

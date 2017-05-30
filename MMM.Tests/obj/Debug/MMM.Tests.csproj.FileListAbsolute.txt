@@ -64,3 +64,13 @@ C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Tests\bin\Debug\System.Net.Http.Format
 C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Tests\obj\Debug\MMM.Tests.csprojResolveAssemblyReference.cache
 C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Tests\obj\Debug\MMM.Tests.dll
 C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Tests\obj\Debug\MMM.Tests.pdb
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Tests\bin\Debug\MMM.Model.dll
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Tests\bin\Debug\Autofac.dll
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Tests\bin\Debug\MMM.Service.dll
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Tests\bin\Debug\Autofac.Integration.Mvc.dll
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Tests\bin\Debug\MMM.Repository.dll
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Tests\bin\Debug\MMM.Model.pdb
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Tests\bin\Debug\Autofac.xml
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Tests\bin\Debug\MMM.Service.pdb
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Tests\bin\Debug\Autofac.Integration.Mvc.xml
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Tests\bin\Debug\MMM.Repository.pdb
