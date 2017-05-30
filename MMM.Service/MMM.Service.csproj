@@ -160,6 +160,12 @@
     <Compile Include="AutofacConfig\ServiceModule.cs" />
     <Compile Include="WriteTestMessage.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MMM.Repository\MMM.Repository.csproj">
+      <Project>{FFC26D88-15AC-4DFB-B327-C105D4957AD6}</Project>
+      <Name>MMM.Repository</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

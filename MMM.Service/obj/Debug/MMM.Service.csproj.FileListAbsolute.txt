@@ -51,3 +51,13 @@ C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Service\bin\System.Web.Razor.xml
 C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Service\bin\System.Web.WebPages.xml
 C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Service\bin\System.Web.WebPages.Deployment.xml
 C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Service\bin\System.Web.WebPages.Razor.xml
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Service\bin\MMM.Repository.dll
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Service\bin\MMM.Model.dll
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Service\bin\EntityFramework.dll
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Service\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Service\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Service\bin\MMM.Repository.pdb
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Service\bin\MMM.Model.pdb
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Service\bin\EntityFramework.xml
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Service\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM.Service\bin\Microsoft.AspNet.Identity.Core.xml

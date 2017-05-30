@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using MMM.Repository.AutofacConfig;
 
 namespace MMM.Service.AutofacConfig
 {
@@ -9,6 +10,7 @@ namespace MMM.Service.AutofacConfig
             builder.RegisterAssemblyTypes(typeof(IDetermineServiceAssembly).Assembly)
                 .AsImplementedInterfaces()
                 .InstancePerRequest();
+            builder.RegisterModule(new RepositoryModule());
             base.Load(builder);
         }
     }

@@ -95,3 +95,7 @@ C:\Users\PAN BB\Desktop\ManageMyMoney\MMM\bin\MMM.Model.pdb
 C:\Users\PAN BB\Desktop\ManageMyMoney\MMM\bin\MMM.Service.pdb
 C:\Users\PAN BB\Desktop\ManageMyMoney\MMM\bin\Autofac.xml
 C:\Users\PAN BB\Desktop\ManageMyMoney\MMM\bin\Autofac.Integration.Mvc.xml
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM\bin\EntityFramework.Extended.dll
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM\bin\EntityFramework.Extended.xml
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM\bin\MMM.Repository.dll
+C:\Users\PAN BB\Desktop\ManageMyMoney\MMM\bin\MMM.Repository.pdb

@@ -8,6 +8,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
+using MMM.Service.AutofacConfig;
 
 namespace MMM
 {
@@ -28,6 +29,7 @@ namespace MMM
             var builder = new ContainerBuilder();
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             builder.RegisterAssemblyModules(typeof(MvcApplication));
+            builder.RegisterModule(new ServiceModule());
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
