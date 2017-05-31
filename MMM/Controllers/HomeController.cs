@@ -9,10 +9,6 @@ namespace MMM.Controllers
 {
     public class HomeController : Controller
     {
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}\
 
         private readonly IWriteTestMessage _writeTestMessage;
 
@@ -21,9 +17,9 @@ namespace MMM.Controllers
             this._writeTestMessage = writeTestMessage;
         }
 
-        public string Index()
+        public ActionResult Index()
         {
-            return this._writeTestMessage.GetTestMessage();
+            return View();
         }
 
         public ActionResult About()
