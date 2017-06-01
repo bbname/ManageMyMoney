@@ -168,6 +168,10 @@
     <Compile Include="Migrations\201705301359478_init.Designer.cs">
       <DependentUpon>201705301359478_init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706012032362_userChange.cs" />
+    <Compile Include="Migrations\201706012032362_userChange.Designer.cs">
+      <DependentUpon>201706012032362_userChange.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MmmContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -177,6 +181,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201705301359478_init.resx">
       <DependentUpon>201705301359478_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706012032362_userChange.resx">
+      <DependentUpon>201706012032362_userChange.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
