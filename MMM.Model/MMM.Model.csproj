@@ -172,6 +172,10 @@
     <Compile Include="Migrations\201706012032362_userChange.Designer.cs">
       <DependentUpon>201706012032362_userChange.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706012045014_userAndAccountChange.cs" />
+    <Compile Include="Migrations\201706012045014_userAndAccountChange.Designer.cs">
+      <DependentUpon>201706012045014_userAndAccountChange.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MmmContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -184,6 +188,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706012032362_userChange.resx">
       <DependentUpon>201706012032362_userChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706012045014_userAndAccountChange.resx">
+      <DependentUpon>201706012045014_userAndAccountChange.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

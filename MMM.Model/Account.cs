@@ -11,6 +11,7 @@ namespace MMM.Model
         public decimal Balance { get; set; }
         public int Currency { get; set; }
         public DateTime Created { get; set; }
+        public User User { get; set; }
         public virtual ICollection<Transaction> Transactions { get; set; }
 
     }
