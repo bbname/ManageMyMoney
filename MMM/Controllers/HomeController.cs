@@ -22,6 +22,14 @@ namespace MMM.Controllers
             return View();
         }
 
+        public FileResult CvDownload()
+        {
+            string filename = "~/Content/CV.pdf";
+            var file = File(filename, "application/pdf", "CV.pdf");
+
+            return file;
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
