@@ -1,12 +1,40 @@
 ﻿@{
-    ViewBag.Title = "Contact";
+    ViewBag.Title = "About me";
 }
-<h2>@ViewBag.Title</h2>
+<div class="jumbotron">
+    <h1>Manage My Money</h1>
+    <p class="lead">The main reason of creation this application is my practically empty CV of ASP.NET MVC applications. I want to show potential employers my skills. I know, how fast IT level on junior .NET dev increased since last two years. Couple days ago I've decided, that this moment is the last one when I can get work as a junior .NET dev, which can combine studies with programming.</p>
+</div>
 
-<address>
-    Poland , Dolny Śląsk, Wrocław<br />
-</address>
+<div class="row">
+    <div class="col-md-4">
+        <h2>GitHub</h2>
+        <p>
+            https://github.com/bbname
+        </p>
+        <p><a class="btn btn-default" href="https://github.com/bbname" target="_blank">GitHub &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>CV</h2>
+        <p>Last update - 22.05.2017.</p>
+        <p>@Html.ActionLink("Download »", "CvDownload", "Home", new { @class = "btn btn-default" })</p>
+    </div>
+    <div class="col-md-4">
+        <h2>CV in english</h2>
+        <p>I'll write after study exams.</p>
+        <p>@Html.ActionLink("Download »", "CvDownload", "Home", new { @class = "btn btn-default" })</p>
+    </div>
+</div>
 
-<address>
-    <strong>E-mail:</strong>   <a href="mailto:Support@example.com">bartlomiej.bienczyk@gmail.com</a><br />
-</address>
+<div class="row">
+    <div class="col-md-offset-4 col-md-4">
+        <h2>Contact</h2>
+        <address>
+            Poland , Dolny Śląsk, Wrocław<br/>
+        </address>
+
+        <address>
+            <strong>E-mail:</strong> <a href="mailto:Support@example.com">bartlomiej.bienczyk@gmail.com</a><br/>
+        </address>
+    </div>
+</div>
