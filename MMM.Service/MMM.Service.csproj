@@ -155,12 +155,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutofacConfig\IDetermineServiceAssembly.cs" />
+    <Compile Include="Interfaces\IReadBankAccount.cs" />
+    <Compile Include="Interfaces\IReadTransaction.cs" />
     <Compile Include="Interfaces\IWriteTestMessage.cs" />
+    <Compile Include="Interfaces\IWriteTransaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AutofacConfig\ServiceModule.cs" />
     <Compile Include="WriteTestMessage.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MMM.Model\MMM.Model.csproj">
+      <Project>{beeebdaf-08dc-4472-a0ab-e2d8117c2f8d}</Project>
+      <Name>MMM.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MMM.Repository\MMM.Repository.csproj">
       <Project>{FFC26D88-15AC-4DFB-B327-C105D4957AD6}</Project>
       <Name>MMM.Repository</Name>

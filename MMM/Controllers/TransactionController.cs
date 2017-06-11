@@ -8,6 +8,11 @@ namespace MMM.Controllers
 {
     public class TransactionController : Controller
     {
+        private 
+        public TransactionController()
+        {
+            
+        }
         // GET: Transaction
         public ActionResult Index()
         {
