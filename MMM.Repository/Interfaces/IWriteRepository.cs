@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MMM.Repository.Interfaces
 {
-    interface IWriteRepository<TEntity> where TEntity : class
+    public interface IWriteRepository<TEntity> where TEntity : class
     {
         void Add(TEntity entity);
         void Edit(TEntity entity);
