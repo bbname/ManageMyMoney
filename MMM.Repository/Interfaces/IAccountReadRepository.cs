@@ -7,7 +7,7 @@ using MMM.Model;
 
 namespace MMM.Repository.Interfaces
 {
-    interface IAccountReadRepository : IReadRepository<Account>
+    public interface IAccountReadRepository : IReadRepository<Account>
     {
 
     }

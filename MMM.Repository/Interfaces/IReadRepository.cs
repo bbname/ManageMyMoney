@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MMM.Repository.Interfaces
 {
-    interface IReadRepository<TEntity> where TEntity : class
+    public interface IReadRepository<TEntity> where TEntity : class
     {
         IEnumerable<TEntity> GetAllData();
         TEntity GetById(int id);

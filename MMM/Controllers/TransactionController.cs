@@ -8,7 +8,6 @@ namespace MMM.Controllers
 {
     public class TransactionController : Controller
     {
-        private 
         public TransactionController()
         {
             
