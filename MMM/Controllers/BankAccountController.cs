@@ -3,15 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MMM.Service.Interfaces;
 
 namespace MMM.Controllers
 {
     public class BankAccountController : Controller
     {
+        private IReadBankAccount _readBankAccount;
+        public BankAccountController(IReadBankAccount readBankAccount)
+        {
+            this._readBankAccount = readBankAccount;
+        }
         // GET: BankAccount
         public ActionResult Index()
         {
-            return View();
+            var accounts = _readBankAccount.GetAllBankAccounts();
+            return View(accounts);
         }
 
         // GET: BankAccount/Details/5

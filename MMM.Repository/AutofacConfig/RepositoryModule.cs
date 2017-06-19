@@ -1,4 +1,7 @@
-﻿using Autofac;
+﻿using System.Data.Entity;
+using Autofac;
+using MMM.Model;
+using MMM.Repository.Interfaces;
 
 namespace MMM.Repository.AutofacConfig
 {
