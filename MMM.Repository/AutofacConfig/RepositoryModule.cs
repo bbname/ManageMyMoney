@@ -12,6 +12,7 @@ namespace MMM.Repository.AutofacConfig
             builder.RegisterAssemblyTypes(typeof(IDetermineRepositoryAssembly).Assembly)
                 .AsImplementedInterfaces()
                 .InstancePerRequest();
+            builder.RegisterType<MmmContext>().As<DbContext>().InstancePerRequest();
             base.Load(builder);
         }
     }
