@@ -24,8 +24,8 @@ namespace MMM.Repository.Mocks
             {
                 new Account{Id = 1, Name = "Test 1", Balance = 1302.31M, Currency = (int)CurrencyFormat.PLN, User = new User{FirstName = "Janusz", LastName = "Testowy"}},
                 new Account{Id = 2, Name = "Test 2", Balance = 33123.21M, Currency = (int)CurrencyFormat.EUR, User = new User{FirstName = "Stanisław", LastName = "Konik"}},
-                new Account{Id = 3, Name = "Test 3", Balance = 600.00M, Currency = (int)CurrencyFormat.GBP, User = new User{FirstName = "Władysław", LastName = "Zamknięty"}},
-                new Account{Id = 4, Name = "Test 4", Balance = 8900.00M, Currency = (int)CurrencyFormat.PLN, User = new User{FirstName = "Michalina", LastName = "Zasłabła"}},
+                new Account{Id = 3, Name = "Test 3", Balance = -600.00M, Currency = (int)CurrencyFormat.GBP, User = new User{FirstName = "Władysław", LastName = "Zamknięty"}},
+                new Account{Id = 4, Name = "Test 4", Balance = 0.00M, Currency = (int)CurrencyFormat.PLN, User = new User{FirstName = "Michalina", LastName = "Zasłabła"}},
                 new Account{Id = 5, Name = "Test 5", Balance = 165432.99M, Currency = (int)CurrencyFormat.USD, User = new User{FirstName = "Grażyna", LastName = "Smaruj-Rogala"}}
             });
         }

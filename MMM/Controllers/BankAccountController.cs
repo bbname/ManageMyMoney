@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MMM.Service.Interfaces;
+using MMM.ViewModels.BankAccountViewModel;
 
 namespace MMM.Controllers
 {
@@ -18,7 +19,20 @@ namespace MMM.Controllers
         public ActionResult Index()
         {
             var accounts = _readBankAccount.GetAllBankAccounts();
-            return View(accounts);
+            List<BankAccountListViewModel> listAccountViewModel = new List<BankAccountListViewModel>();
+
+            foreach (var account in accounts)
+            {
+                listAccountViewModel.Add(new BankAccountListViewModel()
+                {
+                    Id = account.Id,
+                    Name = account.Name,
+                    Balance = account.Balance,
+                    Currency = account.Currency
+                });
+            }
+
+            return View(listAccountViewModel);
         }
 
         // GET: BankAccount/Details/5
