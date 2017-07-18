@@ -49,18 +49,26 @@ namespace MMM.Controllers
 
         // POST: BankAccount/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(BankAccountCreateViewModel viewModel)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
                 return RedirectToAction("Index");
             }
-            catch
+            else
             {
                 return View();
             }
+            //try
+            //{
+            //    // TODO: Add insert logic here
+
+            //    return RedirectToAction("Index");
+            //}
+            //catch
+            //{
+            //    return View();
+            //}
         }
 
         // GET: BankAccount/Edit/5
