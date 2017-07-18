@@ -22,3 +22,13 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.bankAccount-info:hover,
+.bankAccount-info:focus,
+.bankAccount-info:active
+{
+    transition: .5s ease;
+    opacity: 0.3;
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
