@@ -163,7 +163,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account.cs" />
-    <Compile Include="CurrencyFormat.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="Migrations\201705301359478_init.cs" />
     <Compile Include="Migrations\201705301359478_init.Designer.cs">

@@ -1,0 +1,7 @@
+﻿@using System.Globalization
+@model decimal
+
+@{
+    IFormatProvider formatProvider = new CultureInfo("pl-PL");
+    @Model.ToString("F", formatProvider)
+}

@@ -299,6 +299,8 @@
     <Content Include="Views\BankAccount\Create.cshtml" />
     <Content Include="Views\BankAccount\Index.cshtml" />
     <Content Include="Views\BankAccount\BankAccount.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\decimal.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\EditorForDecimals.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -313,6 +315,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MMM.Infrastructure\MMM.Infrastructure.csproj">
+      <Project>{27092A14-C57C-4490-92D7-0615C437AC9C}</Project>
+      <Name>MMM.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MMM.Model\MMM.Model.csproj">
       <Project>{beeebdaf-08dc-4472-a0ab-e2d8117c2f8d}</Project>
       <Name>MMM.Model</Name>
