@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using MMM.BussinesLogic;
+using MMM.Model;
 
 namespace MMM.ViewModels.BankAccountViewModel
 {
-    public class BankAccountListViewModel
+    public class BankAccountDetailsViewModel
     {
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
@@ -14,5 +15,6 @@ namespace MMM.ViewModels.BankAccountViewModel
         public decimal Balance { get; set; }
         [Display(Name = "Waluta")]
         public string Currency { get; set; }
+        public IEnumerable<Transaction> Transactions { get; set; }
     }
 }

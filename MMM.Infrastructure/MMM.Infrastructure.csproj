@@ -154,6 +154,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Currencies.cs" />
     <Compile Include="Currency.cs" />
     <Compile Include="CurrencyFormat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

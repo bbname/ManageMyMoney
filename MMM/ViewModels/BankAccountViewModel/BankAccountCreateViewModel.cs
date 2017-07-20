@@ -12,15 +12,16 @@ namespace MMM.ViewModels.BankAccountViewModel
     {
         public BankAccountCreateViewModel()
         {
-            _listCurrencies = new List<Currency>()
-            {
-                new Currency {Id = 1, Name = "PLN", IconCode = "zł"},
-                new Currency {Id = 2, Name = "USD", IconCode = "$"},
-                new Currency {Id = 3, Name = "EUR", IconCode = "€"},
-                new Currency {Id = 4, Name = "GBP", IconCode = "£"},
-                new Currency {Id = 5, Name = "JPY", IconCode = "¥"}
-            };
-            Balance = 0;
+            _listCurrencies = Infrastructure.Currencies.listCurrencies;
+            //_listCurrencies = new List<Currency>()
+            //{
+            //    new Currency {Id = 1, Name = "PLN", IconCode = "zł"},
+            //    new Currency {Id = 2, Name = "USD", IconCode = "$"},
+            //    new Currency {Id = 3, Name = "EUR", IconCode = "€"},
+            //    new Currency {Id = 4, Name = "GBP", IconCode = "£"},
+            //    new Currency {Id = 5, Name = "JPY", IconCode = "¥"}
+            //};
+            //Balance = 0;
         }
 
         private readonly List<Currency> _listCurrencies;

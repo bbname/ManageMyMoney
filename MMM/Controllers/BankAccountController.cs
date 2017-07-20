@@ -5,6 +5,7 @@ using System.Net.Mime;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.WebPages.Html;
+using MMM.BussinesLogic;
 using MMM.Infrastructure;
 using MMM.Service.Interfaces;
 using MMM.ViewModels.BankAccountViewModel;
@@ -22,6 +23,7 @@ namespace MMM.Controllers
         public ActionResult Index()
         {
             var accounts = _readBankAccount.GetAllBankAccounts();
+            var currencyLogic = new CurrencyLogic();
             List<BankAccountListViewModel> listAccountViewModel = new List<BankAccountListViewModel>();
 
             foreach (var account in accounts)
@@ -31,7 +33,7 @@ namespace MMM.Controllers
                     Id = account.Id,
                     Name = account.Name,
                     Balance = account.Balance,
-                    Currency = account.Currency
+                    Currency = currencyLogic.GetCurrencyIconById(account.Currency)
                 });
             }
 
@@ -41,7 +43,18 @@ namespace MMM.Controllers
         // GET: BankAccount/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var bankAccount = _readBankAccount.GetAccountById(id);
+            var currencyLogic = new CurrencyLogic();
+            var viewModel = new BankAccountDetailsViewModel()
+            {
+                Id = bankAccount.Id,
+                Name = bankAccount.Name,
+                Balance = bankAccount.Balance,
+                Currency = currencyLogic.GetCurrencyIconById(bankAccount.Currency),
+                Transactions = bankAccount.Transactions
+            };
+
+            return View(viewModel);
         }
 
         // GET: BankAccount/Create
