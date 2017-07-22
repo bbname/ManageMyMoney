@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -18,6 +20,25 @@ namespace MMM.Model.Migrations
 
         protected override void Seed(MMM.Model.MmmContext context)
         {
+            IEnumerable<string> roleList = new List<string>()
+            {
+                "Admin",
+                "User",
+                "Guest"
+            };
+
+            foreach (var role in roleList)
+            {
+                if (!(context.Roles.Any(r => r.Name == role)))
+                {
+                    var roleStore = new RoleStore<IdentityRole>(context);
+                    var roleManager = new RoleManager<IdentityRole>(roleStore);
+                    var roleToCreate = new IdentityRole() {Name = role};
+                    roleManager.Create(roleToCreate);
+                }
+            }
+
+
             // First version of adding data by seed. Admin account.
             if (!(context.Users.Any(u => u.UserName == "admin")))
             {
