@@ -1,3 +1,6 @@
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+
 namespace MMM.Model.Migrations
 {
     using System;
@@ -15,6 +18,36 @@ namespace MMM.Model.Migrations
 
         protected override void Seed(MMM.Model.MmmContext context)
         {
+            // First version of adding data by seed. Admin account.
+            if (!(context.Users.Any(u => u.UserName == "admin")))
+            {
+                var passwordHash = new PasswordHasher();
+                string password = passwordHash.HashPassword("admin123.");
+                context.Users.AddOrUpdate(u => u.UserName, new User()
+                {
+                    UserName = "admin",
+                    Email = "bbai.web@gmail.com",
+                    FirstName = "Bart³omiej",
+                    LastName = "Bieñczyk",
+                    PasswordHash = password
+                });
+            }
+
+            // Second version of adding data by seed. Test user account.
+            if (!(context.Users.Any(u => u.UserName == "test")))
+            {
+                var userStore = new UserStore<User>(context);
+                var userManager = new UserManager<User>(userStore);
+                var userToCreate = new User
+                {
+                    UserName = "test",
+                    Email = "bbai.web@gmail.com",
+                    FirstName = "Simply Test",
+                    LastName = "User Account",
+                };
+                userManager.Create(userToCreate, "test123.");
+            }
+
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
