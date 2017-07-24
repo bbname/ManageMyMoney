@@ -27,6 +27,8 @@ namespace MMM.Model.Migrations
                 "Guest"
             };
 
+            // Roles creation.
+
             foreach (var role in roleList)
             {
                 if (!(context.Roles.Any(r => r.Name == role)))
@@ -38,8 +40,7 @@ namespace MMM.Model.Migrations
                 }
             }
 
-
-            // First version of adding data by seed. Admin account.
+            // First version of creation user. Admin account.
             if (!(context.Users.Any(u => u.UserName == "admin")))
             {
                 var passwordHash = new PasswordHasher();
@@ -54,11 +55,12 @@ namespace MMM.Model.Migrations
                 });
             }
 
-            // Second version of adding data by seed. Test user account.
+            var userStore = new UserStore<User>(context);
+            var userManager = new UserManager<User>(userStore);
+
+            // Second version of creation user. Test user account.
             if (!(context.Users.Any(u => u.UserName == "test")))
             {
-                var userStore = new UserStore<User>(context);
-                var userManager = new UserManager<User>(userStore);
                 var userToCreate = new User
                 {
                     UserName = "test",
@@ -69,18 +71,18 @@ namespace MMM.Model.Migrations
                 userManager.Create(userToCreate, "test123.");
             }
 
-            //  This method will be called after migrating to the latest version.
+            // Users and roles pair.
+            var userAdminId = context.Users.FirstOrDefault(u => u.UserName == "admin").Id;
+            var userTestId = context.Users.FirstOrDefault(u => u.UserName == "test").Id;
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            if (!(userManager.IsInRole(userAdminId, "Admin")))
+            {
+                userManager.AddToRole(userAdminId, "Admin");
+            }
+            if (!(userManager.IsInRole(userTestId, "User")))
+            {
+                userManager.AddToRole(userTestId, "User");
+            }
         }
     }
 }
