@@ -96,12 +96,6 @@ namespace MMM.Model.Migrations
                 new Transaction{Name = "Pizza", AccountBalance = 44.32M, Amount = 20.99M, Created = DateTime.Now.AddDays(3)},
             };
 
-            if (!(context.Transactions.Any(x => x.Amount == listAdminTransactions.FirstOrDefault(t => t.AccountBalance == 99.99M).Amount)))
-            {
-                context.Transactions.AddRange(listAdminTransactions);
-                context.SaveChanges();
-            }
-
             // Test
             ICollection<Transaction> listTestTransactions = new List<Transaction>
             {
@@ -109,12 +103,6 @@ namespace MMM.Model.Migrations
                 new Transaction{Name = "Nowy wydech do audi", AccountBalance = 1000.6M, Amount = 100.6M, Created = DateTime.Now.AddDays(2)},
                 new Transaction{Name = "Wesele Zdzis³awa", AccountBalance = 900M, Amount = 600M, Created = DateTime.Now.AddDays(9)},
             };
-
-            if (!(context.Transactions.Any(x => x.Amount == listTestTransactions.FirstOrDefault(t => t.AccountBalance == 99.99M).Amount)))
-            {
-                context.Transactions.AddRange(listTestTransactions);
-                context.SaveChanges();
-            }
 
             // Bank accounts for users.
             // Admin
