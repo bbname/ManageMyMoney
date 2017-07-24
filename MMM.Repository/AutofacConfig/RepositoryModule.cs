@@ -16,9 +16,9 @@ namespace MMM.Repository.AutofacConfig
                 .AsImplementedInterfaces()
                 .InstancePerRequest();
             builder.RegisterType<MmmContext>().As<DbContext>().InstancePerRequest();
-            var mock = new Mock<IAccountReadRepository>();
-            var accountReadMock = new AccountRead(mock);
-            builder.RegisterInstance(accountReadMock.GetMock().Object).As<IAccountReadRepository>();
+            //var mock = new Mock<IAccountReadRepository>();
+            //var accountReadMock = new AccountRead(mock);
+            //builder.RegisterInstance(accountReadMock.GetMock().Object).As<IAccountReadRepository>();
 
             base.Load(builder);
         }

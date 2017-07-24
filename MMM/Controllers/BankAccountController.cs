@@ -15,9 +15,11 @@ namespace MMM.Controllers
     public class BankAccountController : Controller
     {
         private IReadBankAccount _readBankAccount;
-        public BankAccountController(IReadBankAccount readBankAccount)
+        private IWriteBankAccount _writeBankAccount;
+        public BankAccountController(IReadBankAccount readBankAccount, IWriteBankAccount writeBankAccount)
         {
             this._readBankAccount = readBankAccount;
+            this._writeBankAccount = writeBankAccount;
         }
         // GET: BankAccount
         public ActionResult Index()
