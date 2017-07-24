@@ -180,6 +180,10 @@
     <Compile Include="Migrations\201707241201298_Users-Roles-BankAccounts-Transations.Designer.cs">
       <DependentUpon>201707241201298_Users-Roles-BankAccounts-Transations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707241341327_updatedAccount.cs" />
+    <Compile Include="Migrations\201707241341327_updatedAccount.Designer.cs">
+      <DependentUpon>201707241341327_updatedAccount.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MmmContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -198,6 +202,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707241201298_Users-Roles-BankAccounts-Transations.resx">
       <DependentUpon>201707241201298_Users-Roles-BankAccounts-Transations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707241341327_updatedAccount.resx">
+      <DependentUpon>201707241341327_updatedAccount.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

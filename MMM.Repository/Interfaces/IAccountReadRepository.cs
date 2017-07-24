@@ -9,6 +9,6 @@ namespace MMM.Repository.Interfaces
 {
     public interface IAccountReadRepository : IReadRepository<Account>
     {
-
+        IEnumerable<Account> GetBankAccountsByUserId(string userId);
     }
 }

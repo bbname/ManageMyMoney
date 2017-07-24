@@ -14,5 +14,7 @@ namespace MMM.ViewModels.BankAccountViewModel
         public decimal Balance { get; set; }
         [Display(Name = "Waluta")]
         public string Currency { get; set; }
+        [HiddenInput(DisplayValue = false)]
+        public string UserId { get; set; }
     }
 }

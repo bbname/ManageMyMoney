@@ -12,9 +12,9 @@ namespace MMM.Service
         {
             this._accountReadRepository = accountReadRepository;
         }
-        public IEnumerable<Account> GetAllBankAccounts()
+        public IEnumerable<Account> GetAllBankAccountsByUserId(string userId)
         {
-            return this._accountReadRepository.GetAllData();
+            return this._accountReadRepository.GetBankAccountsByUserId(userId);
         }
 
         public Account GetAccountById(int id)

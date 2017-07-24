@@ -15,5 +15,10 @@ namespace MMM.Repository
         {
             
         }
+
+        public IEnumerable<Account> GetBankAccountsByUserId(string userId)
+        {
+            return _dbSet.AsEnumerable().Where(b => b.User.Id == userId);
+        }
     }
 }

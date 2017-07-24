@@ -5,6 +5,7 @@ using System.Net.Mime;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.WebPages.Html;
+using Microsoft.AspNet.Identity;
 using MMM.BussinesLogic;
 using MMM.Infrastructure;
 using MMM.Service.Interfaces;
@@ -25,22 +26,30 @@ namespace MMM.Controllers
         // GET: BankAccount
         public ActionResult Index()
         {
-            var accounts = _readBankAccount.GetAllBankAccounts();
-            var currencyLogic = new CurrencyLogic();
-            List<BankAccountListViewModel> listAccountViewModel = new List<BankAccountListViewModel>();
-
-            foreach (var account in accounts)
+            if (User.Identity.IsAuthenticated)
             {
-                listAccountViewModel.Add(new BankAccountListViewModel()
+                var userId = User.Identity.GetUserId();
+                var accounts = _readBankAccount.GetAllBankAccountsByUserId(userId);
+                var currencyLogic = new CurrencyLogic();
+                List<BankAccountListViewModel> listAccountViewModel = new List<BankAccountListViewModel>();
+
+                foreach (var account in accounts)
                 {
-                    Id = account.Id,
-                    Name = account.Name,
-                    Balance = account.Balance,
-                    Currency = currencyLogic.GetCurrencyIconById(account.Currency)
-                });
+                    listAccountViewModel.Add(new BankAccountListViewModel()
+                    {
+                        Id = account.Id,
+                        Name = account.Name,
+                        Balance = account.Balance,
+                        Currency = currencyLogic.GetCurrencyIconById(account.Currency),
+                        UserId = account.User.Id
+                    });
+                }
+
+                return View(listAccountViewModel);
             }
 
-            return View(listAccountViewModel);
+            return View("Login");
+
         }
 
         // GET: BankAccount/Details/5
