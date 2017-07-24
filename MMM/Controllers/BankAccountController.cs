@@ -8,6 +8,9 @@ using System.Web.WebPages.Html;
 using Microsoft.AspNet.Identity;
 using MMM.BussinesLogic;
 using MMM.Infrastructure;
+using MMM.Model;
+using MMM.ModelBinders;
+using MMM.ModelBinders.AccountToBankAccount;
 using MMM.Service.Interfaces;
 using MMM.ViewModels.BankAccountViewModel;
 
@@ -31,19 +34,13 @@ namespace MMM.Controllers
                 var userId = User.Identity.GetUserId();
                 var accounts = _readBankAccount.GetAllBankAccountsByUserId(userId);
                 var currencyLogic = new CurrencyLogic();
-                List<BankAccountListViewModel> listAccountViewModel = new List<BankAccountListViewModel>();
+                var binder = new AccountToBankAccountListViewModel();
+                var listAccountViewModel = binder.GetBankAccounts(accounts, currencyLogic);
 
-                foreach (var account in accounts)
-                {
-                    listAccountViewModel.Add(new BankAccountListViewModel()
-                    {
-                        Id = account.Id,
-                        Name = account.Name,
-                        Balance = account.Balance,
-                        Currency = currencyLogic.GetCurrencyIconById(account.Currency),
-                        UserId = account.User.Id
-                    });
-                }
+                // For the reflection binder, maybe another time..
+                //var accountTest = _readBankAccount.GetAccountById(accounts.ElementAt(0).Id);
+                //var bindViewModel = new BindModelToViewModel<BankAccountListViewModel, Account>(new BankAccountListViewModel(), accountTest);
+                //var bankAccountViewModel = bindViewModel.BindViewModelByModelWithout("Transactions","Created", "Currency");
 
                 return View(listAccountViewModel);
             }
