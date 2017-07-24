@@ -37,6 +37,7 @@ namespace MMM.Model.Migrations
                     var roleManager = new RoleManager<IdentityRole>(roleStore);
                     var roleToCreate = new IdentityRole() {Name = role};
                     roleManager.Create(roleToCreate);
+                    context.SaveChanges();
                 }
             }
 
@@ -53,6 +54,7 @@ namespace MMM.Model.Migrations
                     LastName = "Bieñczyk",
                     PasswordHash = password
                 });
+                context.SaveChanges();
             }
 
             var userStore = new UserStore<User>(context);
@@ -69,6 +71,7 @@ namespace MMM.Model.Migrations
                     LastName = "User Account",
                 };
                 userManager.Create(userToCreate, "test123.");
+                context.SaveChanges();
             }
 
             // Users and roles pair.
@@ -82,6 +85,68 @@ namespace MMM.Model.Migrations
             if (!(userManager.IsInRole(userTestId, "User")))
             {
                 userManager.AddToRole(userTestId, "User");
+            }
+
+            // Transactions for specified bank accounts of users.
+            // Admin
+            ICollection<Transaction> listAdminTransactions = new List<Transaction>
+            {
+                new Transaction{Name = "Sklep - zakupy", AccountBalance = 99.99M, Amount = 15.69M, Created = DateTime.Now.AddDays(1)},
+                new Transaction{Name = "Koszulki", AccountBalance = 84.3M, Amount = 39.98M, Created = DateTime.Now.AddDays(2)},
+                new Transaction{Name = "Pizza", AccountBalance = 44.32M, Amount = 20.99M, Created = DateTime.Now.AddDays(3)},
+            };
+
+            if (!(context.Transactions.Any(x => x.Amount == listAdminTransactions.FirstOrDefault(t => t.AccountBalance == 99.99M).Amount)))
+            {
+                context.Transactions.AddRange(listAdminTransactions);
+                context.SaveChanges();
+            }
+
+            // Test
+            ICollection<Transaction> listTestTransactions = new List<Transaction>
+            {
+                new Transaction{Name = "Opony do audi", AccountBalance = 1459.63M, Amount = 459.03M, Created = DateTime.Now.AddDays(5)},
+                new Transaction{Name = "Nowy wydech do audi", AccountBalance = 1000.6M, Amount = 100.6M, Created = DateTime.Now.AddDays(2)},
+                new Transaction{Name = "Wesele Zdzis³awa", AccountBalance = 900M, Amount = 600M, Created = DateTime.Now.AddDays(9)},
+            };
+
+            if (!(context.Transactions.Any(x => x.Amount == listTestTransactions.FirstOrDefault(t => t.AccountBalance == 99.99M).Amount)))
+            {
+                context.Transactions.AddRange(listTestTransactions);
+                context.SaveChanges();
+            }
+
+            // Bank accounts for users.
+            // Admin
+            if (!(context.Accounts.Any(b => b.User.Id == userAdminId)))
+            {
+                var bankAccount = new Account
+                {
+                    Name = "Studenckie",
+                    Balance = 99.99M,
+                    Currency = 1,
+                    Created = DateTime.Now,
+                    User = (User)context.Users.First(u => u.Id == userAdminId),
+                    Transactions = listAdminTransactions
+                };
+                context.Accounts.AddOrUpdate(bankAccount);
+                context.SaveChanges();
+            }
+
+            // Test
+            if (!(context.Accounts.Any(b => b.User.Id == userTestId)))
+            {
+                var bankAccount = new Account
+                {
+                    Name = "Standard",
+                    Balance = 1459.63M,
+                    Currency = 3,
+                    Created = DateTime.Now,
+                    User = (User)context.Users.First(u => u.Id == userTestId),
+                    Transactions = listTestTransactions
+                };
+                context.Accounts.AddOrUpdate(bankAccount);
+                context.SaveChanges();
             }
         }
     }
