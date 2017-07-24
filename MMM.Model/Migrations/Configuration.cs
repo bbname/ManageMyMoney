@@ -50,9 +50,10 @@ namespace MMM.Model.Migrations
                 {
                     UserName = "admin",
                     Email = "bbai.web@gmail.com",
-                    FirstName = "Bart³omiej",
-                    LastName = "Bieñczyk",
-                    PasswordHash = password
+                    FirstName = "Bartlomiej",
+                    LastName = "Bienczyk",
+                    PasswordHash = password,
+                    SecurityStamp = Guid.NewGuid().ToString()
                 });
                 context.SaveChanges();
             }
@@ -66,7 +67,7 @@ namespace MMM.Model.Migrations
                 var userToCreate = new User
                 {
                     UserName = "test",
-                    Email = "bbai.web@gmail.com",
+                    Email = "test.web@gmail.com",
                     FirstName = "Simply Test",
                     LastName = "User Account",
                 };

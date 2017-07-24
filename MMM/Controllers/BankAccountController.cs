@@ -12,6 +12,7 @@ using MMM.ViewModels.BankAccountViewModel;
 
 namespace MMM.Controllers
 {
+    [Authorize(Roles = "Admin, User")]
     public class BankAccountController : Controller
     {
         private IReadBankAccount _readBankAccount;
