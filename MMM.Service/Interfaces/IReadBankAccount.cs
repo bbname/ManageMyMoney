@@ -7,5 +7,6 @@ namespace MMM.Service.Interfaces
     {
         IEnumerable<Account> GetAllBankAccountsByUserId(string userId);
         Account GetAccountById(int id);
+        string GetUserIdByBankAccountId(int bankAccountId);
     }
 }

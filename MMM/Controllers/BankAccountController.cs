@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Mime;
 using System.Web;
 using System.Web.Mvc;
@@ -29,8 +30,6 @@ namespace MMM.Controllers
         // GET: BankAccount
         public ActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
-            {
                 var userId = User.Identity.GetUserId();
                 var accounts = _readBankAccount.GetAllBankAccountsByUserId(userId);
                 var currencyLogic = new CurrencyLogic();
@@ -43,27 +42,42 @@ namespace MMM.Controllers
                 //var bankAccountViewModel = bindViewModel.BindViewModelByModelWithout("Transactions","Created", "Currency");
 
                 return View(listAccountViewModel);
-            }
-
-            return View("Login");
 
         }
 
         // GET: BankAccount/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            var bankAccount = _readBankAccount.GetAccountById(id);
-            var currencyLogic = new CurrencyLogic();
-            var viewModel = new BankAccountDetailsViewModel()
+            if (id == null)
             {
-                Id = bankAccount.Id,
-                Name = bankAccount.Name,
-                Balance = bankAccount.Balance,
-                Currency = currencyLogic.GetCurrencyIconById(bankAccount.Currency),
-                Transactions = bankAccount.Transactions
-            };
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Nie podano zadnego konta.");
+            }
+            else
+            {
+                var userIdIdentity = User.Identity.GetUserId();
+                var userId = "";
 
-            return View(viewModel);
+                try
+                {
+                    userId = _readBankAccount.GetUserIdByBankAccountId(id.Value);
+                }
+                catch (NullReferenceException e)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.NotFound, "Nie znaleziono takiego konta.");
+                }
+
+                if (userIdIdentity == userId)
+                {
+                    var bankAccount = _readBankAccount.GetAccountById(id.Value);
+                    var currencyLogic = new CurrencyLogic();
+                    var binder = new AccountToBankAccountDetailsViewModel();
+                    var viewModel = binder.GetBankAccount(bankAccount, currencyLogic);
+
+                    return View(viewModel);
+                }
+
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden, "Nie posiadasz takiego konta.");
+            }
         }
 
         // GET: BankAccount/Create

@@ -119,6 +119,8 @@
     <Compile Include="Interfaces\IGenerateTestMessage.cs" />
     <Compile Include="Interfaces\ITransactionReadRepository.cs" />
     <Compile Include="Interfaces\ITransactionWriteRepository.cs" />
+    <Compile Include="Interfaces\IUserReadRepository.cs" />
+    <Compile Include="Interfaces\IUserWriteRepository.cs" />
     <Compile Include="Mocks\AccountRead.cs" />
     <Compile Include="ReadRepository.cs" />
     <Compile Include="Interfaces\IReadRepository.cs" />
@@ -127,6 +129,7 @@
     <Compile Include="Repository.cs" />
     <Compile Include="TransactionReadRepository.cs" />
     <Compile Include="TransactionWriteRepository.cs" />
+    <Compile Include="UserReadRepository.cs" />
     <Compile Include="WriteRepository.cs" />
   </ItemGroup>
   <ItemGroup>

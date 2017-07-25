@@ -230,6 +230,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="ModelBinders\AccountToBankAccount\AccountToBankAccountDetailsViewModel.cs" />
     <Compile Include="ModelBinders\AccountToBankAccount\AccountToBankAccountListViewModel.cs" />
     <Compile Include="ModelBinders\BindModelToViewModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />

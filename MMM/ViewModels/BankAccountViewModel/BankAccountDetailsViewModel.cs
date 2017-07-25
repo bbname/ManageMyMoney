@@ -15,6 +15,7 @@ namespace MMM.ViewModels.BankAccountViewModel
         public decimal Balance { get; set; }
         [Display(Name = "Waluta")]
         public string Currency { get; set; }
-        public IEnumerable<Transaction> Transactions { get; set; }
+        public virtual IEnumerable<Transaction> Transactions { get; set; }
+        public virtual User User { get; set; }
     }
 }

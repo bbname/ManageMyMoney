@@ -20,5 +20,21 @@ namespace MMM.Repository
         {
             return _dbSet.AsEnumerable().Where(b => b.User.Id == userId);
         }
+
+        public string GetUserIdByBankAccountId(int bankAccountId)
+        {
+            try
+            {
+                return _dbSet.FirstOrDefault(b => b.Id == bankAccountId).User.Id;
+            }
+            catch (NullReferenceException e)
+            {
+                throw new NullReferenceException("Brak danych w bazie.");
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.ToString());
+            }
+        }
     }
 }
