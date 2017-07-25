@@ -2,21 +2,23 @@
 @model IEnumerable<BankAccountListViewModel>
 
 @{
+    Layout = "~/Views/Shared/_LayoutBankAccount.cshtml";
     ViewBag.Title = "Index";
 }
 
 <h2>Lista kont</h2>
 
-<p>
+@*<p>
     @Html.ActionLink("Dodaj konto", "Create")
-</p>
+</p>*@
 <div class="row">
-        @foreach (var backAccount in Model)
-        {
-            <a href="@Url.Action("Details", "BankAccount", new { id = backAccount.Id })">
-                <div class="bankAccount-info col-xs-6 col-sm-4 col-md-3">
-                    @Html.Partial("BankAccount", backAccount)
-                </div>
-            </a>
-        }
+    @foreach (var backAccount in Model)
+    {
+        <a href="@Url.Action("Details", "BankAccount", new { id = backAccount.Id })">
+            <div class="bankAccount-info col-xs-6 col-sm-4 col-md-3">
+                @Html.Partial("BankAccount", backAccount)
+            </div>
+        </a>
+    }
 </div>
+@Html.ActionLink("Dodaj konto", "Create", null, new { @class = "btn btn-primary"})
