@@ -1,12 +1,13 @@
 ﻿using MMM.BussinesLogic;
 using MMM.Model;
+using MMM.ModelBinders.Transaction;
 using MMM.ViewModels.BankAccountViewModel;
 
 namespace MMM.ModelBinders.AccountToBankAccount
 {
     public class AccountToBankAccountDetailsViewModel
     {
-        public BankAccountDetailsViewModel GetBankAccount(Account bankAccount, CurrencyLogic currencyLogic)
+        public BankAccountDetailsViewModel GetBankAccount(Account bankAccount, CurrencyLogic currencyLogic, ToTransactionListViewModel binderTransaction)
         {
             var viewModel = new BankAccountDetailsViewModel()
             {
@@ -14,7 +15,7 @@ namespace MMM.ModelBinders.AccountToBankAccount
                 Name = bankAccount.Name,
                 Balance = bankAccount.Balance,
                 Currency = currencyLogic.GetCurrencyIconById(bankAccount.Currency),
-                Transactions = bankAccount.Transactions,
+                Transactions = binderTransaction.GetTransactions(bankAccount.Transactions),
                 User = bankAccount.User
             };
 

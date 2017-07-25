@@ -233,6 +233,7 @@
     <Compile Include="ModelBinders\AccountToBankAccount\AccountToBankAccountDetailsViewModel.cs" />
     <Compile Include="ModelBinders\AccountToBankAccount\AccountToBankAccountListViewModel.cs" />
     <Compile Include="ModelBinders\BindModelToViewModel.cs" />
+    <Compile Include="ModelBinders\Transaction\ToTransactionListViewModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -240,6 +241,7 @@
     <Compile Include="ViewModels\BankAccountViewModel\BankAccountDetailsViewModel.cs" />
     <Compile Include="ViewModels\BankAccountViewModel\BankAccountListViewModel.cs" />
     <Compile Include="ViewModels\BankAccountViewModel\BankAccountCreateViewModel.cs" />
+    <Compile Include="ViewModels\TransactionViewModel\TransactionListViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -308,10 +310,11 @@
     <Content Include="Views\BankAccount\Details.cshtml" />
     <Content Include="Views\Shared\_LayoutBankAccount.cshtml" />
     <Content Include="Views\Shared\_LayoutBankAccountCreate.cshtml" />
+    <Content Include="Views\BankAccount\Test.cshtml" />
+    <Content Include="Views\Transaction\Transaction.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Transaction\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

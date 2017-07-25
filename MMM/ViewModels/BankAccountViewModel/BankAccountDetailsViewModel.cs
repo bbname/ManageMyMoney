@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using MMM.Model;
+using MMM.ViewModels.TransactionViewModel;
 
 namespace MMM.ViewModels.BankAccountViewModel
 {
@@ -15,7 +16,7 @@ namespace MMM.ViewModels.BankAccountViewModel
         public decimal Balance { get; set; }
         [Display(Name = "Waluta")]
         public string Currency { get; set; }
-        public virtual IEnumerable<Transaction> Transactions { get; set; }
+        public virtual IEnumerable<TransactionListViewModel> Transactions { get; set; }
         public virtual User User { get; set; }
     }
 }

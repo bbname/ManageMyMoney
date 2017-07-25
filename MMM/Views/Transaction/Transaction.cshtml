@@ -1,0 +1,43 @@
+﻿@using System.Diagnostics.Eventing.Reader
+@model MMM.ViewModels.TransactionViewModel.TransactionListViewModel
+
+<div class="panel panel-default">
+    <div class="panel-heading"><h4>@Model.Name</h4></div>
+    <div class="panel-body">
+        <dl class="row h5">
+            <dd class="col-xs-12 col-sm-3">Kwota:</dd>
+            <dt class="col-xs-12 col-sm-9">
+                @if (Model.Amount > 0)
+                {
+                    <p style="color: #5cb85c;">+@Model.Amount</p>
+                }
+                else if (Model.Amount == 0)
+                {
+                    <p style="color: #f0ad4e;">@Model.Amount</p>
+                }
+                else
+                {
+                    <p style="color: #d9534f;">@Model.Amount</p>
+                }
+            </dt>
+            <dd class="col-xs-12 col-sm-3">Saldo:</dd>
+            <dt class="col-xs-12 col-sm-9">
+                @if (Model.AccountBalance > 0)
+                {
+                    <p style="color: #5cb85c;">@Model.AccountBalance</p>
+                }
+                else if (Model.AccountBalance == 0)
+                {
+                    <p style="color: #f0ad4e;">@Model.AccountBalance</p>
+                }
+                else
+                {
+                    <p style="color: #d9534f;">@Model.AccountBalance</p>
+                }
+</dt>
+            <dd class="col-xs-12 col-sm-3">Data: </dd>
+            <dt class="col-xs-12 col-sm-9">@Model.Created.ToShortDateString() @Model.Created.ToShortTimeString()</dt>
+        </dl>
+            @*<span class="pull-right label label-info">@Model.AccountBalance</span>*@
+    </div>
+</div>
