@@ -5,6 +5,26 @@
     ViewBag.Title = "Create";
 }
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        BalanceControl();
+    });
+
+    function BalanceControl() {
+        var balance = $('#Balance');
+        var onlyIntsRegExp = new RegExp('^[0-9]+$');
+        balance.change(function () {
+            if (onlyIntsRegExp.test(balance.val())) {
+                balance.val(balance.val() + ",00");
+            }
+            else {
+                balance.val();
+            }
+        });
+    }
+</script>
+
 <h2>Utwórz konto</h2>
 
 
@@ -38,6 +58,8 @@
                 @Html.ValidationMessageFor(model => model.SelectedCurrencyId, "", new {@class = "text-danger"})
             </div>
         </div>
+        
+        @Html.HiddenFor(m => m.UserId)
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

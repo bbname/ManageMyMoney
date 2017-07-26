@@ -21,12 +21,15 @@ namespace MMM.Controllers
     [Authorize(Roles = "Admin, User")]
     public class BankAccountController : Controller
     {
-        private IReadBankAccount _readBankAccount;
+        private readonly IReadBankAccount _readBankAccount;
         private IWriteBankAccount _writeBankAccount;
-        public BankAccountController(IReadBankAccount readBankAccount, IWriteBankAccount writeBankAccount)
+        private readonly IReadUser _readUser;
+
+        public BankAccountController(IReadBankAccount readBankAccount, IWriteBankAccount writeBankAccount, IReadUser readUser)
         {
             this._readBankAccount = readBankAccount;
             this._writeBankAccount = writeBankAccount;
+            this._readUser = readUser;
         }
         // GET: BankAccount
         public ActionResult Index()
@@ -85,21 +88,30 @@ namespace MMM.Controllers
         // GET: BankAccount/Create
         public ActionResult Create()
         {
-            var model = new BankAccountCreateViewModel();
+            var model = new BankAccountCreateViewModel
+            {
+                UserId = User.Identity.GetUserId()
+            };
             return View(model);
         }
 
         // POST: BankAccount/Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(BankAccountCreateViewModel viewModel)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && User.Identity.GetUserId() == viewModel.UserId)
             {
-                return RedirectToAction("Index");
+                var binder = new BankAccountCreateViewModelToAccount();
+                var user = _readUser.GetUserById(viewModel.UserId);
+                var model = binder.GetAccount(viewModel, user);
+                _writeBankAccount.Create(model);
+
+                return View("Index");
             }
             else
             {
-                return View();
+                return View(viewModel);
             }
             //try
             //{

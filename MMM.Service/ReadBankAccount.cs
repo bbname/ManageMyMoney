@@ -11,7 +11,7 @@ namespace MMM.Service
 {
     public class ReadBankAccount : IReadBankAccount
     {
-        private IAccountReadRepository _accountReadRepository;
+        private readonly IAccountReadRepository _accountReadRepository;
         public ReadBankAccount(IAccountReadRepository accountReadRepository)
         {
             this._accountReadRepository = accountReadRepository;

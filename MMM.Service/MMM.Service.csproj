@@ -157,12 +157,15 @@
     <Compile Include="AutofacConfig\IDetermineServiceAssembly.cs" />
     <Compile Include="Interfaces\IReadBankAccount.cs" />
     <Compile Include="Interfaces\IReadTransaction.cs" />
+    <Compile Include="Interfaces\IReadUser.cs" />
     <Compile Include="Interfaces\IWriteBankAccount.cs" />
     <Compile Include="Interfaces\IWriteTestMessage.cs" />
     <Compile Include="Interfaces\IWriteTransaction.cs" />
+    <Compile Include="Interfaces\IWriteUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AutofacConfig\ServiceModule.cs" />
     <Compile Include="ReadBankAccount.cs" />
+    <Compile Include="ReadUser.cs" />
     <Compile Include="WriteBankAccount.cs" />
     <Compile Include="WriteTestMessage.cs" />
   </ItemGroup>

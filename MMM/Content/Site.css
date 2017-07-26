@@ -36,8 +36,8 @@ textarea {
 .transaction-info:hover,
 .transaction-info:focus,
 .transaction-info:active {
-    transition: .5s ease;
-    opacity: 0.3;
+    transition: .4s ease;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
 }

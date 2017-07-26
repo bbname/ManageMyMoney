@@ -12,5 +12,10 @@ namespace MMM.Repository
         {
             
         }
+
+        public User GetUserById(string id)
+        {
+            return _dbSet.Find(id);
+        }
     }
 }

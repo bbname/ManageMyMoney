@@ -1,5 +1,6 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -50,8 +51,8 @@ namespace MMM.Model.Migrations
                 {
                     UserName = "admin",
                     Email = "bbai.web@gmail.com",
-                    FirstName = "Bartlomiej",
-                    LastName = "Bienczyk",
+                    FirstName = "Bartłomiej",
+                    LastName = "Bieńczyk",
                     PasswordHash = password,
                     SecurityStamp = Guid.NewGuid().ToString()
                 });
@@ -68,8 +69,8 @@ namespace MMM.Model.Migrations
                 {
                     UserName = "test",
                     Email = "test.web@gmail.com",
-                    FirstName = "Simply Test",
-                    LastName = "User Account",
+                    FirstName = "Stanisław",
+                    LastName = "Śledźonka",
                 };
                 userManager.Create(userToCreate, "test123.");
                 context.SaveChanges();
@@ -92,17 +93,17 @@ namespace MMM.Model.Migrations
             // Admin
             ICollection<Transaction> listAdminTransactions = new List<Transaction>
             {
-                new Transaction{Name = "Sklep - zakupy", AccountBalance = 99.99M, Amount = 15.69M, Created = DateTime.Now.AddDays(1)},
-                new Transaction{Name = "Koszulki", AccountBalance = 84.3M, Amount = 39.98M, Created = DateTime.Now.AddDays(2)},
-                new Transaction{Name = "Pizza", AccountBalance = 44.32M, Amount = 20.99M, Created = DateTime.Now.AddDays(3)},
+                new Transaction{Name = "Sklep - zakupy", AccountBalance = 84.3M, Amount = -15.69M, Created = DateTime.Now.AddDays(1)},
+                new Transaction{Name = "Koszulki", AccountBalance = 44.32M, Amount = -39.98M, Created = DateTime.Now.AddDays(2)},
+                new Transaction{Name = "Pizza", AccountBalance = 23.33M, Amount = -20.99M, Created = DateTime.Now.AddDays(3)},
             };
 
             // Test
             ICollection<Transaction> listTestTransactions = new List<Transaction>
             {
-                new Transaction{Name = "Opony do audi", AccountBalance = 1459.63M, Amount = 459.03M, Created = DateTime.Now.AddDays(5)},
-                new Transaction{Name = "Nowy wydech do audi", AccountBalance = 1000.6M, Amount = 100.6M, Created = DateTime.Now.AddDays(2)},
-                new Transaction{Name = "Wesele Zdzis�awa", AccountBalance = 900M, Amount = 600M, Created = DateTime.Now.AddDays(9)},
+                new Transaction{Name = "Opony do audi", AccountBalance = 1000.6M, Amount = -459.03M, Created = DateTime.Now.AddDays(5)},
+                new Transaction{Name = "Nowy wydech do audi", AccountBalance = 900M, Amount = -100.6M, Created = DateTime.Now.AddDays(2)},
+                new Transaction{Name = "Wesele Zdzisława", AccountBalance = 300M, Amount = -600M, Created = DateTime.Now.AddDays(9)},
             };
 
             // Bank accounts for users.
@@ -112,7 +113,7 @@ namespace MMM.Model.Migrations
                 var bankAccount = new Account
                 {
                     Name = "Studenckie",
-                    Balance = 99.99M,
+                    Balance = 23.33M,
                     Currency = 1,
                     Created = DateTime.Now,
                     User = (User)context.Users.First(u => u.Id == userAdminId),
@@ -128,7 +129,7 @@ namespace MMM.Model.Migrations
                 var bankAccount = new Account
                 {
                     Name = "Standard",
-                    Balance = 1459.63M,
+                    Balance = 300M,
                     Currency = 3,
                     Created = DateTime.Now,
                     User = (User)context.Users.First(u => u.Id == userTestId),

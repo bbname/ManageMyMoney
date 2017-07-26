@@ -232,6 +232,7 @@
     </Compile>
     <Compile Include="ModelBinders\AccountToBankAccount\AccountToBankAccountDetailsViewModel.cs" />
     <Compile Include="ModelBinders\AccountToBankAccount\AccountToBankAccountListViewModel.cs" />
+    <Compile Include="ModelBinders\AccountToBankAccount\BankAccountCreateViewModelToAccount.cs" />
     <Compile Include="ModelBinders\BindModelToViewModel.cs" />
     <Compile Include="ModelBinders\Transaction\ToTransactionListViewModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />

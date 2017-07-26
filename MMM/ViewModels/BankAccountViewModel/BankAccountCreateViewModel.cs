@@ -40,6 +40,8 @@ namespace MMM.ViewModels.BankAccountViewModel
         {
             get { return new SelectList(_listCurrencies, "Id", "IconCode"); }
         }
+        [HiddenInput(DisplayValue = false)]
+        public string UserId { get; set; }
 
     }
 }

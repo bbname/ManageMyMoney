@@ -15,7 +15,7 @@
     @foreach (var backAccount in Model)
     {
         <a href="@Url.Action("Details", "BankAccount", new { id = backAccount.Id })">
-            <div class="bankAccount-info col-xs-6 col-sm-4 col-md-3">
+            <div class="col-xs-6 col-sm-4 col-md-3">
                 @Html.Partial("BankAccount", backAccount)
             </div>
         </a>
