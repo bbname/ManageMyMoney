@@ -107,7 +107,7 @@ namespace MMM.Controllers
                 var model = binder.GetAccount(viewModel, user);
                 _writeBankAccount.Create(model);
 
-                return View("Index");
+                return RedirectToAction("Index");
             }
             else
             {
