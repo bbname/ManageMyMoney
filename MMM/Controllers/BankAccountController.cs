@@ -116,13 +116,42 @@ namespace MMM.Controllers
         }
 
         // GET: BankAccount/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Nie podano zadnego konta.");
+            }
+            else
+            {
+                var userIdIdentity = User.Identity.GetUserId();
+                var userId = "";
+
+                try
+                {
+                    userId = _readBankAccount.GetUserIdByBankAccountId(id.Value);
+                }
+                catch (NullReferenceException)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.NotFound, "Nie znaleziono takiego konta.");
+                }
+
+                if (userIdIdentity == userId)
+                {
+                    var account = _readBankAccount.GetAccountById(id.Value);
+                    var binder = new AccountToBankAccountEditViewModel();
+                    var viewModel = binder.GetBankAccount(account);
+
+                    return View(viewModel);
+                }
+
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden, "Nie posiadasz takiego konta.");
+            }
         }
 
         // POST: BankAccount/Edit/5
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, FormCollection collection)
         {
             try

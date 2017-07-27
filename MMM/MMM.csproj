@@ -231,6 +231,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="ModelBinders\AccountToBankAccount\AccountToBankAccountDetailsViewModel.cs" />
+    <Compile Include="ModelBinders\AccountToBankAccount\AccountToBankAccountEditViewModel.cs" />
     <Compile Include="ModelBinders\AccountToBankAccount\AccountToBankAccountListViewModel.cs" />
     <Compile Include="ModelBinders\AccountToBankAccount\BankAccountCreateViewModelToAccount.cs" />
     <Compile Include="ModelBinders\AccountToBankAccount\BankAccountEditViewModelToAccount.cs" />
@@ -315,6 +316,7 @@
     <Content Include="Views\Shared\_LayoutBankAccountCreate.cshtml" />
     <Content Include="Views\BankAccount\Test.cshtml" />
     <Content Include="Views\Transaction\Transaction.cshtml" />
+    <Content Include="Views\BankAccount\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
