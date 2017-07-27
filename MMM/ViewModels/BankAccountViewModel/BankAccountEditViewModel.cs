@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing.Printing;
 using System.Web.Mvc;
 using MMM.Infrastructure;
 
@@ -31,5 +33,7 @@ namespace MMM.ViewModels.BankAccountViewModel
         }
         [HiddenInput(DisplayValue = false)]
         public string UserId { get; set; }
+        [HiddenInput(DisplayValue = false)]
+        public DateTime Created { get; set; }
     }
 }

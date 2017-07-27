@@ -152,17 +152,20 @@ namespace MMM.Controllers
         // POST: BankAccount/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(BankAccountEditViewModel viewModel)
         {
-            try
+            if (ModelState.IsValid && User.Identity.GetUserId() == viewModel.UserId)
             {
-                // TODO: Add update logic here
+                var binder = new BankAccountEditViewModelToAccount();
+                var user = _readUser.GetUserById(viewModel.UserId);
+                var model = binder.GetAccount(viewModel, user);
+                _writeBankAccount.Edit(model);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new {id = viewModel.Id});
             }
-            catch
+            else
             {
-                return View();
+                return View(viewModel);
             }
         }
 

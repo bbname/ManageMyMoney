@@ -23,7 +23,10 @@ namespace MMM.Repository
 
         public virtual void Edit(TEntity entity)
         {
-            _ctx.Entry(entity).State = EntityState.Modified;
+            _dbSet.Attach(entity);
+            var entry = _ctx.Entry(entity);
+            entry.State = EntityState.Modified;
+            //_ctx.Entry(entity).State = EntityState.Modified;
         }
 
         public virtual void Delete(int id)

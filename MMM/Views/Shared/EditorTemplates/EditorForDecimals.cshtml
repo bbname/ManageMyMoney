@@ -1,5 +1,5 @@
 ﻿@using System.Globalization
 @model decimal?
-
-<input class="form-control" data-val="true" data-val-required="Pole Saldo jest wymagane." data-val-regex="Stan konta liczymy do maksymalnie 2 cyfr po przecinku." data-val-regex-pattern="^[0-9]+(\,[0-9]{1,2})$" id="Balance" name="Balance" type="text" />
+@*"^[0-9]+(\,[0-9]{1,2})$"*@
+<input class="form-control" data-val="true" data-val-required="Pole Saldo jest wymagane." data-val-regex="Stan konta liczymy do maksymalnie 2 cyfr po przecinku." data-val-regex-pattern="^(-?)[0-9]+(\,[0-9]{1,2})$" id="Balance" name="Balance" type="text" />
 

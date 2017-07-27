@@ -14,6 +14,7 @@ namespace MMM.ModelBinders.AccountToBankAccount
                 Name = account.Name,
                 Balance = account.Balance,
                 SelectedCurrencyId = account.Currency,
+                Created = account.Created,
                 UserId = account.User.Id
             };
 

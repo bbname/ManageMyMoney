@@ -5,9 +5,19 @@ namespace MMM.ModelBinders.AccountToBankAccount
 {
     public class BankAccountEditViewModelToAccount
     {
-        public Account EditAccount(BankAccountEditViewModel viewModel)
+        public Account GetAccount(BankAccountEditViewModel viewModel, User user)
         {
-            return null;
+            var account = new Account()
+            {
+                Id = viewModel.Id,
+                Name = viewModel.Name,
+                Balance = viewModel.Balance,
+                Currency = viewModel.SelectedCurrencyId,
+                Created = viewModel.Created,
+                User = user
+            };
+
+            return account;
         }
     }
 }

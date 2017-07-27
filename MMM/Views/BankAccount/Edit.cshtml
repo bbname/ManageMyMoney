@@ -14,7 +14,7 @@
 
     function BalanceControl() {
         var balance = $('#Balance');
-        var onlyIntsRegExp = new RegExp('^[0-9]+$');
+        var onlyIntsRegExp = new RegExp('^(-?)[0-9]+$');
         balance.change(function () {
             if (onlyIntsRegExp.test(balance.val())) {
                 balance.val(balance.val() + ",00");
@@ -69,6 +69,7 @@
             </div>
         </div>
         
+        @Html.HiddenFor(m => m.Created)
         @Html.HiddenFor(model => model.UserId)
 
         <div class="form-group">
