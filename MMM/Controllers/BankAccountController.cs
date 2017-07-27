@@ -170,14 +170,46 @@ namespace MMM.Controllers
         }
 
         // GET: BankAccount/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Nie podano zadnego konta.");
+            }
+            else
+            {
+                var userIdIdentity = User.Identity.GetUserId();
+                var userId = "";
+
+                try
+                {
+                    userId = _readBankAccount.GetUserIdByBankAccountId(id.Value);
+                }
+                catch (NullReferenceException)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.NotFound, "Nie znaleziono takiego konta.");
+                }
+
+                if (userIdIdentity == userId)
+                {
+                    var account = _readBankAccount.GetAccountById(id.Value);
+                    var binder = new AccountToBankAccountDeleteViewModel();
+                    var currencyLogic = new CurrencyLogic();
+                    var viewModel = binder.GetBankAccount(account, currencyLogic);
+
+                    return View(viewModel);
+                }
+                else
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.Forbidden, "Nie posiadasz takiego konta");
+                }
+            }
         }
 
         // POST: BankAccount/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, string userId)
         {
             try
             {

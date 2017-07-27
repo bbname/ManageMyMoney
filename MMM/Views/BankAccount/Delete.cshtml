@@ -1,0 +1,61 @@
+﻿@model MMM.ViewModels.BankAccountViewModel.BankAccountDeleteViewModel
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Usuń konto</h2>
+<div>
+    <h4>Czy na pewno chcesz usunąć konto?</h4>
+    <hr />
+    <dl class="dl-horizontal h4">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Balance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Balance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Currency)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Currency)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Created)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Created)
+        </dd>
+
+    </dl>   
+    @Html.HiddenFor(m => m.Id)
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.UserId)
+        <div>
+            <div>
+                <a href="@Url.Action("Details", new {id = Model.Id})" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-arrow-left"></span>
+                    Wróć do konta
+                </a>
+                <button class="btn btn-danger" type="submit"><span class="glyphicon glyphicon-remove"></span> Usuń</button>
+            </div>
+        </div>
+    }
+</div>
