@@ -1,38 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using MMM.Service.Interfaces;
+using MMM.ViewModels.TransactionViewModel;
 
 namespace MMM.Controllers
 {
     public class TransactionController : Controller
     {
-        public TransactionController()
+        private readonly IReadBankAccount _readBankAccount;
+        private readonly IReadTransaction _readTransaction;
+        private IWriteTransaction _writeTransaction;
+        public TransactionController(IReadBankAccount readBankAccount, IReadTransaction readTransaction, IWriteTransaction writeTransaction)
         {
-            
+            this._readBankAccount = readBankAccount;
+            this._readTransaction = readTransaction;
+            this._writeTransaction = writeTransaction;
         }
-        // GET: Transaction
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: Transaction/Details/5
-        public ActionResult Details(int id)
+        [HttpGet]
+        public ActionResult Details(int? id)
         {
             return View();
         }
 
-        // GET: Transaction/Create
-        public ActionResult Create()
+        [HttpGet]
+        public ActionResult Create(int bankAccountId, string userId)
         {
-            return View();
+            if (User.Identity.GetUserId() == userId)
+            {
+                return View();
+            }
+            else
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
         }
 
-        // POST: Transaction/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(TransactionCreateViewModel viewModel)
         {
             try
             {

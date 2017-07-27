@@ -51,6 +51,12 @@
 <hr/>
 <h2>Transakcje</h2>
 <hr />
+<div>
+    <a href="@Url.Action("Create", "Transaction", new {bankAccountId = Model.Id, userId = Model.User.Id})" class="btn btn-success">
+        <span class="glyphicon glyphicon-plus"></span> Dodaj
+    </a>
+</div>
+<hr />
 <div class="row">
     @foreach (var transaction in Model.Transactions)
     {

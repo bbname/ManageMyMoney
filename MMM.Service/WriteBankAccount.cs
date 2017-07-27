@@ -6,7 +6,7 @@ namespace MMM.Service
 {
     public class WriteBankAccount : IWriteBankAccount
     {
-        private IAccountWriteRepository _accountWriteRepository;
+        private readonly IAccountWriteRepository _accountWriteRepository;
         public WriteBankAccount(IAccountWriteRepository accountWriteRepository)
         {
             this._accountWriteRepository = accountWriteRepository;

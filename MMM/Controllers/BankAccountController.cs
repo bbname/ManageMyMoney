@@ -31,7 +31,7 @@ namespace MMM.Controllers
             this._writeBankAccount = writeBankAccount;
             this._readUser = readUser;
         }
-        // GET: BankAccount
+        [HttpGet]
         public ActionResult Index()
         {
                 var userId = User.Identity.GetUserId();
@@ -49,7 +49,7 @@ namespace MMM.Controllers
 
         }
 
-        // GET: BankAccount/Details/5
+        [HttpGet]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -85,7 +85,7 @@ namespace MMM.Controllers
             }
         }
 
-        // GET: BankAccount/Create
+        [HttpGet]
         public ActionResult Create()
         {
             var model = new BankAccountCreateViewModel
@@ -95,7 +95,6 @@ namespace MMM.Controllers
             return View(model);
         }
 
-        // POST: BankAccount/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(BankAccountCreateViewModel viewModel)
@@ -115,7 +114,7 @@ namespace MMM.Controllers
             }
         }
 
-        // GET: BankAccount/Edit/5
+        [HttpGet]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -149,7 +148,6 @@ namespace MMM.Controllers
             }
         }
 
-        // POST: BankAccount/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(BankAccountEditViewModel viewModel)
@@ -169,7 +167,7 @@ namespace MMM.Controllers
             }
         }
 
-        // GET: BankAccount/Delete/5
+        [HttpGet]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -206,7 +204,6 @@ namespace MMM.Controllers
             }
         }
 
-        // POST: BankAccount/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, string userId)
