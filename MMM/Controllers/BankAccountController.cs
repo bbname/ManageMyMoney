@@ -65,7 +65,7 @@ namespace MMM.Controllers
                 {
                     userId = _readBankAccount.GetUserIdByBankAccountId(id.Value);
                 }
-                catch (NullReferenceException e)
+                catch (NullReferenceException)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.NotFound, "Nie znaleziono takiego konta.");
                 }
@@ -113,16 +113,6 @@ namespace MMM.Controllers
             {
                 return View(viewModel);
             }
-            //try
-            //{
-            //    // TODO: Add insert logic here
-
-            //    return RedirectToAction("Index");
-            //}
-            //catch
-            //{
-            //    return View();
-            //}
         }
 
         // GET: BankAccount/Edit/5

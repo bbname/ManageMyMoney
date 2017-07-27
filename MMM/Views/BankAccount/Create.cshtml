@@ -18,6 +18,9 @@
             if (onlyIntsRegExp.test(balance.val())) {
                 balance.val(balance.val() + ",00");
             }
+            else if (balance.val().indexOf('.') !== -1) {
+                balance.val(balance.val().replace('.', ','));
+            }
             else {
                 balance.val();
             }

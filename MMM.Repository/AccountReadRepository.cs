@@ -27,7 +27,7 @@ namespace MMM.Repository
             {
                 return _dbSet.FirstOrDefault(b => b.Id == bankAccountId).User.Id;
             }
-            catch (NullReferenceException e)
+            catch (NullReferenceException)
             {
                 throw new NullReferenceException("Brak danych w bazie.");
             }

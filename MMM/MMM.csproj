@@ -233,6 +233,7 @@
     <Compile Include="ModelBinders\AccountToBankAccount\AccountToBankAccountDetailsViewModel.cs" />
     <Compile Include="ModelBinders\AccountToBankAccount\AccountToBankAccountListViewModel.cs" />
     <Compile Include="ModelBinders\AccountToBankAccount\BankAccountCreateViewModelToAccount.cs" />
+    <Compile Include="ModelBinders\AccountToBankAccount\BankAccountEditViewModelToAccount.cs" />
     <Compile Include="ModelBinders\BindModelToViewModel.cs" />
     <Compile Include="ModelBinders\Transaction\ToTransactionListViewModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -240,6 +241,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\BankAccountViewModel\BankAccountDetailsViewModel.cs" />
+    <Compile Include="ViewModels\BankAccountViewModel\BankAccountEditViewModel.cs" />
     <Compile Include="ViewModels\BankAccountViewModel\BankAccountListViewModel.cs" />
     <Compile Include="ViewModels\BankAccountViewModel\BankAccountCreateViewModel.cs" />
     <Compile Include="ViewModels\TransactionViewModel\TransactionListViewModel.cs" />

@@ -32,7 +32,7 @@ namespace MMM.Service
             {
                 return this._accountReadRepository.GetUserIdByBankAccountId(bankAccountId);
             }
-            catch (NullReferenceException e)
+            catch (NullReferenceException)
             {
                 throw new NullReferenceException("Nie masz takiego konta bankowego.");
             }
