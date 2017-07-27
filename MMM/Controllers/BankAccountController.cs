@@ -211,15 +211,14 @@ namespace MMM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, string userId)
         {
-            try
+            if (User.Identity.GetUserId() == userId)
             {
-                // TODO: Add delete logic here
-
+                _writeBankAccount.Delete(id);
                 return RedirectToAction("Index");
             }
-            catch
+            else
             {
-                return View();
+                return RedirectToAction("Delete", new {id = id});
             }
         }
     }
