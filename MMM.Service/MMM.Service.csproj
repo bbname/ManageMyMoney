@@ -165,9 +165,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AutofacConfig\ServiceModule.cs" />
     <Compile Include="ReadBankAccount.cs" />
+    <Compile Include="ReadTransaction.cs" />
     <Compile Include="ReadUser.cs" />
     <Compile Include="WriteBankAccount.cs" />
     <Compile Include="WriteTestMessage.cs" />
+    <Compile Include="WriteTransaction.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MMM.Model\MMM.Model.csproj">

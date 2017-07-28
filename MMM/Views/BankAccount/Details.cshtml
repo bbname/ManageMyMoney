@@ -1,8 +1,26 @@
-﻿@model MMM.ViewModels.BankAccountViewModel.BankAccountDetailsViewModel
+﻿@using MMM.ViewModels.TransactionViewModel
+@model MMM.ViewModels.BankAccountViewModel.BankAccountDetailsViewModel
 
 @{
     ViewBag.Title = "Details and Transactions";
 }
+@*<link href="~/Content/jquery-ui-timepicker-addon.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui-timepicker-addon.min.js"></script>
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>*@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    //$(document).ready(function () {
+    //    ModalClick();
+    //});
+
+    //function ModalClick() {
+    //    $('#CreateTransaction').click(function () {
+
+    //    });
+    //}
+</script>
 
 <h2>Konto</h2>
 
@@ -52,11 +70,14 @@
 <h2>Transakcje</h2>
 <hr />
 <div>
-    <a href="@Url.Action("Create", "Transaction", new {bankAccountId = Model.Id, userId = Model.User.Id})" class="btn btn-success">
-        <span class="glyphicon glyphicon-plus"></span> Dodaj
-    </a>
+    <button type="button" id="CreateTransaction" class="btn btn-success" data-toggle="modal" data-target="#CreateModal"><span class="glyphicon glyphicon-plus"></span> Dodaj</button>
 </div>
 <hr />
+<div class="modal fade" id="CreateModal" role="dialog">
+    <div class="modal-dialog">
+        @{ Html.RenderAction("Create", "Transaction", new { bankAccountId = Model.Id, userId = Model.User.Id });}
+    </div>
+</div>
 <div class="row">
     @foreach (var transaction in Model.Transactions)
     {
@@ -67,4 +88,8 @@
         </a>
     }
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
 

@@ -10,6 +10,7 @@ using MMM.ViewModels.TransactionViewModel;
 
 namespace MMM.Controllers
 {
+    [Authorize(Roles = "Admin, User")]
     public class TransactionController : Controller
     {
         private readonly IReadBankAccount _readBankAccount;
@@ -38,7 +39,14 @@ namespace MMM.Controllers
         {
             if (User.Identity.GetUserId() == userId)
             {
-                return View();
+                var viewModel = new TransactionCreateViewModel
+                {
+                    BankAccountId = bankAccountId,
+                    UserId = userId,
+                    SetDate = DateTime.Now
+                };
+
+                return PartialView(viewModel);
             }
             else
             {

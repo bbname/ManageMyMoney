@@ -8,10 +8,14 @@ namespace MMM.ViewModels.TransactionViewModel
     {
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
+        [Required]
         [Display(Name = "Nazwa")]
+        [MaxLength(18)]
         public string Name { get; set; }
         [Display(Name = "Kwota")]
-        public decimal Amount { get; set; }
+        [UIHint("EditorForDecimals")]
+        public decimal Balance { get; set; }
+        //public decimal Amount { get; set; }
         [Display(Name = "Saldo")]
         [HiddenInput(DisplayValue = false)]
         public decimal AccountBalance { get; set; }
