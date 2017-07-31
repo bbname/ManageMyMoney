@@ -4,15 +4,15 @@
         BalanceControl();
         $.validator.unobtrusive.parse("#ModalCreateTransaction");
 
-        //jQuery.validator.methods.date = function (value, element) {
-        //    var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-        //    if (isChrome) {
-        //        var d = new Date();
-        //        return this.optional(element) || !/Invalid|NaN/.test(new Date(d.toLocaleDateString(value)));
-        //    } else {
-        //        return this.optional(element) || !/Invalid|NaN/.test(new Date(value));
-        //    }
-        //};
+        $(function () {
+            $("#SetDate").datetimepicker({
+                showAnim: 'slideDown',
+                oneLine: true,
+                dateFormat: 'dd.mm.yy',
+                controlType: 'select',
+                timeFormat: 'HH:mm'
+            });
+        });
 
     });
 
@@ -72,7 +72,8 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.SetDate, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.SetDate, new { htmlAttributes = new { @class = "form-control"} })
+                        <input id="SetDate" name="SetDate" type="text" class="form-control" style="cursor: pointer;" />
+                        @*@Html.EditorFor(model => model.SetDate, new {htmlAttributes = new {@class = "form-control"}})*@
                         @*@Html.EditorFor(model => model.SetDate, new { htmlAttributes = new { Value = Model.SetDate.ToString("dd.MM.yyyy"), @class = "form-control date-picker", onkeydown = "return false", onpaste = "return false" } })*@
                         @Html.ValidationMessageFor(model => model.SetDate, "", new {@class = "text-danger"})
                     </div>
