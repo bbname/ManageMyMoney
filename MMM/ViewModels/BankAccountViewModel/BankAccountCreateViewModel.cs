@@ -43,9 +43,5 @@ namespace MMM.ViewModels.BankAccountViewModel
         [HiddenInput(DisplayValue = false)]
         public string UserId { get; set; }
 
-        [Required]
-        [DataType(DataType.DateTime)]
-        public DateTime KupaTime { get; set; }
-
     }
 }
