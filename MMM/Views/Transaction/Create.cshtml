@@ -2,7 +2,9 @@
 <script type="text/javascript">
     $(document).ready(function () {
         BalanceControl();
-        $.validator.unobtrusive.parse("#ModalCreateTransaction");
+        LoadValidation();
+        AddTransactionListener();
+        //$.validator.unobtrusive.parse("#ModalCreateTransaction");
 
         $(function () {
             $("#SetDate").datetimepicker({
@@ -16,6 +18,40 @@
 
     });
 
+    function AddTransactionListener() {
+        $('#AddTransactionBtn').click(function() {
+            AddTransaction();
+        });
+    }
+
+    function AddTransaction() {
+        var button = $('#AddTransactionBtn');
+        if (!AreFieldsFilled()) {
+            button.attr('data-dismiss', '');
+        }
+        else {
+            if (!(button.attr('data-dismiss').length > 0)) {
+                button.attr('data-dismiss', 'modal');
+            }
+        }
+    }
+
+    function AreFieldsFilled() {
+        $('.modal-body :input').each(function() {
+            var element = $(this);
+            if (!(element.val().length > 0)) {
+                return false;
+            }
+
+            return true;
+        });
+    }
+
+    function LoadValidation() {
+        $('#ModalContent').change(function () {
+            $.validator.unobtrusive.parse("#ModalCreateTransaction");
+        });
+    }
 
     function BalanceControl() {
         var balance = $('#Balance');
@@ -33,7 +69,7 @@
         });
     }
 </script>
-<div class="modal-content">
+<div class="modal-content" id="ModalContent">
     @using (Html.BeginForm(null, null, FormMethod.Post, new { id="ModalCreateTransaction"}))
     {
         @Html.AntiForgeryToken()
@@ -64,7 +100,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.AccountBalance, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.AccountBalance, new { htmlAttributes = new { @class = "form-control" } })
+                        @*@Html.EditorFor(model => model.AccountBalance, new { htmlAttributes = new { @class = "form-control" } })*@
                         @Html.ValidationMessageFor(model => model.AccountBalance, "", new { @class = "text-danger" })
                     </div>
                 </div>          
@@ -72,9 +108,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.SetDate, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        <input id="SetDate" name="SetDate" type="text" class="form-control" style="cursor: pointer;" />
-                        @*@Html.EditorFor(model => model.SetDate, new {htmlAttributes = new {@class = "form-control"}})*@
-                        @*@Html.EditorFor(model => model.SetDate, new { htmlAttributes = new { Value = Model.SetDate.ToString("dd.MM.yyyy"), @class = "form-control date-picker", onkeydown = "return false", onpaste = "return false" } })*@
+                        <input id="SetDate" name="SetDate" type="text" class="form-control" style="cursor: pointer;" data-val="true" data-val-required="Pole Data jest wymagane." />
                         @Html.ValidationMessageFor(model => model.SetDate, "", new {@class = "text-danger"})
                     </div>
                 </div>
@@ -92,8 +126,7 @@
             <div class="modal-footer">
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <button class="btn btn-success" type="submit" data-dismiss="modal"><span class="glyphicon glyphicon-plus"></span> Dodaj</button>
-                        @*<input type="submit" value="Create" class="btn btn-default"/>*@
+                        <button class="btn btn-success" type="submit" data-dismiss="modal" id="AddTransactionBtn"><span class="glyphicon glyphicon-plus"></span> Dodaj</button>
                     </div>
                 </div>
             </div>

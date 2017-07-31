@@ -121,17 +121,18 @@ namespace MMM.Controllers
         }
 
         [System.Web.Mvc.HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(TransactionCreateViewModel viewModel)
         {
-            try
+            if (Request.IsAjaxRequest() && ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                
+                //_writeTransaction.Create();
+                return null;
             }
-            catch
+            else
             {
-                return View();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Nie powiodło się dodawnaie.");
             }
         }
 
