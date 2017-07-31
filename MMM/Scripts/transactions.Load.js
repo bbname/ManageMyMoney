@@ -1,5 +1,5 @@
 ﻿$(document).ready(function() {
-    LoadTransactions()
+    LoadTransactions();
 });
 
 function LoadTransactions(bankAccountId, userId, outputDiv) {
@@ -26,7 +26,7 @@ function LoadTransactions(bankAccountId, userId, outputDiv) {
                         outputDiv.html(da);
                     },
                     error: function() {
-                        alert('W zapętleniu ajaxa coś nie pykło.')
+                        alert('W zapętleniu ajaxa coś nie pykło.');
                     }
                 });
         },
