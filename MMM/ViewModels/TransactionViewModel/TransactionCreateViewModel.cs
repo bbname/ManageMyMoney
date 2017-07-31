@@ -6,8 +6,8 @@ namespace MMM.ViewModels.TransactionViewModel
 {
     public class TransactionCreateViewModel
     {
-        [HiddenInput(DisplayValue = false)]
-        public int Id { get; set; }
+        //[HiddenInput(DisplayValue = false)]
+        //public int Id { get; set; }
         [Required]
         [Display(Name = "Nazwa")]
         [MaxLength(18)]

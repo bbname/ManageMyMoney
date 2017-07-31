@@ -93,17 +93,17 @@ namespace MMM.Model.Migrations
             // Admin
             ICollection<Transaction> listAdminTransactions = new List<Transaction>
             {
-                new Transaction{Name = "Sklep - zakupy", AccountBalance = 84.3M, Amount = -15.69M, Created = DateTime.Now.AddDays(1)},
-                new Transaction{Name = "Koszulki", AccountBalance = 44.32M, Amount = -39.98M, Created = DateTime.Now.AddDays(2)},
-                new Transaction{Name = "Pizza", AccountBalance = 23.33M, Amount = -20.99M, Created = DateTime.Now.AddDays(3)},
+                new Transaction{Name = "Sklep - zakupy", AccountBalance = 84.3M, Amount = -15.69M, SetDate = DateTime.Now.AddDays(1)},
+                new Transaction{Name = "Koszulki", AccountBalance = 44.32M, Amount = -39.98M, SetDate = DateTime.Now.AddDays(2)},
+                new Transaction{Name = "Pizza", AccountBalance = 23.33M, Amount = -20.99M, SetDate = DateTime.Now.AddDays(3)},
             };
 
             // Test
             ICollection<Transaction> listTestTransactions = new List<Transaction>
             {
-                new Transaction{Name = "Opony do audi", AccountBalance = 1000.6M, Amount = -459.03M, Created = DateTime.Now.AddDays(5)},
-                new Transaction{Name = "Nowy wydech do audi", AccountBalance = 900M, Amount = -100.6M, Created = DateTime.Now.AddDays(2)},
-                new Transaction{Name = "Wesele Zdzisława", AccountBalance = 300M, Amount = -600M, Created = DateTime.Now.AddDays(9)},
+                new Transaction{Name = "Opony do audi", AccountBalance = 1000.6M, Amount = -459.03M, SetDate = DateTime.Now.AddDays(5)},
+                new Transaction{Name = "Nowy wydech do audi", AccountBalance = 900M, Amount = -100.6M, SetDate = DateTime.Now.AddDays(2)},
+                new Transaction{Name = "Wesele Zdzisława", AccountBalance = 300M, Amount = -600M, SetDate = DateTime.Now.AddDays(9)},
             };
 
             // Bank accounts for users.

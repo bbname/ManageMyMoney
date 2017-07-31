@@ -18,7 +18,7 @@ namespace MMM.ModelBinders.Transaction
                     Name = transaction.Name,
                     Amount = transaction.Amount,
                     AccountBalance = transaction.AccountBalance,
-                    Created = transaction.Created,
+                    Created = transaction.SetDate,
                     Currency = currency
                 });
             }

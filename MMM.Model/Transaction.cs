@@ -11,6 +11,7 @@ namespace MMM.Model
         public string Name { get; set; }
         public decimal Amount { get; set; }
         public decimal AccountBalance { get; set; }
-        public DateTime Created { get; set; }
+        public DateTime SetDate { get; set; }
+        public virtual Account Account { get; set; }
     }
 }

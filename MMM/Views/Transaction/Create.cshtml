@@ -4,7 +4,6 @@
         BalanceControl();
         LoadValidation();
         AddTransactionListener();
-        //$.validator.unobtrusive.parse("#ModalCreateTransaction");
 
         $(function () {
             $("#SetDate").datetimepicker({
@@ -18,6 +17,41 @@
 
     });
 
+    function SaveTransaction() {
+        //alert('W AJAXIE');
+        var viewModel = {
+            Name: $('#Name').val().trim(),
+            Balance: $('#Balance').val().trim(),
+            //AccountBalance: $('#AccountBalance').val().trim(),
+            SetDate: $('#SetDate').val().trim(),
+            BankAccountId: $('#BankAccountId').val().trim(),
+            UserId: $('#UserId').val().trim()
+        };
+
+        viewModel.__RequestVerificationToken = $('input[name=__RequestVerificationToken]').val();
+
+        $.ajax({
+            url: '@Url.Action("Create", "Transaction")',
+            type: 'POST',
+            dataType: 'json',
+            data: viewModel,
+            success: function(dataBack) {
+                if (dataBack.status) {
+                    $('#Name').val('');
+                    $('#Balance').val('');
+                    $('#AccountBalance').val('');
+                    $('#SetDate').val('');
+                    var transactionsDiv = $('#TransactionsList');
+                    LoadTransactions(transactionsDiv);
+                }  
+            },
+            error: function() {
+                alert('Coś poszło nie tak przy wpisywaniu transakcji do bazy danych.')
+            }
+        });
+
+    }
+
     function AddTransactionListener() {
         $('#AddTransactionBtn').click(function() {
             AddTransaction();
@@ -26,25 +60,36 @@
 
     function AddTransaction() {
         var button = $('#AddTransactionBtn');
-        if (!AreFieldsFilled()) {
+        if (!(AreFieldsFilled())) {
             button.attr('data-dismiss', '');
+            //alert("Nie wypełnione");
         }
         else {
             if (!(button.attr('data-dismiss').length > 0)) {
                 button.attr('data-dismiss', 'modal');
+                //alert("Wypełnione");
+                SaveTransaction();
             }
         }
     }
 
     function AreFieldsFilled() {
-        $('.modal-body :input').each(function() {
+        //debugger;
+        var valueToReturn = false;
+        //var collectionOfInputs = $('#InputsToEdit :input');
+        $('#InputsToEdit :input').each(function() {
             var element = $(this);
             if (!(element.val().length > 0)) {
+                //alert('- ' + element.val().length);
+                valueToReturn = false;
                 return false;
             }
-
-            return true;
+            else {
+                //alert(element.val().length);
+                valueToReturn = true;
+            }
         });
+        return valueToReturn;
     }
 
     function LoadValidation() {
@@ -70,7 +115,7 @@
     }
 </script>
 <div class="modal-content" id="ModalContent">
-    @using (Html.BeginForm(null, null, FormMethod.Post, new { id="ModalCreateTransaction"}))
+    @using (Html.BeginForm("Create", "Transaction", FormMethod.Post, new { role="form", id="ModalCreateTransaction"}))
     {
         @Html.AntiForgeryToken()
 
@@ -81,6 +126,7 @@
             </div>
             <div class="modal-body">
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div id="InputsToEdit">
                 <div class="form-group">
                     @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
@@ -112,7 +158,7 @@
                         @Html.ValidationMessageFor(model => model.SetDate, "", new {@class = "text-danger"})
                     </div>
                 </div>
-
+                </div>
                 @*<div class="form-group">
                                 @Html.LabelFor(model => model.Currency, htmlAttributes: new {@class = "control-label col-md-2"})
                                 <div class="col-md-10">

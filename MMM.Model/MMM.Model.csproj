@@ -192,6 +192,10 @@
     <Compile Include="Migrations\201707261124371_BackToOlderVersion.Designer.cs">
       <DependentUpon>201707261124371_BackToOlderVersion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707311935249_AddedBankAccountToTransactionAndChangedCreatedToSetDate.cs" />
+    <Compile Include="Migrations\201707311935249_AddedBankAccountToTransactionAndChangedCreatedToSetDate.Designer.cs">
+      <DependentUpon>201707311935249_AddedBankAccountToTransactionAndChangedCreatedToSetDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MmmContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -219,6 +223,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707261124371_BackToOlderVersion.resx">
       <DependentUpon>201707261124371_BackToOlderVersion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707311935249_AddedBankAccountToTransactionAndChangedCreatedToSetDate.resx">
+      <DependentUpon>201707311935249_AddedBankAccountToTransactionAndChangedCreatedToSetDate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

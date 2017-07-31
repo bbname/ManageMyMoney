@@ -124,15 +124,21 @@ namespace MMM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(TransactionCreateViewModel viewModel)
         {
-            if (Request.IsAjaxRequest() && ModelState.IsValid)
+            var status = false;
+            if (ModelState.IsValid && Request.IsAjaxRequest())
             {
-                
-                //_writeTransaction.Create();
-                return null;
+                var account = _readBankAccount.GetAccountById(viewModel.BankAccountId);
+                var binder = new FromCreateViewModel();
+                var transaction = binder.GetTransaction(viewModel, account);
+                _writeTransaction.Create(transaction);
+                status = true;
+
+                return new JsonResult(){ Data = new {status = status} };
             }
             else
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Nie powiodło się dodawnaie.");
+                return new JsonResult() { Data = new { status = status } };
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Nie powiodło się dodawnaie.");
             }
         }
 

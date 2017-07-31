@@ -1,18 +1,22 @@
-﻿using MMM.ViewModels.TransactionViewModel;
+﻿using MMM.Model;
+using MMM.ViewModels.TransactionViewModel;
 
 namespace MMM.ModelBinders.Transaction
 {
     public class FromCreateViewModel
     {
-        public Model.Transaction GetTransaction(TransactionCreateViewModel viewmodel)
+        public Model.Transaction GetTransaction(TransactionCreateViewModel viewmodel, Account account)
         {
             var transaction = new Model.Transaction
             {
                 Name = viewmodel.Name,
                 Amount = viewmodel.Balance,
                 AccountBalance = viewmodel.AccountBalance,
-                Created = viewmodel.SetDate
+                SetDate = viewmodel.SetDate,
+                Account = account
             };
+
+            return transaction;
         }
     }
 }
