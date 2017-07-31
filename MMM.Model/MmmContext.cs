@@ -27,5 +27,6 @@ namespace MMM.Model
 
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
+
     }
 }

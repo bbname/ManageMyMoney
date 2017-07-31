@@ -84,8 +84,9 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.SetDate, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.SetDate, new { htmlAttributes = new { Value = Model.SetDate.ToString("dd.MM.yyyy"), @class = "form-control date-picker", onkeydown = "return false", onpaste = "return false" } })
-                        @Html.ValidationMessageFor(model => model.SetDate, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.SetDate, new { htmlAttributes = new { @class = "form-control"} })
+                        @*@Html.EditorFor(model => model.SetDate, new { htmlAttributes = new { Value = Model.SetDate.ToString("dd.MM.yyyy"), @class = "form-control date-picker", onkeydown = "return false", onpaste = "return false" } })*@
+                        @Html.ValidationMessageFor(model => model.SetDate, "", new {@class = "text-danger"})
                     </div>
                 </div>
 
