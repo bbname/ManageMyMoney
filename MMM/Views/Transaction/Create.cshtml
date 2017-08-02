@@ -226,7 +226,6 @@
                     @Html.LabelFor(model => model.AccountBalance, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         <input class="form-control" type="text" readonly="readonly" value="@Html.DisplayFor(m => m.AccountBalance) @Html.DisplayFor(m => m.Currency)" id="AccountBalance" name="AccountBalance" />
-                        @*@Html.TextBoxFor(model => model.AccountBalance, new { @class = "form-control", @readonly = "readonly"} )*@
                         @Html.ValidationMessageFor(model => model.AccountBalance, "", new {@class = "text-danger"})
                     </div>
                 </div>          
@@ -239,13 +238,6 @@
                     </div>
                 </div>
                 </div>
-                @*<div class="form-group">
-                                @Html.LabelFor(model => model.Currency, htmlAttributes: new {@class = "control-label col-md-2"})
-                                <div class="col-md-10">
-                                    @Html.EditorFor(model => model.Currency, new {htmlAttributes = new {@class = "form-control"}})
-                                    @Html.ValidationMessageFor(model => model.Currency, "", new {@class = "text-danger"})
-                                </div>
-                            </div>*@
                 @Html.HiddenFor(m => m.BankAccountId)
                 @Html.HiddenFor(m => m.UserId)
             </div>

@@ -52,6 +52,13 @@ textarea {
     height: 50px;
 }
 
+.transaction-date-filter {
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    max-width: 175px;
+}
+
 @-webkit-keyframes spin {
     0% { -webkit-transform: rotate(0deg); }
     100% { -webkit-transform: rotate(360deg); }
