@@ -16,6 +16,13 @@ namespace MMM.Repository
             
         }
 
+        public override Account GetById(int id)
+        {
+            var account = _dbSet.Find(id);
+            account.Transactions = account.Transactions.OrderByDescending(t => t.SetDate).ToList();
+            return account;
+        }
+
         public IEnumerable<Account> GetBankAccountsByUserId(string userId)
         {
             return _dbSet.AsEnumerable().Where(b => b.User.Id == userId);

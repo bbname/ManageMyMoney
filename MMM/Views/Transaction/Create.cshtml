@@ -1,9 +1,12 @@
 ﻿@model MMM.ViewModels.TransactionViewModel.TransactionCreateViewModel
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
 <script type="text/javascript">
     $(document).ready(function () {
-        BalanceControl();
         LoadValidation();
         AddTransactionListener();
+        BalanceControl();
 
         $(function () {
             $("#SetDate").datetimepicker({
@@ -53,7 +56,8 @@
     }
 
     function AddTransactionListener() {
-        $('#AddTransactionBtn').click(function() {
+        $("#ModalContent").on('click', '#AddTransactionBtn', function (e) {
+            e.preventDefault();
             AddTransaction();
         });
     }
@@ -62,19 +66,19 @@
         var button = $('#AddTransactionBtn');
         if (!(AreFieldsFilled())) {
             button.attr('data-dismiss', '');
-            //alert("Nie wypełnione");
+            ValidationMessage();
+            // alert("Nie wypełnione");
         }
         else {
             if (!(button.attr('data-dismiss').length > 0)) {
                 button.attr('data-dismiss', 'modal');
                 //alert("Wypełnione");
-                SaveTransaction();
             }
+            SaveTransaction();
         }
     }
 
     function AreFieldsFilled() {
-        //debugger;
         var valueToReturn = false;
         //var collectionOfInputs = $('#InputsToEdit :input');
         $('#InputsToEdit :input').each(function() {
@@ -96,6 +100,17 @@
         $('#ModalContent').change(function () {
             $.validator.unobtrusive.parse("#ModalCreateTransaction");
         });
+        //$('#ModalContent').change(function () {
+        //    $.validator.unobtrusive.parse("#ModalCreateTransaction");
+        //});
+    }
+
+    function ValidationMessage() {
+        var validationDiv = $('#ValidationInfo');
+        // 1 cuz of button
+        if (!(validationDiv.has('#ValidationInfoSpan').length > 0)) {
+            validationDiv.prepend("<span id='ValidationInfoSpan' class='col-xs-6 col-md-6 text-danger'> Uzupełnij wszystkie pola!</span>");
+        }
     }
 
     function BalanceControl() {
@@ -171,7 +186,7 @@
             </div>
             <div class="modal-footer">
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
+                    <div class="col-md-offset-2 col-md-10" id="ValidationInfo">
                         <button class="btn btn-success" type="submit" data-dismiss="modal" id="AddTransactionBtn"><span class="glyphicon glyphicon-plus"></span> Dodaj</button>
                     </div>
                 </div>

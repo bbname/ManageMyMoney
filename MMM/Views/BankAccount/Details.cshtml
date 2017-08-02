@@ -1,23 +1,40 @@
 ﻿@model MMM.ViewModels.BankAccountViewModel.BankAccountDetailsViewModel
 
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
 @{
     ViewBag.Title = "Details and Transactions";
 }
 @*<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>*@
-<script type="text/javascript">   
+<script type="text/javascript">
     $(document).ready(function () {
-
         var transactionsDiv = $('#TransactionsList');
         LoadTransactions(transactionsDiv);
-
     });
 
-    function LoadTransactions(outputDiv) {
+    @*function LoadTransactions(outputDiv) {
         outputDiv.addClass("loader col-xs-offset-6 col-sm-offset-6 col-md-offset-6");
         $.get(
             '@Url.Action("GetTransactionsByBankAccountId", "Transaction", new {@bankAccountId = Model.Id})',
             function (data) {
                 outputDiv.removeClass("loader col-xs-offset-6 col-sm-offset-6 col-md-offset-6");
+                outputDiv.html(data);
+            });
+    }*@
+
+    function LoadTransactions(outputDiv) {
+        outputDiv.wrap("<div id='TransactionListLoad'></div>");
+        var loader = $('#TransactionListLoad');
+        outputDiv.css('opacity', '0.0');
+        loader.addClass("loader col-xs-offset-6 col-sm-offset-6 col-md-offset-6");
+        $.get(
+            '@Url.Action("GetTransactionsByBankAccountId", "Transaction", new {@bankAccountId = Model.Id})',
+            function (data) {
+                loader.removeClass("loader col-xs-offset-6 col-sm-offset-6 col-md-offset-6");
+                outputDiv.unwrap();
+                outputDiv.css('opacity', '1.0');
                 outputDiv.html(data);
             });
     }
@@ -83,8 +100,4 @@
 <div class="row" id="TransactionsList">
 
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
 

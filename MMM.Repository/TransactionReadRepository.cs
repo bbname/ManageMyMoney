@@ -15,5 +15,10 @@ namespace MMM.Repository
         {
             
         }
+
+        public override IEnumerable<Transaction> GetAllData()
+        {
+           return _dbSet.AsEnumerable<Transaction>().OrderByDescending(t => t.SetDate);
+        }
     }
 }
