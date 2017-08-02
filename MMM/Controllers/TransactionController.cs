@@ -101,7 +101,7 @@ namespace MMM.Controllers
         }
 
         [System.Web.Mvc.HttpGet]
-        public ActionResult Create(int bankAccountId, string userId)
+        public ActionResult Create(int bankAccountId, string userId, decimal accountBalance, string currency)
         {
             if (User.Identity.GetUserId() == userId)
             {
@@ -109,6 +109,8 @@ namespace MMM.Controllers
                 {
                     BankAccountId = bankAccountId,
                     UserId = userId,
+                    AccountBalance = accountBalance,
+                    Currency = currency,
                     SetDate = DateTime.Now
                 };
 

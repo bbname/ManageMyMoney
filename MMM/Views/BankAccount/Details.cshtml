@@ -94,7 +94,7 @@
 <hr />
 <div class="modal fade" id="CreateModal" role="dialog">
     <div class="modal-dialog">
-        @{ Html.RenderAction("Create", "Transaction", new { bankAccountId = Model.Id, userId = Model.User.Id });}
+        @{ Html.RenderAction("Create", "Transaction", new { bankAccountId = Model.Id, userId = Model.User.Id, accountBalance = Model.Balance, currency = Model.Currency });}
     </div>
 </div>
 <div class="row" id="TransactionsList">

@@ -17,7 +17,7 @@ namespace MMM.ViewModels.TransactionViewModel
         public decimal Balance { get; set; }
         //public decimal Amount { get; set; }
         [Display(Name = "Saldo")]
-        [HiddenInput(DisplayValue = false)]
+        //[HiddenInput(DisplayValue = false)]
         public decimal AccountBalance { get; set; }
         [Display(Name = "Data")]
         //[DisplayFormat(DataFormatString = "{0:dd.MM.yyyy HH:mm}", ApplyFormatInEditMode = true)]

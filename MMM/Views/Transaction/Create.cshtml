@@ -7,6 +7,7 @@
         LoadValidation();
         AddTransactionListener();
         BalanceControl();
+        ChangeAccountBalanceListener();
 
         $(function () {
             $("#SetDate").datetimepicker({
@@ -20,12 +21,78 @@
 
     });
 
+    function ChangeAccountBalanceListener() {
+        $('#ModalContent').on('change',
+            '#Balance',
+            function(balance) {
+                //alert($(this).val());
+                ChangeAccountBalance();
+            });
+    }
+
+    function ChangeAccountBalance() {
+        var amountInput = $('#Balance');
+        var accountBalanceInput = $('#AccountBalance');
+
+        if (CheckAmountInput(amountInput)) {
+            var amountVal = amountInput.val();
+            //var accountBalanceVal = GetAccountBalanceInputValue(accountBalanceInput);
+            var accountBalanceVal = '@Model.AccountBalance';
+
+            amountVal = amountVal.replace(',', '.');
+            accountBalanceVal = accountBalanceVal.replace(',', '.').trim();
+
+            var result = parseFloat(accountBalanceVal) + parseFloat(amountVal);
+            result = result.toFixed(2);
+
+            result = result.toString().replace('.', ',');
+
+            SetAccountBalanceInputValue(accountBalanceInput, result);
+        }
+    }
+
+    function SetAccountBalanceInputValue(accountBalanceInput, valueToReplace) {
+        //var accountBalanceInputVal = accountBalanceInput.val();
+        var valueToSet = '@Model.AccountBalance';
+
+        if (!(valueToReplace.indexOf('@Model.Currency') >= 0)) {
+            valueToReplace += ' @Model.Currency';
+            valueToSet = valueToReplace;
+        }
+
+        accountBalanceInput.val(valueToSet);
+    }
+
+    function GetAccountBalanceInputValue(accountBalanceInput) {
+        var accountBalanceInputVal = accountBalanceInput.val();
+        var valueToReturn = accountBalanceInputVal;
+
+        if (accountBalanceInputVal.indexOf('@Model.Currency') >= 0) {
+            var accountBalanceInputReplaceVal = accountBalanceInputVal.replace('@Model.Currency', '');
+            valueToReturn = accountBalanceInputReplaceVal;
+        }
+
+        return valueToReturn;
+    }
+
+    function CheckAmountInput(amountInput) {
+        var valueToReturn = false;
+        var checkIfDecimal = new RegExp('^(-?)[0-9]+(\\,[0-9]{1,2})$');
+
+        if (checkIfDecimal.test(amountInput.val())) {
+            valueToReturn = true;
+        }
+
+        return valueToReturn;
+    }
+
     function SaveTransaction() {
         //alert('W AJAXIE');
         var viewModel = {
             Name: $('#Name').val().trim(),
             Balance: $('#Balance').val().trim(),
             //AccountBalance: $('#AccountBalance').val().trim(),
+            AccountBalance: GetAccountBalanceInputValue($('#AccountBalance')),
             SetDate: $('#SetDate').val().trim(),
             BankAccountId: $('#BankAccountId').val().trim(),
             UserId: $('#UserId').val().trim()
@@ -46,7 +113,7 @@
                     $('#SetDate').val('');
                     var transactionsDiv = $('#TransactionsList');
                     LoadTransactions(transactionsDiv);
-                }  
+                }
             },
             error: function() {
                 alert('Coś poszło nie tak przy wpisywaniu transakcji do bazy danych.')
@@ -100,9 +167,6 @@
         $('#ModalContent').change(function () {
             $.validator.unobtrusive.parse("#ModalCreateTransaction");
         });
-        //$('#ModalContent').change(function () {
-        //    $.validator.unobtrusive.parse("#ModalCreateTransaction");
-        //});
     }
 
     function ValidationMessage() {
@@ -161,8 +225,9 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.AccountBalance, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @*@Html.EditorFor(model => model.AccountBalance, new { htmlAttributes = new { @class = "form-control" } })*@
-                        @Html.ValidationMessageFor(model => model.AccountBalance, "", new { @class = "text-danger" })
+                        <input class="form-control" type="text" readonly="readonly" value="@Html.DisplayFor(m => m.AccountBalance) @Html.DisplayFor(m => m.Currency)" id="AccountBalance" name="AccountBalance" />
+                        @*@Html.TextBoxFor(model => model.AccountBalance, new { @class = "form-control", @readonly = "readonly"} )*@
+                        @Html.ValidationMessageFor(model => model.AccountBalance, "", new {@class = "text-danger"})
                     </div>
                 </div>          
 
