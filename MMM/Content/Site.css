@@ -59,6 +59,11 @@ textarea {
     max-width: 175px;
 }
 
+#SelectedItemsForPageId {
+    max-width: 65px;
+    display: inline-block;
+}
+
 @-webkit-keyframes spin {
     0% { -webkit-transform: rotate(0deg); }
     100% { -webkit-transform: rotate(360deg); }

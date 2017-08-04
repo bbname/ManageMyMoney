@@ -26,5 +26,6 @@ namespace MMM.ModelBinders.Transaction
 
             return listTransactionViewModel;
         }
+
     }
 }

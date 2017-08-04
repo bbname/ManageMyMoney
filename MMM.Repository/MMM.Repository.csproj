@@ -138,6 +138,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MMM.BussinesLogic\MMM.BussinesLogic.csproj">
+      <Project>{deb680ec-a854-4b76-978e-18884c345ef0}</Project>
+      <Name>MMM.BussinesLogic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MMM.Infrastructure\MMM.Infrastructure.csproj">
       <Project>{27092A14-C57C-4490-92D7-0615C437AC9C}</Project>
       <Name>MMM.Infrastructure</Name>

@@ -157,6 +157,10 @@
     <Compile Include="Currencies.cs" />
     <Compile Include="Currency.cs" />
     <Compile Include="CurrencyFormat.cs" />
+    <Compile Include="FilterForWeb.cs" />
+    <Compile Include="FiltersForWeb.cs" />
+    <Compile Include="ItemForPage.cs" />
+    <Compile Include="ItemsForPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <PropertyGroup>

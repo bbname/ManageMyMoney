@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using MMM.BussinesLogic;
+using MMM.Infrastructure;
 using MMM.ModelBinders.Transaction;
 using MMM.Service.Interfaces;
 using MMM.ViewModels.TransactionViewModel;
@@ -17,7 +18,7 @@ namespace MMM.Controllers
     {
         private readonly IReadBankAccount _readBankAccount;
         private readonly IReadTransaction _readTransaction;
-        private IWriteTransaction _writeTransaction;
+        private readonly IWriteTransaction _writeTransaction;
         public TransactionController(IReadBankAccount readBankAccount, IReadTransaction readTransaction, IWriteTransaction writeTransaction)
         {
             this._readBankAccount = readBankAccount;
@@ -25,33 +26,41 @@ namespace MMM.Controllers
             this._writeTransaction = writeTransaction;
         }
 
-        //[System.Web.Mvc.HttpGet]
-        //public JsonResult GetTransactionsByBankAccountId(int? bankAccountId, string userId)
-        //{
-        //    if (bankAccountId != null && !(String.IsNullOrEmpty(userId)))
-        //    {
-        //        var bankAccount = _readBankAccount.GetAccountById(bankAccountId.Value);
-        //        var binder = new ToTransactionListViewModel();
-        //        var currencyLogic = new CurrencyLogic();
-        //        var viewModelTransactions = binder.GetTransactions(bankAccount.Transactions,
-        //            currencyLogic.GetCurrencyIconById(bankAccount.Currency));
+        [System.Web.Mvc.HttpGet]
+        //public ActionResult GetTransactionsByBankAccountIdFilters(int? bankAccountId, DateTime? fromDate, DateTime? toDate, int? selectedItemsForPage, int? selectedFilterId)
+        public ActionResult GetTransactionsByBankAccountIdFilters(int? bankAccountId, string fromDate, string toDate, int? selectedItemsForPage, int? selectedFilterId)
+        {
+            if (bankAccountId != null)
+            {
+                var bankAccount = _readBankAccount.GetAccountById(bankAccountId.Value);
+                var binder = new ToTransactionListViewModel();
+                var currencyLogic = new CurrencyLogic();
+                var filterLogic = new FiltersLogic();
+                var filterName = "";
+                var filterValue = "";
+                var fromDateConverted = filterLogic.GetDateTimeByDateStringWithDots(fromDate);
+                var toDateConverted = filterLogic.GetEndDateTimeDateStringWithDots(toDate);
+                filterLogic.GetFilterNameFilterValueById(selectedFilterId, out filterName, out filterValue);
+                var itemsForPage = filterLogic.GetItemsForPageById(selectedItemsForPage);
 
-        //        return new JsonResult
-        //        {
-        //            Data = viewModelTransactions,
-        //            JsonRequestBehavior = JsonRequestBehavior.AllowGet
-        //        };
-        //    }
-        //    else
-        //    {
-        //        return new JsonResult
-        //        {
-        //            Data = "Wystąpił błąd podczas operacji.",
-        //            JsonRequestBehavior = JsonRequestBehavior.AllowGet
-        //        };
-        //    }
+                var transactions = _readTransaction.GetTransactionsByFilters(bankAccountId.Value, fromDateConverted, toDateConverted,
+                    itemsForPage, filterName, filterValue);
+                var viewModelTransactions = binder.GetTransactions(transactions,
+                    currencyLogic.GetCurrencyIconById(bankAccount.Currency));
 
-        //}
+                return PartialView("TransactionList", viewModelTransactions);
+            }
+            else
+            {
+                return new JsonResult
+                {
+                    Data = "Wystąpił błąd podczas operacji.",
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
+            }
+
+        }
+
         [System.Web.Mvc.HttpGet]
         public ActionResult GetTransactionsByBankAccountId(int? bankAccountId)
         {
@@ -75,18 +84,6 @@ namespace MMM.Controllers
             }
 
         }
-
-        //[System.Web.Mvc.HttpGet]
-        //public ActionResult TransactionList(List<TransactionListViewModel> transanctionListViewModel)
-        //{
-        //    //IEnumerable<TransactionListViewModel> listViewModel = new List<TransactionListViewModel>();
-        //    if (Request.IsAjaxRequest())
-        //    {
-        //        return PartialView("TransactionList", transanctionListViewModel);
-        //    }
-
-        //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Coś poszło nie tak.");
-        //}
 
         [System.Web.Mvc.HttpGet]
         public ActionResult Index()
