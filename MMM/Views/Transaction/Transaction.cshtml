@@ -3,7 +3,18 @@
 @model MMM.ViewModels.TransactionViewModel.TransactionListViewModel
 
 <div class="transaction-info panel panel-default">
-    <div class="panel-heading"><h4>@Html.DisplayFor(t => t.Name)</h4></div>
+    <div class="panel-heading" id="TransactionHeader">
+        <a href="@Url.Action("Details", "Transaction", new { id = Model.Id})" id="TransactionHeader-Title">
+            <h4>@Html.DisplayFor(t => t.Name)</h4>
+        </a>
+        <a href="@Url.Action("Delete", "Transaction", new {id = @Model.Id})" id="TransactionHeader-Remove" class="transaction-header-glyphicons">
+            <span class="glyphicon glyphicon-remove transaction-header-glyphicons-delete"></span>
+        </a>
+        <a href="@Url.Action("Edit", "Transaction", new {id = @Model.Id})" id="TransactionHeader-Edit" class="transaction-header-glyphicons">
+            <span class="glyphicon glyphicon-pencil transaction-header-glyphicons-edit"></span>
+        </a>
+    </div>
+    <a href="@Url.Action("Details", "Transaction", new { id = Model.Id})">
     <div class="panel-body">
         <dl class="row h5">
             <dd class="col-xs-12 col-sm-3">Kwota:</dd>
@@ -35,9 +46,10 @@
                 {
                     <p style="color: #d9534f;">@Html.DisplayFor(t => t.AccountBalance) @Html.DisplayFor(t => t.Currency)</p>
                 }
-</dt>
+            </dt>
             <dd class="col-xs-12 col-sm-3">Data: </dd>
             <dt class="col-xs-12 col-sm-9">@Html.DisplayFor(t => t.Created)</dt>
         </dl>
     </div>
+    </a>
 </div>

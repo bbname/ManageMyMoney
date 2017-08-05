@@ -1,9 +1,12 @@
 ﻿@model IEnumerable<MMM.ViewModels.TransactionViewModel.TransactionListViewModel>
 @foreach (var transaction in Model)
 {
-    <a href="@Url.Action("Details", "Transaction", new { id = transaction.Id})">
         <div class="col-xs-6 col-sm-4 col-md-3">
             @Html.Partial("~/Views/Transaction/Transaction.cshtml", transaction)
         </div>
-    </a>
+    @*<a href="@Url.Action("Details", "Transaction", new { id = transaction.Id})">
+        <div class="col-xs-6 col-sm-4 col-md-3">
+            @Html.Partial("~/Views/Transaction/Transaction.cshtml", transaction)
+        </div>
+    </a>*@
 }
