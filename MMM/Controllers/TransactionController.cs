@@ -171,7 +171,7 @@ namespace MMM.Controllers
 
         // POST: Transaction/Delete/5
         [System.Web.Mvc.HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, int bankAccountId, string userId)
         {
             try
             {

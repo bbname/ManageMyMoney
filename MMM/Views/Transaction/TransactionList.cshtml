@@ -1,4 +1,21 @@
 ﻿@model IEnumerable<MMM.ViewModels.TransactionViewModel.TransactionListViewModel>
+<script type="text/javascript">
+    $(document).ready(function() {
+        TransactionDeleteListener();
+    });
+
+    function TransactionDeleteListener() {
+        $('.panel-heading').on('click',
+            '.transaction-header-remove',
+            function () {
+                alert($(this).attr('id'));
+            });
+    }
+
+    function TransactionDeleteOpenModal() {
+        
+    }
+</script>
 @foreach (var transaction in Model)
 {
         <div class="col-xs-6 col-sm-4 col-md-3">

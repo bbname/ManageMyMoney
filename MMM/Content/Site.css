@@ -70,7 +70,7 @@ textarea {
     color: #333333;
 
     position: relative;
-    color: #000;
+    /*color: #000;*/
     text-decoration: none;
 }
 
@@ -108,6 +108,7 @@ textarea {
     float: right;
     margin-top: 10px;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .transaction-header-glyphicons-delete {
@@ -127,7 +128,7 @@ textarea {
     color: #333333;
 }
 
-#TransactionHeader-Edit {
+.transaction-header-edit {
     margin-right: 10px;
 }
 

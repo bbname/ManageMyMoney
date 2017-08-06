@@ -7,10 +7,16 @@
         <a href="@Url.Action("Details", "Transaction", new { id = Model.Id})" id="TransactionHeader-Title">
             <h4>@Html.DisplayFor(t => t.Name)</h4>
         </a>
-        <a href="@Url.Action("Delete", "Transaction", new {id = @Model.Id})" id="TransactionHeader-Remove" class="transaction-header-glyphicons">
+        @*<a href="@Url.Action("Delete", "Transaction", new {id = @Model.Id})" id="TransactionHeader-Remove" class="transaction-header-glyphicons">
             <span class="glyphicon glyphicon-remove transaction-header-glyphicons-delete"></span>
         </a>
         <a href="@Url.Action("Edit", "Transaction", new {id = @Model.Id})" id="TransactionHeader-Edit" class="transaction-header-glyphicons">
+            <span class="glyphicon glyphicon-pencil transaction-header-glyphicons-edit"></span>
+        </a>*@
+        <a id="@Model.Id" class="transaction-header-glyphicons transaction-header-remove">
+            <span class="glyphicon glyphicon-remove transaction-header-glyphicons-delete"></span>
+        </a>
+        <a id="@Model.Id" class="transaction-header-glyphicons transaction-header-edit">
             <span class="glyphicon glyphicon-pencil transaction-header-glyphicons-edit"></span>
         </a>
     </div>
