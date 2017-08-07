@@ -1,74 +1,97 @@
 ﻿@model MMM.ViewModels.TransactionViewModel.TransactionDeleteViewModel
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>TransactionDeleteViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+<script type="text/javascript">
+    $(document).ready(function () {
+        DeleteTransactionListener();
+    });
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Amount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Amount)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AccountBalance)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AccountBalance)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SetDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SetDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Currency)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Currency)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BankAccountId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BankAccountId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+    function DeleteTransactionListener() {
+        $(document).on('click', '#DeleteTransactionBtn',function (e) {
+            e.preventDefault();
+            DeleteTransaction();
+        });
     }
+
+    function DeleteTransaction() {
+
+        $.ajax({
+            url: '@Url.Action("Delete", "Transaction")',
+            type: 'POST',
+            data: {
+                __RequestVerificationToken: $('input[name=____RequestVerificationToken]').val(),
+                id: '@Model.Id',
+                bankAccountId: '@Model.BankAccountId',
+                userId: '@Model.UserId'
+            },
+            success: function (dataBack) {
+                if (dataBack.status) {
+                    var tranasctionDiv = $('#TransactionsList');
+                    LoadTransactionsFilters(tranasctionDiv);
+                }
+            },
+            error: function() {
+                alert('Coś poszło nie tak przy usuwaniu transakcji.');
+            }
+        });
+    }
+
+</script>
+
+<div class="modal-content" id="ModalContent">
+    <div class="modal-header">
+        <button class="close" type="button" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Usuń transakcje</h4>
+    </div>
+    <div class="modal-body">
+        <div class="panel panel-default" id="TransactionToDelete">
+            <div class="panel-heading">
+                <h4>@Html.DisplayFor(t => t.Name)</h4>
+            </div>
+            <div class="panel-body">
+                <dl class="row h5">
+                    <dd class="col-xs-12 col-sm-3">Kwota:</dd>
+                    <dt class="col-xs-12 col-sm-9">
+                        @if (Model.Amount > 0)
+                        {
+                            <p style="color: #5cb85c;">+@Html.DisplayFor(t => t.Amount) @Html.DisplayFor(t => t.Currency)</p>
+                        }
+                        else if (Model.Amount == 0)
+                        {
+                            <p style="color: #f0ad4e;">@Html.DisplayFor(t => t.Amount) @Html.DisplayFor(t => t.Currency)</p>
+                        }
+                        else
+                        {
+                            <p style="color: #d9534f;">@Html.DisplayFor(t => t.Amount) @Html.DisplayFor(t => t.Currency)</p>
+                        }
+                    </dt>
+                    <dd class="col-xs-12 col-sm-3">Saldo:</dd>
+                    <dt class="col-xs-12 col-sm-9">
+                        @if (Model.AccountBalance > 0)
+                        {
+                            <p style="color: #5cb85c;">@Html.DisplayFor(t => t.AccountBalance) @Html.DisplayFor(t => t.Currency)</p>
+                        }
+                        else if (Model.AccountBalance == 0)
+                        {
+                            <p style="color: #f0ad4e;">@Html.DisplayFor(t => t.AccountBalance) @Html.DisplayFor(t => t.Currency)</p>
+                        }
+                        else
+                        {
+                            <p style="color: #d9534f;">@Html.DisplayFor(t => t.AccountBalance) @Html.DisplayFor(t => t.Currency)</p>
+                        }
+                    </dt>
+                    <dd class="col-xs-12 col-sm-3">Data: </dd>
+                    <dt class="col-xs-12 col-sm-9">@Html.DisplayFor(t => t.SetDate)</dt>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-actions no-color">
+                <button class="btn btn-danger" type="submit" data-dismiss="modal" id="DeleteTransactionBtn"><span class="glyphicon glyphicon-remove"></span> Usuń</button>
+            </div>
+        }
+    </div>
 </div>

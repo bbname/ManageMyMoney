@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Castle.Core.Internal;
 using MMM.BussinesLogic;
 using MMM.Model;
 using MMM.Repository.Interfaces;
@@ -23,6 +25,11 @@ namespace MMM.Repository
            return _dbSet.AsEnumerable<Transaction>()
                 .OrderByDescending(t => t.SetDate)
                 .Take(20);
+        }
+
+        public bool IsTransactionCorrect(int id, int bankAccountId, string userId)
+        {
+            return _dbSet.Any(t => t.Id == id && t.Account.Id == bankAccountId && t.Account.User.Id == userId);
         }
 
         public IEnumerable<Transaction> GetTransactionsByFilters(int bankAccount, DateTime? fromDate, DateTime? toDate, int? itemsForPage, string filterName, string filterValue)
@@ -364,5 +371,6 @@ namespace MMM.Repository
 
             return transactionsList;
         }
+
     }
 }

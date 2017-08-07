@@ -137,7 +137,6 @@ namespace MMM.Controllers
             else
             {
                 return new JsonResult() { Data = new { status = status } };
-                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Nie powiodło się dodawnaie.");
             }
         }
 
@@ -164,8 +163,19 @@ namespace MMM.Controllers
         }
 
         // GET: Transaction/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id, int bankAccountId)
         {
+            if (id != null && Request.IsAjaxRequest())
+            {
+                var tranasction = _readTransaction.GetTransactionById(id.Value);
+                var binder = new ToTransactionDeleteViewModel();
+                var currencyLogic = new CurrencyLogic();
+                var viewModel = binder.GetTransaction(tranasction, currencyLogic);
+
+                return PartialView("Delete", viewModel);
+
+            }
+
             return View();
         }
 
@@ -173,16 +183,17 @@ namespace MMM.Controllers
         [System.Web.Mvc.HttpPost]
         public ActionResult Delete(int id, int bankAccountId, string userId)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            var status = false;
 
-                return RedirectToAction("Index");
-            }
-            catch
+            if (id != 0 && bankAccountId != 0 && User.Identity.GetUserId() == userId && Request.IsAjaxRequest()
+                && _readTransaction.IsTransactionCorrect(id, bankAccountId, userId))
             {
-                return View();
+                _writeTransaction.Delete(id);
+                status = true;
             }
+
+            return new JsonResult() { Data = new { status = status } };
+
         }
     }
 }

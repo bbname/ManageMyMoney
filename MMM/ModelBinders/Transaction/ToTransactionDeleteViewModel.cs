@@ -9,7 +9,14 @@ namespace MMM.ModelBinders.Transaction
         {
             var viewModel = new TransactionDeleteViewModel
             {
-                Id = transaction.Id
+                Id = transaction.Id,
+                BankAccountId = transaction.Account.Id,
+                UserId = transaction.Account.User.Id,
+                Name = transaction.Name,
+                Amount = transaction.Amount,
+                AccountBalance = transaction.AccountBalance,
+                SetDate = transaction.SetDate,
+                Currency = currencyLogic.GetCurrencyIconById(transaction.Account.Currency)
             };
 
             return viewModel;

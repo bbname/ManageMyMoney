@@ -10,5 +10,7 @@ namespace MMM.Repository.Interfaces
     public interface ITransactionReadRepository : IReadRepository<Transaction>
     {
         IEnumerable<Transaction> GetTransactionsByFilters(int bankAccount, DateTime? fromDate, DateTime? toDate, int? itemsForPage, string filterName, string filterValue);
+
+        bool IsTransactionCorrect(int id, int bankAccountId, string userId);
     }
 }

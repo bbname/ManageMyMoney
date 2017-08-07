@@ -15,10 +15,9 @@ namespace MMM.ViewModels.TransactionViewModel
         [Display(Name = "Saldo")]
         public decimal AccountBalance { get; set; }
         [Display(Name = "Data")]
-        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime SetDate { get; set; }
         [Display(Name = "Waluta")]
-        [HiddenInput(DisplayValue = false)]
         public string Currency { get; set; }
         [HiddenInput(DisplayValue = false)]
         public int BankAccountId { get; set; }

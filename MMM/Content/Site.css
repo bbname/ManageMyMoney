@@ -132,6 +132,22 @@ textarea {
     margin-right: 10px;
 }
 
+#TransactionToDelete .panel-body {
+    color: #428bca;
+}
+
+#TransactionToDelete {
+    margin-left: 25%;
+    width: 50%;
+}
+
+@media screen and (max-width: 480px) {
+    #TransactionToDelete {
+        margin-left: 15%;
+        width: 70%;
+    }
+}
+
 @-webkit-keyframes spin {
     0% { -webkit-transform: rotate(0deg); }
     100% { -webkit-transform: rotate(360deg); }

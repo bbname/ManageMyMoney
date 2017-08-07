@@ -239,6 +239,7 @@
     <Compile Include="ModelBinders\AccountToBankAccount\BankAccountEditViewModelToAccount.cs" />
     <Compile Include="ModelBinders\BindModelToViewModel.cs" />
     <Compile Include="ModelBinders\Transaction\FromCreateViewModel.cs" />
+    <Compile Include="ModelBinders\Transaction\ToTransactionDeleteViewModel.cs" />
     <Compile Include="ModelBinders\Transaction\ToTransactionListViewModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />

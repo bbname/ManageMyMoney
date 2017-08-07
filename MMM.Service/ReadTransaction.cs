@@ -28,5 +28,10 @@ namespace MMM.Service
             return _transactionReadRepository.GetTransactionsByFilters(bankAccount, fromDate, toDate, itemsForPage, filterName,
                 filterValue);
         }
+
+        public bool IsTransactionCorrect(int id, int bankAccountId, string userId)
+        {
+            return _transactionReadRepository.IsTransactionCorrect(id, bankAccountId, userId);
+        }
     }
 }

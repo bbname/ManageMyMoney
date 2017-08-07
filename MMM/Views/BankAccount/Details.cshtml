@@ -14,6 +14,8 @@
         LoadTransactionsFiltersListener(transactionsDiv);
         DateFromToFilterListener(transactionsDiv);
         ClearDateFromToInputsListener();
+        //TransactionAddOpenModalListener();
+        $bankAccountId = '@Model.Id';
 
         $(function () {
             $("#FromDate").datetimepicker({
@@ -117,6 +119,40 @@
         });
     }
 
+    @*function TransactionAddOpenModalListener() {
+        $('#TransactionListFilters').on('click',
+            '#CreateTransaction',
+            function () {
+                GetTransactionDataCreate();
+            });
+    }
+
+    function GetTransactionDataCreate() {
+        alert($('#BankAccountBalance').html() + '  ' + $('#BankAccountCurrency').html().trim());
+
+        $.ajax({
+            url: '@Url.Action("Create", "Transaction")',
+            type: 'GET',
+            data: {
+                bankAccountId: $bankAccountId,
+                userId: '@Model.User.Id',
+                accountBalance: $('#BankAccountBalance').html(),
+                currency: $('#BankAccountCurrency').html().trim()
+            },
+            success: function (dataBack) {
+                LoadDataIntoModalAndOpen(dataBack);
+            },
+            error: function() {
+                alert("Coś poszło nie tak przy generowaniu modelu dodawania transakcji.");
+            }
+        });
+    }
+
+    function LoadDataIntoModalAndOpen(data) {
+        $('#ModalCreateTransaction .modal-dialog').html(data);
+        //$('#ModalCreateTransaction').modal('show');
+    }*@
+
 </script>
 
 <h2>Konto</h2>
@@ -136,7 +172,7 @@
             @Html.DisplayNameFor(model => model.Balance)
         </dt>
 
-        <dd>
+        <dd id="BankAccountBalance">
             @Html.DisplayFor(model => model.Balance)
         </dd>
 
@@ -144,7 +180,7 @@
             @Html.DisplayNameFor(model => model.Currency)
         </dt>
 
-        <dd>
+        <dd id="BankAccountCurrency">
             @Html.DisplayFor(model => model.Currency)
         </dd>
     </dl>
@@ -197,7 +233,7 @@
     </div>
 </div>
 <div class="modal fade" id="ModalDeleteTransaction" role="dialog">
-    <div class="modal-dialog">(this)
+    <div class="modal-dialog">
     </div>
 </div>
 <div class="row" id="TransactionsList">

@@ -27,7 +27,5 @@ namespace MMM.Model
 
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
-
-        public System.Data.Entity.DbSet<MMM.ViewModels.TransactionViewModel.TransactionDeleteViewModel> TransactionDeleteViewModels { get; set; }
     }
 }

@@ -1,29 +1,44 @@
-﻿@model IEnumerable<MMM.ViewModels.TransactionViewModel.TransactionListViewModel>
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<MMM.ViewModels.TransactionViewModel.TransactionListViewModel>
 <script type="text/javascript">
     $(document).ready(function() {
-        TransactionDeleteListener();
+        TransactionDeleteOpenModalListener();
     });
 
-    function TransactionDeleteListener() {
+    function TransactionDeleteOpenModalListener() {
         $('.panel-heading').on('click',
             '.transaction-header-remove',
             function () {
-                alert($(this).attr('id'));
+                GetTransactionData($(this).attr('id'));
             });
     }
 
-    function TransactionDeleteOpenModal() {
-        
+    function GetTransactionData(transactionId) {
+        $.ajax({
+            url: '@Url.Action("Delete", "Transaction")',
+            type: 'GET',
+            data: {
+                id: transactionId,
+                bankAccountId: $bankAccountId
+            },
+            success: function (dataBack) {
+                LoadDataIntoModalAndOpen(dataBack);
+            },
+            error: function() {
+                alert("Coś poszło nie tak przy pobieraniu danych na temat transakcji.");
+            }
+        });
     }
+
+    function LoadDataIntoModalAndOpen(data) {
+        $('#ModalDeleteTransaction .modal-dialog').html(data);
+        $('#ModalDeleteTransaction').modal('show');
+    }
+
 </script>
 @foreach (var transaction in Model)
 {
         <div class="col-xs-6 col-sm-4 col-md-3">
             @Html.Partial("~/Views/Transaction/Transaction.cshtml", transaction)
         </div>
-    @*<a href="@Url.Action("Details", "Transaction", new { id = transaction.Id})">
-        <div class="col-xs-6 col-sm-4 col-md-3">
-            @Html.Partial("~/Views/Transaction/Transaction.cshtml", transaction)
-        </div>
-    </a>*@
 }
