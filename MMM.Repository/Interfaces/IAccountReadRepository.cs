@@ -11,5 +11,6 @@ namespace MMM.Repository.Interfaces
     {
         IEnumerable<Account> GetBankAccountsByUserId(string userId);
         string GetUserIdByBankAccountId(int bankAccountId);
+        bool IsBankAccountCorrect(int id, string userId);
     }
 }

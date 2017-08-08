@@ -31,6 +31,25 @@ namespace MMM.Controllers
             this._writeBankAccount = writeBankAccount;
             this._readUser = readUser;
         }
+
+
+        [HttpPost]
+        public ActionResult UpdateBankAccountBalance(int id, string userId, decimal balance)
+        {
+            var status = false;
+
+            if (id > 0 && User.Identity.GetUserId() == userId && Request.IsAjaxRequest()
+                && _readBankAccount.IsBankAccountCorrect(id, userId))
+            {
+                var bankAccount = _readBankAccount.GetAccountById(id);
+                bankAccount.Balance = balance;
+                _writeBankAccount.Edit(bankAccount);
+                status = true;
+            }
+
+            return new JsonResult() { Data = new { status = status} };
+        }
+
         [HttpGet]
         public ActionResult Index()
         {

@@ -1,4 +1,5 @@
-﻿@model MMM.ViewModels.BankAccountViewModel.BankAccountDetailsViewModel
+﻿@using Microsoft.AspNet.Identity
+@model MMM.ViewModels.BankAccountViewModel.BankAccountDetailsViewModel
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
@@ -38,6 +39,31 @@
         });
 
     });
+
+    function EditBankAccountBalance(accountBalance) {
+        SaveChangedBankAccountBalance(accountBalance);
+    }
+
+    function SaveChangedBankAccountBalance(accountBalance) {
+        $.ajax({
+            url: '@Url.Action("UpdateBankAccountBalance", "BankAccount")',
+            type: 'POST',
+            data: {
+                id: $bankAccountId,
+                userId: '@User.Identity.GetUserId()',
+                balance: accountBalance
+            },
+            success: function(dataBack) {
+                if (dataBack.status) {
+                    $('#BankAccountBalance').effect("highlight", 10000);
+                    $('#BankAccountBalance').text(accountBalance);
+                }
+            },
+            error: function() {
+                alert('Coś poszło nie tak przy updateowaniu salda konta.');
+            }
+        });
+    }
 
     function LoadTransactions(outputDiv) {
         outputDiv.wrap("<div id='TransactionListLoad'></div>");

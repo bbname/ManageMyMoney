@@ -41,5 +41,10 @@ namespace MMM.Service
                 throw new Exception(e.ToString());
             }
         }
+
+        public bool IsBankAccountCorrect(int id, string userId)
+        {
+            return this._accountReadRepository.IsBankAccountCorrect(id, userId);
+        }
     }
 }

@@ -110,6 +110,7 @@
                 if (dataBack.status) {
                     $('#Name').val('');
                     $('#Balance').val('');
+                    EditBankAccountBalance(GetAccountBalanceInputValue($('#AccountBalance')));
                     //$('#AccountBalance').val('');
                     $('#SetDate').val('');
                     var transactionsDiv = $('#TransactionsList');

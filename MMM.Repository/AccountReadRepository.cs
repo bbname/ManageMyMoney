@@ -43,5 +43,10 @@ namespace MMM.Repository
                 throw new Exception(e.ToString());
             }
         }
+
+        public bool IsBankAccountCorrect(int id, string userId)
+        {
+            return _dbSet.Any(b => b.Id == id && b.User.Id == userId);
+        }
     }
 }
