@@ -25,7 +25,7 @@ namespace MMM.Service
 
         public void Delete(int id)
         {
-            _accountWriteRepository.Delete(id);
+            _accountWriteRepository.DeleteById(id);
             _accountWriteRepository.Save();
         }
     }

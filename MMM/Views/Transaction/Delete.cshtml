@@ -89,6 +89,9 @@
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
+            @Html.HiddenFor(t => t.Id)
+            @Html.HiddenFor(t => t.BankAccountId)
+            @Html.HiddenFor(t => t.UserId)
             <div class="form-actions no-color">
                 <button class="btn btn-danger" type="submit" data-dismiss="modal" id="DeleteTransactionBtn"><span class="glyphicon glyphicon-remove"></span> Usuń</button>
             </div>

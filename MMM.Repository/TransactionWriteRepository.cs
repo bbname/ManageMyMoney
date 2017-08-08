@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EntityFramework.Extensions;
 using MMM.Model;
 using MMM.Repository.Interfaces;
 
@@ -15,5 +16,11 @@ namespace MMM.Repository
         {
             
         }
+        
+        //public override void DeleteById(int id)
+        //{
+        //    var transaction = _dbSet.Find(id);
+        //    _dbSet.Remove(transaction);
+        //}
     }
 }

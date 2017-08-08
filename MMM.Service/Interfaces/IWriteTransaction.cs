@@ -6,6 +6,7 @@ namespace MMM.Service.Interfaces
     {
         void Create(Transaction transaction);
         void Edit(Transaction transaction);
-        void Delete(int id);
+        void Delete(Transaction transaction);
+        void DeleteById(int id);
     }
 }

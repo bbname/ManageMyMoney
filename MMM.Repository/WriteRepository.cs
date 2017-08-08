@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +20,7 @@ namespace MMM.Repository
 
         public virtual void Add(TEntity entity)
         {
+            _dbSet.Attach(entity);
             _dbSet.Add(entity);
         }
 
@@ -29,10 +32,32 @@ namespace MMM.Repository
             //_ctx.Entry(entity).State = EntityState.Modified;
         }
 
-        public virtual void Delete(int id)
+        public virtual void DeleteById(int id)
         {
             var objToDelete = _dbSet.Find(id);
             _dbSet.Remove(objToDelete);
+        }
+
+        public virtual void Delete(TEntity entity)
+        {
+            try
+            {
+                _dbSet.Attach(entity);
+                _dbSet.Remove(entity);
+                _ctx.SaveChanges();
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException)
+            {
+                var toRefresh = ((IObjectContextAdapter)_ctx).ObjectContext;
+                toRefresh.Refresh(RefreshMode.ClientWins, entity);
+                _ctx.SaveChanges();
+            }
+            //catch (Exception)
+            //{
+            //    var toRefresh = ((IObjectContextAdapter)_ctx).ObjectContext;
+            //    toRefresh.Refresh(RefreshMode.ClientWins, entity);
+            //    _ctx.SaveChanges();
+            //}
         }
 
         public virtual void Save()

@@ -23,10 +23,16 @@ namespace MMM.Service
             _transactionWriteRepository.Save();
         }
 
-        public void Delete(int id)
+        public void DeleteById(int id)
         {
-            _transactionWriteRepository.Delete(id);
+            _transactionWriteRepository.DeleteById(id);
             _transactionWriteRepository.Save();
+        }
+
+        public void Delete(Transaction transaction)
+        {
+            _transactionWriteRepository.Delete(transaction);
+            //_transactionWriteRepository.Save();
         }
     }
 }

@@ -10,7 +10,8 @@ namespace MMM.Repository.Interfaces
     {
         void Add(TEntity entity);
         void Edit(TEntity entity);
-        void Delete(int id);
+        void DeleteById(int id);
+        void Delete(TEntity entity);
         void Save();
     }
 }

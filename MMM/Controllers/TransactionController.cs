@@ -188,7 +188,8 @@ namespace MMM.Controllers
             if (id != 0 && bankAccountId != 0 && User.Identity.GetUserId() == userId && Request.IsAjaxRequest()
                 && _readTransaction.IsTransactionCorrect(id, bankAccountId, userId))
             {
-                _writeTransaction.Delete(id);
+                var transaction = _readTransaction.GetTransactionById(id);
+                _writeTransaction.Delete(transaction);
                 status = true;
             }
 
