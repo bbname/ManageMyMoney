@@ -37,7 +37,8 @@
         if (CheckAmountInput(amountInput)) {
             var amountVal = amountInput.val();
             //var accountBalanceVal = GetAccountBalanceInputValue(accountBalanceInput);
-            var accountBalanceVal = '@Model.AccountBalance';
+            //var accountBalanceVal = '@*@Model.AccountBalance*@';
+            var accountBalanceVal = $('#BankAccountBalance').text().trim();
 
             amountVal = amountVal.replace(',', '.');
             accountBalanceVal = accountBalanceVal.replace(',', '.').trim();
@@ -109,10 +110,11 @@
                 if (dataBack.status) {
                     $('#Name').val('');
                     $('#Balance').val('');
-                    $('#AccountBalance').val('');
+                    //$('#AccountBalance').val('');
                     $('#SetDate').val('');
                     var transactionsDiv = $('#TransactionsList');
-                    LoadTransactions(transactionsDiv);
+                    LoadTransactionsFilters(transactionsDiv);
+                    //LoadTransactions(transactionsDiv);
                 }
             },
             error: function() {

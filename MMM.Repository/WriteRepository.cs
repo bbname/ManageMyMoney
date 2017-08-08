@@ -46,6 +46,12 @@ namespace MMM.Repository
                 _dbSet.Remove(entity);
                 _ctx.SaveChanges();
             }
+            catch (ArgumentNullException)
+            {
+                var toRefresh = ((IObjectContextAdapter)_ctx).ObjectContext;
+                toRefresh.SaveChanges();
+                //_ctx.SaveChanges();
+            }
             catch (System.Data.Entity.Infrastructure.DbUpdateException)
             {
                 var toRefresh = ((IObjectContextAdapter)_ctx).ObjectContext;
