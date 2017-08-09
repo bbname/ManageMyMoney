@@ -127,7 +127,7 @@ namespace MMM.Controllers
             if (ModelState.IsValid && Request.IsAjaxRequest())
             {
                 var account = _readBankAccount.GetAccountById(viewModel.BankAccountId);
-                var binder = new FromCreateViewModel();
+                var binder = new FromTransactionCreateViewModel();
                 var transaction = binder.GetTransaction(viewModel, account);
                 _writeTransaction.Create(transaction);
                 status = true;
@@ -141,25 +141,40 @@ namespace MMM.Controllers
         }
 
         // GET: Transaction/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id, int bankAccountId, string userId)
         {
+            if (id != null && Request.IsAjaxRequest()
+                && _readTransaction.IsTransactionCorrect(id.Value, bankAccountId, userId))
+            {
+                var tranasction = _readTransaction.GetTransactionById(id.Value);
+                var binder = new ToTransactionEditViewModel();
+                var currencyLogic = new CurrencyLogic();
+                var viewModel = binder.GetViewModel(tranasction, currencyLogic);
+
+                return PartialView("Edit", viewModel);
+            }
+
             return View();
         }
 
-        // POST: Transaction/Edit/5
         [System.Web.Mvc.HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(TransactionEditViewModel viewModel)
         {
-            try
-            {
-                // TODO: Add update logic here
+            var status = false;
 
-                return RedirectToAction("Index");
-            }
-            catch
+            if (ModelState.IsValid && User.Identity.GetUserId() == viewModel.UserId && Request.IsAjaxRequest()
+                && _readTransaction.IsTransactionCorrect(viewModel.Id, viewModel.BankAccountId, viewModel.UserId))
             {
-                return View();
+                var binder = new FromTransactionEditViewModel();
+                var account = _readBankAccount.GetAccountById(viewModel.BankAccountId);
+                var model = binder.GetTransaction(viewModel, account);
+                _writeTransaction.Edit(model);
+                status = true;
+
+                return new JsonResult() { Data = new { status = status } };
             }
+
+            return new JsonResult() { Data = new { status = status } };
         }
 
         // GET: Transaction/Delete/5

@@ -3,7 +3,7 @@ using MMM.ViewModels.TransactionViewModel;
 
 namespace MMM.ModelBinders.Transaction
 {
-    public class FromCreateViewModel
+    public class FromTransactionCreateViewModel
     {
         public Model.Transaction GetTransaction(TransactionCreateViewModel viewmodel, Account account)
         {
