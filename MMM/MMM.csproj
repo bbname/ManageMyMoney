@@ -238,8 +238,10 @@
     <Compile Include="ModelBinders\AccountToBankAccount\BankAccountCreateViewModelToAccount.cs" />
     <Compile Include="ModelBinders\AccountToBankAccount\BankAccountEditViewModelToAccount.cs" />
     <Compile Include="ModelBinders\BindModelToViewModel.cs" />
-    <Compile Include="ModelBinders\Transaction\FromCreateViewModel.cs" />
+    <Compile Include="ModelBinders\Transaction\FromTransactionCreateViewModel.cs" />
+    <Compile Include="ModelBinders\Transaction\FromTransactionEditViewModel.cs" />
     <Compile Include="ModelBinders\Transaction\ToTransactionDeleteViewModel.cs" />
+    <Compile Include="ModelBinders\Transaction\ToTransactionEditViewModel.cs" />
     <Compile Include="ModelBinders\Transaction\ToTransactionListViewModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -252,6 +254,7 @@
     <Compile Include="ViewModels\BankAccountViewModel\BankAccountCreateViewModel.cs" />
     <Compile Include="ViewModels\TransactionViewModel\TransactionCreateViewModel.cs" />
     <Compile Include="ViewModels\TransactionViewModel\TransactionDeleteViewModel.cs" />
+    <Compile Include="ViewModels\TransactionViewModel\TransactionEditViewModel.cs" />
     <Compile Include="ViewModels\TransactionViewModel\TransactionListViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -425,6 +428,7 @@
     <Content Include="Views\Transaction\Create.cshtml" />
     <Content Include="Views\Transaction\TransactionList.cshtml" />
     <Content Include="Views\Transaction\Delete.cshtml" />
+    <Content Include="Views\Transaction\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

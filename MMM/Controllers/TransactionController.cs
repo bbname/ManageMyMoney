@@ -140,7 +140,7 @@ namespace MMM.Controllers
             }
         }
 
-        // GET: Transaction/Edit/5
+        [HttpGet]
         public ActionResult Edit(int? id, int bankAccountId, string userId)
         {
             if (id != null && Request.IsAjaxRequest()
