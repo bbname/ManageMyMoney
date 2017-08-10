@@ -1,19 +1,52 @@
 ﻿@using Microsoft.AspNet.Identity
 @model IEnumerable<MMM.ViewModels.TransactionViewModel.TransactionListViewModel>
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         TransactionDeleteOpenModalListener();
+        TransactionEditOpenModalListener();
     });
+
+    function TransactionEditOpenModalListener() {
+        debugger;
+        $('.panel-heading').on('click',
+            '.transaction-header-edit',
+            function() {
+                GetTransactionEditData($(this).attr('id'));
+            });
+    }
+
+    function GetTransactionEditData(transactionId) {
+        $.ajax({
+            url: '@Url.Action("Edit", "Transaction")',
+            type: 'GET',
+            data: {
+                id: transactionId,
+                bankAccountId: $bankAccountId,
+                userId: '@User.Identity.GetUserId()'
+            },
+            success: function (dataBack) {
+                LoadDataIntoModalEditAndOpen(dataBack);
+            },
+            error: function() {
+                alert("Coś poszło nie tak przy pobieraniu danych na temat transakcji.");
+            }
+        });
+    }
+
+    function LoadDataIntoModalEditAndOpen(data) {
+            $('#ModalEditTransaction .modal-dialog').html(data);
+            $('#ModalEditTransaction').modal('show');
+        }
 
     function TransactionDeleteOpenModalListener() {
         $('.panel-heading').on('click',
             '.transaction-header-remove',
             function () {
-                GetTransactionData($(this).attr('id'));
+                GetTransactionDeleteData($(this).attr('id'));
             });
     }
 
-    function GetTransactionData(transactionId) {
+    function GetTransactionDeleteData(transactionId) {
         $.ajax({
             url: '@Url.Action("Delete", "Transaction")',
             type: 'GET',
@@ -22,7 +55,7 @@
                 bankAccountId: $bankAccountId
             },
             success: function (dataBack) {
-                LoadDataIntoModalAndOpen(dataBack);
+                LoadDataIntoModalDeleteAndOpen(dataBack);
             },
             error: function() {
                 alert("Coś poszło nie tak przy pobieraniu danych na temat transakcji.");
@@ -30,7 +63,7 @@
         });
     }
 
-    function LoadDataIntoModalAndOpen(data) {
+    function LoadDataIntoModalDeleteAndOpen(data) {
         $('#ModalDeleteTransaction .modal-dialog').html(data);
         $('#ModalDeleteTransaction').modal('show');
     }
