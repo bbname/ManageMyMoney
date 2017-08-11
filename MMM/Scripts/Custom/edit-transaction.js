@@ -25,43 +25,56 @@
 //        });
 //}
 
-function ChangeAccountBalanceListener() {
+function LoadAmountValue(amount) {
+    $amount = amount;
+    $('#ModalEditTransaction #Balance').val(amount);
+}
+
+function ChangeEditAccountBalanceListener(accountBalanceVal, currency) {
     $(document).on('change',
-        '#Balance',
+        '#ModalEditTransaction #Balance',
         function(balance) {
             //alert($(this).val());
-            ChangeAccountBalance();
+            ChangeEditAccountBalance(accountBalanceVal, currency);
         });
 }
 
-function ChangeAccountBalance() {
-    var amountInput = $('#Balance');
-    var accountBalanceInput = $('#AccountBalance');
+function ChangeEditAccountBalance(accountBalanceVal, currency) {
+    debugger;
+    $currencyVal = currency;
+    var amountInput = $('#ModalEditTransaction #Balance');
+    var accountBalanceInput = $('#ModalEditTransaction #AccountBalance');
 
     if (CheckAmountInput(amountInput)) {
         var amountVal = amountInput.val();
         //var accountBalanceVal = GetAccountBalanceInputValue(accountBalanceInput);
         //var accountBalanceVal = '@*@Model.AccountBalance*@';
-        var accountBalanceVal = $('#BankAccountBalance').text().trim();
 
+        //var accountBalanceVal = $('#ModalEditTransaction #AccountBalance').val().trim();
+
+        var firstAmountVal = $amount.replace(',', '.');
         amountVal = amountVal.replace(',', '.');
         accountBalanceVal = accountBalanceVal.replace(',', '.').trim();
 
-        var result = parseFloat(accountBalanceVal) + parseFloat(amountVal);
+        var firstResult = parseFloat(accountBalanceVal) - parseFloat(firstAmountVal);
+        firstResult.toFixed(2);
+        //var result = parseFloat(accountBalanceVal) + parseFloat(amountVal);
+        var result = parseFloat(firstResult) + parseFloat(amountVal);
         result = result.toFixed(2);
 
         result = result.toString().replace('.', ',');
 
-        SetAccountBalanceInputValue(accountBalanceInput, result);
+        SetAccountBalanceInputValue(accountBalanceInput, result, accountBalanceVal, currency);
     }
 }
 
-function SetAccountBalanceInputValue(accountBalanceInput, valueToReplace) {
+function SetAccountBalanceInputValue(accountBalanceInput, valueToReplace, accountBalanceVal, currency) {
     //var accountBalanceInputVal = accountBalanceInput.val();
-    var valueToSet = '@Model.AccountBalance';
+    //var valueToSet = '@Model.AccountBalance';
+    var valueToSet = accountBalanceVal;
 
-    if (!(valueToReplace.indexOf('@Model.Currency') >= 0)) {
-        valueToReplace += ' @Model.Currency';
+    if (!(valueToReplace.indexOf(currency) >= 0)) {
+        valueToReplace += (' ' + currency);
         valueToSet = valueToReplace;
     }
 
@@ -72,8 +85,8 @@ function GetAccountBalanceInputValue(accountBalanceInput) {
     var accountBalanceInputVal = accountBalanceInput.val();
     var valueToReturn = accountBalanceInputVal;
 
-    if (accountBalanceInputVal.indexOf('@Model.Currency') >= 0) {
-        var accountBalanceInputReplaceVal = accountBalanceInputVal.replace('@Model.Currency', '');
+    if (accountBalanceInputVal.indexOf($currencyVal) >= 0) {
+        var accountBalanceInputReplaceVal = accountBalanceInputVal.replace($currencyVal, '');
         valueToReturn = accountBalanceInputReplaceVal;
     }
 
@@ -91,33 +104,34 @@ function CheckAmountInput(amountInput) {
     return valueToReturn;
 }
 
-function SaveEditTransaction() {
+function SaveEditTransaction(urlActionToEdit) {
     //alert('W AJAXIE');
+    debugger;
     var viewModel = {
-        Id: $('#Id').val().trim(),
-        Name: $('#Name').val().trim(),
-        Balance: $('#Balance').val().trim(),
+        Id: $('#ModalEditTransaction #Id').val().trim(),
+        Name: $('#ModalEditTransaction #Name').val().trim(),
+        Balance: $('#ModalEditTransaction #Balance').val().trim(),
         //AccountBalance: $('#AccountBalance').val().trim(),
-        AccountBalance: GetAccountBalanceInputValue($('#AccountBalance')),
-        SetDate: $('#SetDate').val().trim(),
-        BankAccountId: $('#BankAccountId').val().trim(),
-        UserId: $('#UserId').val().trim()
+        AccountBalance: GetAccountBalanceInputValue($('#ModalEditTransaction #AccountBalance')),
+        SetDate: $('#ModalEditTransaction #EditSetDate').val().trim(),
+        BankAccountId: $('#ModalEditTransaction #BankAccountId').val().trim(),
+        UserId: $('#ModalEditTransaction #UserId').val().trim()
     };
 
     viewModel.__RequestVerificationToken = $('input[name=__RequestVerificationToken]').val();
 
     $.ajax({
-        url: '@Url.Action("Edit", "Transaction")',
+        url: urlActionToEdit,
         type: 'POST',
         dataType: 'json',
         data: viewModel,
         success: function(dataBack) {
             if (dataBack.status) {
-                $('#Name').val('');
-                $('#Balance').val('');
+                $('#ModalEditTransaction #Name').val('');
+                $('#ModalEditTransaction #Balance').val('');
                 //EditBankAccountBalance(GetAccountBalanceInputValue($('#AccountBalance')));
-                $('#AccountBalance').val('');
-                $('#SetDate').val('');
+                $('#ModalEditTransaction #AccountBalance').val('');
+                $('#ModalEditTransaction #EditSetDate').val('');
                 var transactionsDiv = $('#TransactionsList');
                 LoadTransactionsFilters(transactionsDiv);
                 //LoadTransactions(transactionsDiv);
@@ -130,27 +144,28 @@ function SaveEditTransaction() {
 
 }
 
+
 //function EditTransactionListener() {
-//    debugger;
-//    $("#ModalContent").on('click', '#EditTransactionBtn', function (e) {
+//    $("#ModalEditTransaction").on('click', '#EditTransactionBtn', function (e) {
+//        debugger;
 //        e.preventDefault();
 //        EditTransaction();
 //    });
 //}
 
-function EditTransactionListener() {
-    $(document).on('click', '#EditTransactionBtn', function (e) {
-        e.preventDefault();
-        EditTransaction();
-    });
-}
+//function EditTransactionListener() {
+//    $(document).on('click', '#EditTransactionBtn', function (e) {
+//        e.preventDefault();
+//        EditTransaction();
+//    });
+//}
 
-function EditTransaction() {
+function EditTransaction(urlPostActionToSave) {
     debugger;
     var button = $('#EditTransactionBtn');
-    if (!(AreFieldsFilled())) {
+    if (!(EditAreFieldsFilled())) {
         button.attr('data-dismiss', '');
-        ValidationMessage();
+        EditValidationMessage();
         // alert("Nie wypełnione");
     }
     else {
@@ -158,14 +173,14 @@ function EditTransaction() {
             button.attr('data-dismiss', 'modal');
             //alert("Wypełnione");
         }
-        SaveEditTransaction();
+        SaveEditTransaction(urlPostActionToSave);
     }
 }
 
-function AreFieldsFilled() {
+function EditAreFieldsFilled() {
     var valueToReturn = false;
     //var collectionOfInputs = $('#InputsToEdit :input');
-    $('#InputsToEdit :input').each(function() {
+    $('#ModalEditTransaction #InputsToEdit :input').each(function() {
         var element = $(this);
         if (!(element.val().length > 0)) {
             //alert('- ' + element.val().length);
@@ -186,48 +201,48 @@ function AreFieldsFilled() {
 //    });
 //}
 
-function LoadValidation() {
+function EditLoadValidation() {
     $(document).change(function () {
         $.validator.unobtrusive.parse("#ModalEditTransaction");
     });
 }
 
-function ValidationMessage() {
+function EditValidationMessage() {
     debugger;
-    var validationDiv = $('#ValidationInfo');
+    var validationDiv = $('#ModalEditTransaction #ValidationInfo');
     // 1 cuz of button
     if (!(validationDiv.has('#ValidationInfoSpan').length > 0)) {
         validationDiv.prepend("<span id='ValidationInfoSpan' class='col-xs-6 col-md-6 text-danger'> Uzupełnij wszystkie pola!</span>");
     }
 }
 
-function BalanceControl() {
-    var balance = $('#Balance');
+function EditBalanceControl() {
+    var balance = $('#ModalEditTransaction #Balance');
     var onlyIntsRegExp = new RegExp('^(-?)[0-9]+$');
 
-    balance.on('change',
-        '#Balance',
-        function() {
-            if (onlyIntsRegExp.test(balance.val())) {
-                balance.val(balance.val() + ",00");
-            }
-            else if (balance.val().indexOf('.') !== -1) {
-                balance.val(balance.val().replace('.', ','));
-            }
-            else {
-                balance.val();
-            }
-        });
+    //balance.on('change',
+    //    '#Balance',
+    //    function() {
+    //        if (onlyIntsRegExp.test(balance.val())) {
+    //            balance.val(balance.val() + ",00");
+    //        }
+    //        else if (balance.val().indexOf('.') !== -1) {
+    //            balance.val(balance.val().replace('.', ','));
+    //        }
+    //        else {
+    //            balance.val();
+    //        }
+    //    });
 
-    //balance.change(function () {
-    //    if (onlyIntsRegExp.test(balance.val())) {
-    //        balance.val(balance.val() + ",00");
-    //    }
-    //    else if (balance.val().indexOf('.') !== -1) {
-    //        balance.val(balance.val().replace('.', ','));
-    //    }
-    //    else {
-    //        balance.val();
-    //    }
-    //});
+    balance.change(function () {
+        if (onlyIntsRegExp.test(balance.val())) {
+            balance.val(balance.val() + ",00");
+        }
+        else if (balance.val().indexOf('.') !== -1) {
+            balance.val(balance.val().replace('.', ','));
+        }
+        else {
+            balance.val();
+        }
+    });
 }

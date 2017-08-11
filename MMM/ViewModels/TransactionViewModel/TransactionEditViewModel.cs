@@ -20,7 +20,7 @@ namespace MMM.ViewModels.TransactionViewModel
         //[HiddenInput(DisplayValue = false)]
         public decimal AccountBalance { get; set; }
         [Display(Name = "Data")]
-        //[DisplayFormat(DataFormatString = "{0:dd.MM.yyyy HH:mm}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy HH:mm}", ApplyFormatInEditMode = true)]
         [DataType(DataType.DateTime)]
         public DateTime SetDate { get; set; }
         [Display(Name = "Waluta")]

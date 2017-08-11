@@ -29,7 +29,6 @@ namespace MMM.Repository
             _dbSet.Attach(entity);
             var entry = _ctx.Entry(entity);
             entry.State = EntityState.Modified;
-            //_ctx.Entry(entity).State = EntityState.Modified;
         }
 
         public virtual void DeleteById(int id)
@@ -50,7 +49,6 @@ namespace MMM.Repository
             {
                 var toRefresh = ((IObjectContextAdapter)_ctx).ObjectContext;
                 toRefresh.SaveChanges();
-                //_ctx.SaveChanges();
             }
             catch (System.Data.Entity.Infrastructure.DbUpdateException)
             {
@@ -58,12 +56,6 @@ namespace MMM.Repository
                 toRefresh.Refresh(RefreshMode.ClientWins, entity);
                 _ctx.SaveChanges();
             }
-            //catch (Exception)
-            //{
-            //    var toRefresh = ((IObjectContextAdapter)_ctx).ObjectContext;
-            //    toRefresh.Refresh(RefreshMode.ClientWins, entity);
-            //    _ctx.SaveChanges();
-            //}
         }
 
         public virtual void Save()

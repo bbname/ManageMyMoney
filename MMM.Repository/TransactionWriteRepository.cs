@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,11 +17,10 @@ namespace MMM.Repository
         {
             
         }
-        
-        //public override void DeleteById(int id)
-        //{
-        //    var transaction = _dbSet.Find(id);
-        //    _dbSet.Remove(transaction);
-        //}
+
+        public override void Edit(Transaction entity)
+        {
+            _dbSet.AddOrUpdate(entity);
+        }
     }
 }
