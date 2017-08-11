@@ -1,15 +1,13 @@
 ﻿@model MMM.ViewModels.TransactionViewModel.TransactionEditViewModel
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    @*@Scripts.Render("~/bundles/editTransaction")*@
 }
 
 <script type="text/javascript">
     $(document).ready(function () {
-        debugger;
         LoadAmountValue('@Model.Balance');
         EditLoadValidation();
-        EditTransactionListener();
+        EditTransactionListener('@Url.Action("Edit", "Transaction")');
         EditBalanceControl();
         ChangeEditAccountBalanceListener('@Model.AccountBalance', '@Model.Currency');
 
@@ -23,14 +21,6 @@
             });
         });
     });
-
-    function EditTransactionListener() {
-        $("#EditModalContent").on('click', '#EditTransactionBtn', function (e) {
-            debugger;
-            e.preventDefault();
-            EditTransaction('@Url.Action("Edit", "Transaction")');
-        });
-    }
 </script>
 
 <div class="modal-content" id="EditModalContent">
@@ -74,7 +64,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.SetDate, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            <input id="EditSetDate" name="SetDate" type="text" class="form-control" style="cursor: pointer;" value="@Model.SetDate" data-val="true" data-val-required="Pole Data jest wymagane." />
+                            <input id="EditSetDate" name="SetDate" type="text" class="form-control" style="cursor: pointer;" value="@Html.DisplayFor(t => t.SetDate)" data-val="true" data-val-required="Pole Data jest wymagane." />
                             @Html.ValidationMessageFor(model => model.SetDate, "", new { @class = "text-danger" })
                         </div>
                     </div>

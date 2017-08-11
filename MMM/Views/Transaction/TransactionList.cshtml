@@ -7,7 +7,6 @@
     });
 
     function TransactionEditOpenModalListener() {
-        debugger;
         $('.panel-heading').on('click',
             '.transaction-header-edit',
             function() {
@@ -34,9 +33,9 @@
     }
 
     function LoadDataIntoModalEditAndOpen(data) {
-            $('#ModalEditTransaction .modal-dialog').html(data);
-            $('#ModalEditTransaction').modal('show');
-        }
+        $('#ModalEditTransaction .modal-dialog').html(data);
+        $('#ModalEditTransaction').modal('show');
+    }
 
     function TransactionDeleteOpenModalListener() {
         $('.panel-heading').on('click',
@@ -67,8 +66,8 @@
         $('#ModalDeleteTransaction .modal-dialog').html(data);
         $('#ModalDeleteTransaction').modal('show');
     }
-
 </script>
+
 @foreach (var transaction in Model)
 {
         <div class="col-xs-6 col-sm-4 col-md-3">
