@@ -27,8 +27,11 @@ namespace MMM
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
-            bundles.Add(new StyleBundle("~/bundles/editTransaction").Include(
+            bundles.Add(new ScriptBundle("~/bundles/editTransaction").Include(
                 "~/Scripts/Custom/edit-transaction.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/deleteTransaction").Include(
+                "~/Scripts/Custom/delete-transaction.js"));
         }
     }
 }

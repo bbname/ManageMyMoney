@@ -2,10 +2,10 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        DeleteTransactionListener();
+        DeleteTransactionListener('@Url.Action("Delete", "Transaction")','@Model.Id', '@Model.BankAccountId', '@Model.UserId');
     });
 
-    function DeleteTransactionListener() {
+    @*function DeleteTransactionListener() {
         $(document).on('click', '#DeleteTransactionBtn',function (e) {
             e.preventDefault();
             DeleteTransaction();
@@ -33,7 +33,7 @@
                 alert('Coś poszło nie tak przy usuwaniu transakcji.');
             }
         });
-    }
+    }*@
 
 </script>
 
