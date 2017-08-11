@@ -255,7 +255,7 @@
 <hr />
 <div class="modal fade" id="ModalCreateTransaction" role="dialog">
     <div class="modal-dialog">
-        @{ Html.RenderAction("Create", "Transaction", new { bankAccountId = Model.Id, userId = Model.User.Id, accountBalance = Model.Balance, currency = Model.Currency });}
+        @{ Html.RenderAction("Create", "Transaction", new {bankAccountId = Model.Id, userId = Model.User.Id, accountBalance = Model.Balance, currency = Model.Currency});}
     </div>
 </div>
 <div class="modal fade" id="ModalDeleteTransaction" role="dialog">
