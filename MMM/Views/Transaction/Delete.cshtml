@@ -2,7 +2,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        DeleteTransactionListener('@Url.Action("Delete", "Transaction")','@Model.Id', '@Model.BankAccountId', '@Model.UserId');
+        DeleteTransactionListener('@Url.Action("Delete", "Transaction")','@Model.Id', '@Model.BankAccountId', '@Model.UserId', '@Url.Action("GetTransactionsByBankAccountIdFilters", "Transaction")');
     });
 </script>
 

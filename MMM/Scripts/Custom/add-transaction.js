@@ -64,7 +64,7 @@ function CheckAmountInput(amountInput) {
     return valueToReturn;
 }
 
-function SaveTransaction(urlActionToAdd) {
+function SaveTransaction(urlActionToAdd, urlActionToEditBankAccount, urlGetActionLoadFilters) {
     //alert('W AJAXIE');
     var viewModel = {
         Name: $('#Name').val().trim(),
@@ -87,12 +87,11 @@ function SaveTransaction(urlActionToAdd) {
             if (dataBack.status) {
                 $('#Name').val('');
                 $('#Balance').val('');
-                EditBankAccountBalance(GetAccountBalanceInputValue($('#AccountBalance')));
+                EditBankAccountBalance(urlActionToEditBankAccount, GetAccountBalanceInputValue($('#AccountBalance')), $('#UserId').val().trim());
                 //$('#AccountBalance').val('');
                 $('#SetDate').val('');
                 var transactionsDiv = $('#TransactionsList');
-                LoadTransactionsFilters(transactionsDiv);
-                //LoadTransactions(transactionsDiv);
+                LoadTransactionsFilters(transactionsDiv,  urlGetActionLoadFilters, $('#BankAccountId').val().trim());
             }
         },
         error: function () {
@@ -102,14 +101,14 @@ function SaveTransaction(urlActionToAdd) {
 
 }
 
-function AddTransactionListener(urlPostActionToSave) {
+function AddTransactionListener(urlPostActionToSave, urlPostActionToEditBankAccount, urlGetActionLoadFilters) {
     $("#ModalContent").on('click', '#AddTransactionBtn', function (e) {
         e.preventDefault();
-        AddTransaction(urlPostActionToSave);
+        AddTransaction(urlPostActionToSave, urlPostActionToEditBankAccount, urlGetActionLoadFilters);
     });
 }
 
-function AddTransaction(urlPostActionToSave) {
+function AddTransaction(urlPostActionToSave, urlPostActionToEditBankAccount, urlGetActionLoadFilters) {
     var button = $('#AddTransactionBtn');
     if (!(AreFieldsFilled())) {
         button.attr('data-dismiss', '');
@@ -121,7 +120,7 @@ function AddTransaction(urlPostActionToSave) {
             button.attr('data-dismiss', 'modal');
             //alert("Wypełnione");
         }
-        SaveTransaction(urlPostActionToSave);
+        SaveTransaction(urlPostActionToSave, urlPostActionToEditBankAccount, urlGetActionLoadFilters);
     }
 }
 

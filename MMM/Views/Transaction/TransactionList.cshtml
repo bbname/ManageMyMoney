@@ -1,7 +1,7 @@
 ﻿@using System.Web.Configuration
 @using Microsoft.AspNet.Identity
 @model IEnumerable<MMM.ViewModels.TransactionViewModel.TransactionListViewModel>
-@Scripts.Render("~/bundles/loadTransactionToModal")
+@Scripts.Render("~/bundles/load-transaction-to-modal")
 <script type="text/javascript">
     $(document).ready(function () {
         TransactionDeleteOpenModalListener('@Url.Action("Delete", "Transaction")', $bankAccountId);

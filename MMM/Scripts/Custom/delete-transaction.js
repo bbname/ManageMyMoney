@@ -1,11 +1,11 @@
-﻿function DeleteTransactionListener(urlPostActionToSave, id, bankAccountId, userId) {
+﻿function DeleteTransactionListener(urlPostActionToSave, id, bankAccountId, userId, urlGetActionLoadFilters) {
     $(document).on('click', '#DeleteTransactionBtn', function (e) {
         e.preventDefault();
-        DeleteTransaction(urlPostActionToSave, id, bankAccountId, userId);
+        DeleteTransaction(urlPostActionToSave, id, bankAccountId, userId, urlGetActionLoadFilters);
     });
 }
 
-function DeleteTransaction(urlPostActionToSave, id, bankAccountId, userId) {
+function DeleteTransaction(urlPostActionToSave, id, bankAccountId, userId, urlGetActionLoadFilters) {
 
     $.ajax({
         url: urlPostActionToSave,
@@ -19,7 +19,7 @@ function DeleteTransaction(urlPostActionToSave, id, bankAccountId, userId) {
         success: function (dataBack) {
             if (dataBack.status) {
                 var tranasctionDiv = $('#TransactionsList');
-                LoadTransactionsFilters(tranasctionDiv);
+                LoadTransactionsFilters(tranasctionDiv, urlGetActionLoadFilters, bankAccountId);
             }
         },
         error: function () {

@@ -2,12 +2,11 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/addTransaction")
 }
 <script type="text/javascript">
     $(document).ready(function () {
         LoadValidation();
-        AddTransactionListener('@Url.Action("Create", "Transaction")');
+        AddTransactionListener('@Url.Action("Create", "Transaction")', '@Url.Action("UpdateBankAccountBalance", "BankAccount")', '@Url.Action("GetTransactionsByBankAccountIdFilters", "Transaction")');
         BalanceControl();
         ChangeAccountBalanceListener('@Model.AccountBalance', '@Model.Currency');
 
@@ -23,7 +22,7 @@
 
     });
 
-    
+
 </script>
 <div class="modal-content" id="ModalContent">
     @using (Html.BeginForm("Create", "Transaction", FormMethod.Post, new { role="form", id="ModalCreateTransaction"}))

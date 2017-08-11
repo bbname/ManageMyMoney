@@ -1,8 +1,9 @@
 ﻿
-function EditTransactionListener(urlPostActionToSave) {
+function EditTransactionListener(currency, urlPostActionToSave, urlGetActionLoadFilters) {
+    $currencyVal = currency;
     $("#EditModalContent").on('click', '#EditTransactionBtn', function (e) {
         e.preventDefault();
-        EditTransaction(urlPostActionToSave);
+        EditTransaction(urlPostActionToSave, urlGetActionLoadFilters);
     });
 }
 
@@ -20,11 +21,10 @@ function ChangeEditAccountBalanceListener(accountBalanceVal, currency) {
 }
 
 function ChangeEditAccountBalance(accountBalanceVal, currency) {
-    $currencyVal = currency;
     var amountInput = $('#ModalEditTransaction #Balance');
     var accountBalanceInput = $('#ModalEditTransaction #AccountBalance');
 
-    if (CheckAmountInput(amountInput)) {
+    if (CheckEditAmountInput(amountInput)) {
         var amountVal = amountInput.val();
 
         var firstAmountVal = $amount.replace(',', '.');
@@ -38,11 +38,11 @@ function ChangeEditAccountBalance(accountBalanceVal, currency) {
 
         result = result.toString().replace('.', ',');
 
-        SetAccountBalanceInputValue(accountBalanceInput, result, accountBalanceVal, currency);
+        SetEditAccountBalanceInputValue(accountBalanceInput, result, accountBalanceVal, currency);
     }
 }
 
-function SetAccountBalanceInputValue(accountBalanceInput, valueToReplace, accountBalanceVal, currency) {
+function SetEditAccountBalanceInputValue(accountBalanceInput, valueToReplace, accountBalanceVal, currency) {
     var valueToSet = accountBalanceVal;
 
     if (!(valueToReplace.indexOf(currency) >= 0)) {
@@ -53,7 +53,7 @@ function SetAccountBalanceInputValue(accountBalanceInput, valueToReplace, accoun
     accountBalanceInput.val(valueToSet);
 }
 
-function GetAccountBalanceInputValue(accountBalanceInput) {
+function GetEditAccountBalanceInputValue(accountBalanceInput) {
     var accountBalanceInputVal = accountBalanceInput.val();
     var valueToReturn = accountBalanceInputVal;
 
@@ -65,7 +65,7 @@ function GetAccountBalanceInputValue(accountBalanceInput) {
     return valueToReturn;
 }
 
-function CheckAmountInput(amountInput) {
+function CheckEditAmountInput(amountInput) {
     var valueToReturn = false;
     var checkIfDecimal = new RegExp('^(-?)[0-9]+(\\,[0-9]{1,2})$');
 
@@ -76,12 +76,12 @@ function CheckAmountInput(amountInput) {
     return valueToReturn;
 }
 
-function SaveEditTransaction(urlActionToEdit) {
+function SaveEditTransaction(urlActionToEdit, urlGetActionLoadFilters) {
     var viewModel = {
         Id: $('#ModalEditTransaction #Id').val().trim(),
         Name: $('#ModalEditTransaction #Name').val().trim(),
         Balance: $('#ModalEditTransaction #Balance').val().trim(),
-        AccountBalance: GetAccountBalanceInputValue($('#ModalEditTransaction #AccountBalance')),
+        AccountBalance: GetEditAccountBalanceInputValue($('#ModalEditTransaction #AccountBalance')),
         SetDate: $('#ModalEditTransaction #EditSetDate').val().trim(),
         BankAccountId: $('#ModalEditTransaction #BankAccountId').val().trim(),
         UserId: $('#ModalEditTransaction #UserId').val().trim()
@@ -98,11 +98,11 @@ function SaveEditTransaction(urlActionToEdit) {
             if (dataBack.status) {
                 $('#ModalEditTransaction #Name').val('');
                 $('#ModalEditTransaction #Balance').val('');
-                //EditBankAccountBalance(GetAccountBalanceInputValue($('#AccountBalance')));
+                //EditBankAccountBalance(GetEditAccountBalanceInputValue($('#AccountBalance')));
                 $('#ModalEditTransaction #AccountBalance').val('');
                 $('#ModalEditTransaction #EditSetDate').val('');
                 var transactionsDiv = $('#TransactionsList');
-                LoadTransactionsFilters(transactionsDiv);
+                LoadTransactionsFilters(transactionsDiv, urlGetActionLoadFilters, $('#ModalEditTransaction #BankAccountId').val().trim(),);
             }
         },
         error: function() {
@@ -112,7 +112,7 @@ function SaveEditTransaction(urlActionToEdit) {
 
 }
 
-function EditTransaction(urlPostActionToSave) {
+function EditTransaction(urlPostActionToSave, urlGetActionLoadFilters) {
     var button = $('#EditTransactionBtn');
     if (!(EditAreFieldsFilled())) {
         button.attr('data-dismiss', '');
@@ -122,7 +122,7 @@ function EditTransaction(urlPostActionToSave) {
         if (!(button.attr('data-dismiss').length > 0)) {
             button.attr('data-dismiss', 'modal');
         }
-        SaveEditTransaction(urlPostActionToSave);
+        SaveEditTransaction(urlPostActionToSave, urlGetActionLoadFilters);
     }
 }
 

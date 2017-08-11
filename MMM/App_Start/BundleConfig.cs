@@ -5,9 +5,12 @@ namespace MMM
 {
     public class BundleConfig
     {
+
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            BundleTable.EnableOptimizations = true;
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -27,16 +30,19 @@ namespace MMM
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/addTransaction").Include(
+            bundles.Add(new ScriptBundle("~/bundles/load-transactions").Include(
+                "~/Scripts/Custom/load-transactions.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/add-transaction").Include(
                 "~/Scripts/Custom/add-transaction.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/editTransaction").Include(
+            bundles.Add(new ScriptBundle("~/bundles/edit-transaction").Include(
                 "~/Scripts/Custom/edit-transaction.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/deleteTransaction").Include(
+            bundles.Add(new ScriptBundle("~/bundles/delete-transaction").Include(
                 "~/Scripts/Custom/delete-transaction.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/loadTransactionToModal").Include(
+            bundles.Add(new ScriptBundle("~/bundles/load-transaction-to-modal").Include(
                 "~/Scripts/Custom/get-transaction.js",
                 "~/Scripts/Custom/load-modal.js"));
         }

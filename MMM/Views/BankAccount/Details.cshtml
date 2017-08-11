@@ -3,6 +3,7 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/load-transactions")
 }
 
 @{
@@ -11,11 +12,10 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var transactionsDiv = $('#TransactionsList');
-        LoadTransactions(transactionsDiv);
-        LoadTransactionsFiltersListener(transactionsDiv);
-        DateFromToFilterListener(transactionsDiv);
+        LoadTransactions(transactionsDiv, '@Url.Action("GetTransactionsByBankAccountId", "Transaction", new {@bankAccountId = Model.Id})');
+        LoadTransactionsFiltersListener(transactionsDiv, '@Url.Action("GetTransactionsByBankAccountIdFilters", "Transaction")', '@Model.Id');
+        DateFromToFilterListener(transactionsDiv, '@Url.Action("GetTransactionsByBankAccountIdFilters", "Transaction")', '@Model.Id');
         ClearDateFromToInputsListener();
-        //TransactionAddOpenModalListener();
         $bankAccountId = '@Model.Id';
 
         $(function () {
@@ -40,7 +40,7 @@
 
     });
 
-    function EditBankAccountBalance(accountBalance) {
+    @*function EditBankAccountBalance(accountBalance) {
         SaveChangedBankAccountBalance(accountBalance);
     }
 
@@ -143,40 +143,6 @@
                 alert('Coś poszło nie tak przy pobieraniu danych poprzez filtry.');
             }
         });
-    }
-
-    @*function TransactionAddOpenModalListener() {
-        $('#TransactionListFilters').on('click',
-            '#CreateTransaction',
-            function () {
-                GetTransactionDataCreate();
-            });
-    }
-
-    function GetTransactionDataCreate() {
-        alert($('#BankAccountBalance').html() + '  ' + $('#BankAccountCurrency').html().trim());
-
-        $.ajax({
-            url: '@Url.Action("Create", "Transaction")',
-            type: 'GET',
-            data: {
-                bankAccountId: $bankAccountId,
-                userId: '@Model.User.Id',
-                accountBalance: $('#BankAccountBalance').html(),
-                currency: $('#BankAccountCurrency').html().trim()
-            },
-            success: function (dataBack) {
-                LoadDataIntoModalAndOpen(dataBack);
-            },
-            error: function() {
-                alert("Coś poszło nie tak przy generowaniu modelu dodawania transakcji.");
-            }
-        });
-    }
-
-    function LoadDataIntoModalAndOpen(data) {
-        $('#ModalCreateTransaction .modal-dialog').html(data);
-        //$('#ModalCreateTransaction').modal('show');
     }*@
 
 </script>
@@ -254,17 +220,18 @@
 
 <hr />
 <div class="modal fade" id="ModalCreateTransaction" role="dialog">
+    @Scripts.Render("~/bundles/add-transaction")
     <div class="modal-dialog">
         @{ Html.RenderAction("Create", "Transaction", new {bankAccountId = Model.Id, userId = Model.User.Id, accountBalance = Model.Balance, currency = Model.Currency});}
     </div>
 </div>
 <div class="modal fade" id="ModalDeleteTransaction" role="dialog">
-    @Scripts.Render("~/bundles/deleteTransaction")
+    @Scripts.Render("~/bundles/delete-transaction")
     <div class="modal-dialog">
     </div>
 </div>
 <div class="modal fade" id="ModalEditTransaction" role="dialog">
-    @Scripts.Render("~/bundles/editTransaction")
+    @Scripts.Render("~/bundles/edit-transaction")
     <div class="modal-dialog">     
     </div>
 </div>
