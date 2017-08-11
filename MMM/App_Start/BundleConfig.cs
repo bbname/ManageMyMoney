@@ -32,6 +32,10 @@ namespace MMM
 
             bundles.Add(new ScriptBundle("~/bundles/deleteTransaction").Include(
                 "~/Scripts/Custom/delete-transaction.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/loadTransactionToModal").Include(
+                "~/Scripts/Custom/get-transaction.js",
+                "~/Scripts/Custom/load-modal.js"));
         }
     }
 }

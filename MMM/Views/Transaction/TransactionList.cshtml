@@ -1,12 +1,14 @@
-﻿@using Microsoft.AspNet.Identity
+﻿@using System.Web.Configuration
+@using Microsoft.AspNet.Identity
 @model IEnumerable<MMM.ViewModels.TransactionViewModel.TransactionListViewModel>
+@Scripts.Render("~/bundles/loadTransactionToModal")
 <script type="text/javascript">
     $(document).ready(function () {
-        TransactionDeleteOpenModalListener();
-        TransactionEditOpenModalListener();
+        TransactionDeleteOpenModalListener('@Url.Action("Delete", "Transaction")', $bankAccountId);
+        TransactionEditOpenModalListener('@Url.Action("Edit", "Transaction")', $bankAccountId, '@User.Identity.GetUserId()');
     });
 
-    function TransactionEditOpenModalListener() {
+    @*function TransactionEditOpenModalListener() {
         $('.panel-heading').on('click',
             '.transaction-header-edit',
             function() {
@@ -65,7 +67,7 @@
     function LoadDataIntoModalDeleteAndOpen(data) {
         $('#ModalDeleteTransaction .modal-dialog').html(data);
         $('#ModalDeleteTransaction').modal('show');
-    }
+    }*@
 </script>
 
 @foreach (var transaction in Model)

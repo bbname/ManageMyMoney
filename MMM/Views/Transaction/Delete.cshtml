@@ -4,37 +4,6 @@
     $(document).ready(function () {
         DeleteTransactionListener('@Url.Action("Delete", "Transaction")','@Model.Id', '@Model.BankAccountId', '@Model.UserId');
     });
-
-    @*function DeleteTransactionListener() {
-        $(document).on('click', '#DeleteTransactionBtn',function (e) {
-            e.preventDefault();
-            DeleteTransaction();
-        });
-    }
-
-    function DeleteTransaction() {
-
-        $.ajax({
-            url: '@Url.Action("Delete", "Transaction")',
-            type: 'POST',
-            data: {
-                __RequestVerificationToken: $('input[name=____RequestVerificationToken]').val(),
-                id: '@Model.Id',
-                bankAccountId: '@Model.BankAccountId',
-                userId: '@Model.UserId'
-            },
-            success: function (dataBack) {
-                if (dataBack.status) {
-                    var tranasctionDiv = $('#TransactionsList');
-                    LoadTransactionsFilters(tranasctionDiv);
-                }
-            },
-            error: function() {
-                alert('Coś poszło nie tak przy usuwaniu transakcji.');
-            }
-        });
-    }*@
-
 </script>
 
 <div class="modal-content" id="ModalContent">
