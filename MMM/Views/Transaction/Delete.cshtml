@@ -2,7 +2,14 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        DeleteTransactionListener('@Url.Action("Delete", "Transaction")','@Model.Id', '@Model.BankAccountId', '@Model.UserId', '@Url.Action("GetTransactionsByBankAccountIdFilters", "Transaction")');
+        DeleteTransactionListener('@Url.Action("Delete", "Transaction")',
+            '@Model.Id',
+            '@Model.BankAccountId',
+            '@Model.UserId',
+            '@Url.Action("GetTransactionsByBankAccountIdFilters", "Transaction")',
+            '@Url.Action("UpdateBankAccountBalance", "BankAccount")',
+            '@Model.Amount'
+        );
     });
 </script>
 
@@ -55,7 +62,8 @@
         </div>
     </div>
     <div class="modal-footer">
-        @using (Html.BeginForm())
+        @*@using (Html.BeginForm())*@
+        @using (Html.BeginForm("Delete", "Transaction", FormMethod.Post, new { role = "form", id = "ModalDeleteTransaction" }))
         {
             @Html.AntiForgeryToken()
             <div class="form-actions no-color">

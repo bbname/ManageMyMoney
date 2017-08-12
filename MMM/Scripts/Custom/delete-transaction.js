@@ -1,11 +1,12 @@
-﻿function DeleteTransactionListener(urlPostActionToSave, id, bankAccountId, userId, urlGetActionLoadFilters) {
+﻿function DeleteTransactionListener(urlPostActionToSave, id, bankAccountId, userId, urlGetActionLoadFilters, urlEditAccountBalanceAction, amount) {
     $(document).on('click', '#DeleteTransactionBtn', function (e) {
         e.preventDefault();
-        DeleteTransaction(urlPostActionToSave, id, bankAccountId, userId, urlGetActionLoadFilters);
+        DeleteTransaction(urlPostActionToSave, id, bankAccountId, userId, urlGetActionLoadFilters, urlEditAccountBalanceAction, amount);
     });
 }
 
-function DeleteTransaction(urlPostActionToSave, id, bankAccountId, userId, urlGetActionLoadFilters) {
+function DeleteTransaction(urlPostActionToSave, id, bankAccountId, userId, urlGetActionLoadFilters, urlEditAccountBalanceAction, amount) {
+    var isPermissionToChangeBalance = !($('#ModalDeleteTransaction #DeleteChangeBankAccountBalance').is(':checked'));
 
     $.ajax({
         url: urlPostActionToSave,
@@ -19,6 +20,10 @@ function DeleteTransaction(urlPostActionToSave, id, bankAccountId, userId, urlGe
         success: function (dataBack) {
             if (dataBack.status) {
                 var tranasctionDiv = $('#TransactionsList');
+                EditBankAccountBalance(urlEditAccountBalanceAction,
+                    GetBankAccountBalanceDeleteTransaction(amount),
+                    userId,
+                    isPermissionToChangeBalance);
                 LoadTransactionsFilters(tranasctionDiv, urlGetActionLoadFilters, bankAccountId);
             }
         },

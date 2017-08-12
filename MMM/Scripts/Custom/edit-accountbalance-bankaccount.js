@@ -1,5 +1,8 @@
-﻿function EditBankAccountBalance(urlPostActionToSave, accountBalance, userId) {
-    SaveChangedBankAccountBalance(urlPostActionToSave, accountBalance, userId);
+﻿function EditBankAccountBalance(urlPostActionToSave, accountBalance, userId, isPermissionForEdit) {
+
+    if (isPermissionForEdit) {
+        SaveChangedBankAccountBalance(urlPostActionToSave, accountBalance, userId);
+    }
 }
 
 function SaveChangedBankAccountBalance(urlPostActionToSave, accountBalance, userId) {
@@ -21,4 +24,22 @@ function SaveChangedBankAccountBalance(urlPostActionToSave, accountBalance, user
             alert('Coś poszło nie tak przy updateowaniu salda konta.');
         }
     });
+}
+
+function GetBankAccountBalanceEditTranasction(amount) {
+    
+}
+
+function GetBankAccountBalanceDeleteTransaction(amount) {
+
+    amount = amount.replace(',', '.');
+
+    var balance = $('#BankAccountBalance').text().trim();
+    balance = balance.replace(',', '.');
+
+    var balanceAfterUpdate = parseFloat(balance) + (parseFloat(amount) * -1);
+    balanceAfterUpdate = balanceAfterUpdate.toFixed(2);
+    balanceAfterUpdate = balanceAfterUpdate.toString().replace('.', ',');
+
+    return balanceAfterUpdate;
 }

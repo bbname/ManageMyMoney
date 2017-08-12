@@ -87,7 +87,7 @@ function SaveTransaction(urlActionToAdd, urlActionToEditBankAccount, urlGetActio
             if (dataBack.status) {
                 $('#Name').val('');
                 $('#Balance').val('');
-                EditBankAccountBalance(urlActionToEditBankAccount, GetAccountBalanceInputValue($('#AccountBalance')), $('#UserId').val().trim());
+                EditBankAccountBalance(urlActionToEditBankAccount, GetAccountBalanceInputValue($('#AccountBalance')), $('#UserId').val().trim(), true);
                 //$('#AccountBalance').val('');
                 $('#SetDate').val('');
                 var transactionsDiv = $('#TransactionsList');

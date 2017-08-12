@@ -7,7 +7,11 @@
     $(document).ready(function () {
         LoadAmountValue('@Model.Balance');
         EditLoadValidation();
-        EditTransactionListener('@Model.Currency','@Url.Action("Edit", "Transaction")', '@Url.Action("GetTransactionsByBankAccountIdFilters", "Transaction")');
+        EditTransactionListener('@Model.Currency',
+            '@Url.Action("Edit", "Transaction")',
+            '@Url.Action("GetTransactionsByBankAccountIdFilters", "Transaction")',
+            '@Url.Action("UpdateBankAccountBalance", "BankAccount")'
+        );
         EditBalanceControl();
         ChangeEditAccountBalanceListener('@Model.AccountBalance', '@Model.Currency');
 
