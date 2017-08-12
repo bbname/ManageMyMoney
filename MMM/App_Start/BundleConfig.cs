@@ -31,7 +31,8 @@ namespace MMM
                       "~/Content/site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/load-transactions").Include(
-                "~/Scripts/Custom/load-transactions.js"));
+                "~/Scripts/Custom/load-transactions.js",
+                "~/Scripts/Custom/edit-accountbalance-bankaccount.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/add-transaction").Include(
                 "~/Scripts/Custom/add-transaction.js"));

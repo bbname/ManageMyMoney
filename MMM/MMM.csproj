@@ -318,6 +318,7 @@
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\Custom\add-transaction.js" />
     <Content Include="Scripts\Custom\delete-transaction.js" />
+    <Content Include="Scripts\Custom\edit-accountbalance-bankaccount.js" />
     <Content Include="Scripts\Custom\edit-transaction.js" />
     <Content Include="Scripts\Custom\get-transaction.js" />
     <Content Include="Scripts\Custom\load-modal.js" />

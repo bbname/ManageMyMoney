@@ -73,11 +73,17 @@
                     @Html.HiddenFor(m => m.UserId)
                 </div>
             <div class="modal-footer">
-                <div class="form-group">
+                <div class="col-md-offset-3 col-md-9" id="ValidationInfo"></div>
+                <div class="form-actions no-color">
+                    <span style="float: left;"><input id="EditChangeBankAccountBalance" name="EditChangeBankAccountBalance" type="checkbox" class="form-control checkbox-change-account-balance btn-md"/><span> Nie zmieniaj obecnego salda konta.</span></span>
+                    <button class="btn btn-warning" type="submit" data-dismiss="modal" id="EditTransactionBtn"><span class="glyphicon glyphicon-ok"></span> Zapisz</button>
+                </div>
+                @*<div class="form-group">
+                    <span style="float: left;"><input id="EditChangeBankAccountBalance" name="EditChangeBankAccountBalance" type="checkbox" class="form-control checkbox-change-account-balance btn-md"/><span> Nie zmieniaj obecnego salda konta.</span></span>
                     <div class="col-md-offset-2 col-md-10" id="ValidationInfo">
                         <button class="btn btn-warning" type="submit" data-dismiss="modal" id="EditTransactionBtn"><span class="glyphicon glyphicon-ok"></span> Zapisz</button>
                     </div>
-                </div>
+                </div>*@
             </div>
         </div>
     }

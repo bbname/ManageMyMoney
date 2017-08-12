@@ -151,7 +151,7 @@ function EditValidationMessage() {
     var validationDiv = $('#ModalEditTransaction #ValidationInfo');
     // 1 cuz of button
     if (!(validationDiv.has('#ValidationInfoSpan').length > 0)) {
-        validationDiv.prepend("<span id='ValidationInfoSpan' class='col-xs-6 col-md-6 text-danger'> Uzupełnij wszystkie pola!</span>");
+        validationDiv.prepend("<span id='ValidationInfoSpan' class='col-xs-6 col-md-6 text-danger' style='margin-bottom: 10px;'> Uzupełnij wszystkie pola!</span>");
     }
 }
 
