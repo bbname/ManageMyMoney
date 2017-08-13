@@ -26,12 +26,23 @@ function SaveChangedBankAccountBalance(urlPostActionToSave, accountBalance, user
     });
 }
 
-function GetBankAccountBalanceEditTranasction(amount) {
-    
+function GetBankAccountBalanceEditTranasction(firstAmount, currentAmount) {
+    firstAmount = firstAmount.replace(',', '.');
+    currentAmount = currentAmount.replace(',', '.');
+    var balance = $('#BankAccountBalance').text().trim();
+    balance = balance.replace(',', '.');
+
+    var amountDifference = parseFloat(firstAmount) - parseFloat(currentAmount);
+    amountDifference = amountDifference.toFixed(2);
+
+    var balanceToUpdate = parseFloat(balance) - parseFloat(amountDifference);
+    balanceToUpdate = balanceToUpdate.toFixed(2);
+    balanceToUpdate = balanceToUpdate.toString().replace('.', ',');
+
+    return balanceToUpdate;
 }
 
 function GetBankAccountBalanceDeleteTransaction(amount) {
-
     amount = amount.replace(',', '.');
 
     var balance = $('#BankAccountBalance').text().trim();

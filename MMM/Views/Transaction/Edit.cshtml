@@ -10,7 +10,8 @@
         EditTransactionListener('@Model.Currency',
             '@Url.Action("Edit", "Transaction")',
             '@Url.Action("GetTransactionsByBankAccountIdFilters", "Transaction")',
-            '@Url.Action("UpdateBankAccountBalance", "BankAccount")'
+            '@Url.Action("UpdateBankAccountBalance", "BankAccount")',
+            '@Model.Balance'
         );
         EditBalanceControl();
         ChangeEditAccountBalanceListener('@Model.AccountBalance', '@Model.Currency');

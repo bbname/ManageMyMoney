@@ -1,9 +1,9 @@
 ﻿
-function EditTransactionListener(currency, urlPostActionToSave, urlGetActionLoadFilters, urlActionToUpdateBankAccountBalance) {
+function EditTransactionListener(currency, urlPostActionToSave, urlGetActionLoadFilters, urlActionToUpdateBankAccountBalance, firstAmount) {
     $currencyVal = currency;
     $("#EditModalContent").on('click', '#EditTransactionBtn', function (e) {
         e.preventDefault();
-        EditTransaction(urlPostActionToSave, urlGetActionLoadFilters, urlActionToUpdateBankAccountBalance);
+        EditTransaction(urlPostActionToSave, urlGetActionLoadFilters, urlActionToUpdateBankAccountBalance, firstAmount);
     });
 }
 
@@ -76,7 +76,7 @@ function CheckEditAmountInput(amountInput) {
     return valueToReturn;
 }
 
-function SaveEditTransaction(urlActionToEdit, urlGetActionLoadFilters, urlActionToUpdateBankAccountBalance) {
+function SaveEditTransaction(urlActionToEdit, urlGetActionLoadFilters, urlActionToUpdateBankAccountBalance, firstAmount) {
     var viewModel = {
         Id: $('#ModalEditTransaction #Id').val().trim(),
         Name: $('#ModalEditTransaction #Name').val().trim(),
@@ -88,7 +88,6 @@ function SaveEditTransaction(urlActionToEdit, urlGetActionLoadFilters, urlAction
     };
 
     viewModel.__RequestVerificationToken = $('input[name=__RequestVerificationToken]').val();
-    debugger;
     var isPermissionToChangeBalance = !($('#ModalEditTransaction #EditChangeBankAccountBalance').is(':checked'));
 
     $.ajax({
@@ -99,12 +98,13 @@ function SaveEditTransaction(urlActionToEdit, urlGetActionLoadFilters, urlAction
         success: function(dataBack) {
             if (dataBack.status) {
                 $('#ModalEditTransaction #Name').val('');
+                //EditBankAccountBalance(urlActionToUpdateBankAccountBalance, GetEditAccountBalanceInputValue($('#ModalEditTransaction #AccountBalance')), $('#ModalEditTransaction #UserId').val().trim(), isPermissionToChangeBalance);
+                EditBankAccountBalance(urlActionToUpdateBankAccountBalance, GetBankAccountBalanceEditTranasction(firstAmount, $('#ModalEditTransaction #Balance').val()), $('#ModalEditTransaction #UserId').val().trim(), isPermissionToChangeBalance);
                 $('#ModalEditTransaction #Balance').val('');
-                EditBankAccountBalance(urlActionToUpdateBankAccountBalance, GetEditAccountBalanceInputValue($('#ModalEditTransaction #AccountBalance')), $('#ModalEditTransaction #UserId').val().trim(), isPermissionToChangeBalance);
                 $('#ModalEditTransaction #AccountBalance').val('');
                 $('#ModalEditTransaction #EditSetDate').val('');
                 var transactionsDiv = $('#TransactionsList');
-                LoadTransactionsFilters(transactionsDiv, urlGetActionLoadFilters, $('#ModalEditTransaction #BankAccountId').val().trim(),);
+                LoadTransactionsFilters(transactionsDiv, urlGetActionLoadFilters, $('#ModalEditTransaction #BankAccountId').val().trim());
             }
         },
         error: function() {
@@ -114,7 +114,7 @@ function SaveEditTransaction(urlActionToEdit, urlGetActionLoadFilters, urlAction
 
 }
 
-function EditTransaction(urlPostActionToSave, urlGetActionLoadFilters, urlActionToUpdateBankAccountBalance) {
+function EditTransaction(urlPostActionToSave, urlGetActionLoadFilters, urlActionToUpdateBankAccountBalance, firstAmount) {
     var button = $('#EditTransactionBtn');
     if (!(EditAreFieldsFilled())) {
         button.attr('data-dismiss', '');
@@ -124,7 +124,7 @@ function EditTransaction(urlPostActionToSave, urlGetActionLoadFilters, urlAction
         if (!(button.attr('data-dismiss').length > 0)) {
             button.attr('data-dismiss', 'modal');
         }
-        SaveEditTransaction(urlPostActionToSave, urlGetActionLoadFilters, urlActionToUpdateBankAccountBalance);
+        SaveEditTransaction(urlPostActionToSave, urlGetActionLoadFilters, urlActionToUpdateBankAccountBalance, firstAmount);
     }
 }
 
