@@ -1,7 +1,19 @@
-﻿function ChangeAccountBalanceListener(modelAccountBalanceValue, modelCurrency) {
+﻿function LoadCurrentBankAccountBalanceListener(modelAccountBalanceValue, modelCurrency) {
+    $('#TransactionListFilters').on('click',
+        '#CreateTransaction',
+        function() {
+            LoadCurrentBankAccountBalance(modelAccountBalanceValue, modelCurrency);
+        });
+}
+
+function LoadCurrentBankAccountBalance(modelAccountBalanceValue, modelCurrency) {
+    SetAccountBalanceInputValue($('#AccountBalance'), $('#BankAccountBalance').text().trim(), modelAccountBalanceValue, modelCurrency)
+}
+
+function ChangeAccountBalanceListener(modelAccountBalanceValue, modelCurrency) {
     $('#ModalContent').on('change',
         '#Balance',
-        function (balance) {
+        function () {
             ChangeAccountBalance(modelAccountBalanceValue, modelCurrency);
         });
 }
@@ -88,7 +100,6 @@ function SaveTransaction(urlActionToAdd, urlActionToEditBankAccount, urlGetActio
                 $('#Name').val('');
                 $('#Balance').val('');
                 EditBankAccountBalance(urlActionToEditBankAccount, GetAccountBalanceInputValue($('#AccountBalance')), $('#UserId').val().trim(), true);
-                //$('#AccountBalance').val('');
                 $('#SetDate').val('');
                 var transactionsDiv = $('#TransactionsList');
                 LoadTransactionsFilters(transactionsDiv,  urlGetActionLoadFilters, $('#BankAccountId').val().trim());

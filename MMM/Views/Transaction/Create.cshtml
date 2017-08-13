@@ -9,7 +9,7 @@
         AddTransactionListener('@Url.Action("Create", "Transaction")', '@Url.Action("UpdateBankAccountBalance", "BankAccount")', '@Url.Action("GetTransactionsByBankAccountIdFilters", "Transaction")');
         BalanceControl();
         ChangeAccountBalanceListener('@Model.AccountBalance', '@Model.Currency');
-
+        LoadCurrentBankAccountBalanceListener('@Model.AccountBalance', '@Model.Currency');
         $(function () {
             $("#SetDate").datetimepicker({
                 showAnim: 'slideDown',
