@@ -89,3 +89,13 @@ function GetDifferenceAmountDeleteTransaction(amount) {
 
     return amount;
 }
+
+function GetDifferenceAmountEditTranasction(firstAmount, currentAmount) {
+    firstAmount = firstAmount.replace(',', '.');
+    currentAmount = currentAmount.replace(',', '.');
+
+    var amountDifference = parseFloat(firstAmount) - parseFloat(currentAmount);
+    amountDifference = amountDifference.toFixed(2);
+
+    return amountDifference;
+}
