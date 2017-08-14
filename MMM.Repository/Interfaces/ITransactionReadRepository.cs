@@ -12,5 +12,7 @@ namespace MMM.Repository.Interfaces
         IEnumerable<Transaction> GetTransactionsByFilters(int bankAccount, DateTime? fromDate, DateTime? toDate, int? itemsForPage, string filterName, string filterValue);
 
         bool IsTransactionCorrect(int id, int bankAccountId, string userId);
+
+        IEnumerable<Transaction> GetAllData(int bankAccountId);
     }
 }

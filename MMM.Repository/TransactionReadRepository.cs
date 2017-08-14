@@ -20,6 +20,7 @@ namespace MMM.Repository
             
         }
 
+
         public override IEnumerable<Transaction> GetAllData()
         {
            return _dbSet.AsEnumerable<Transaction>()
@@ -30,6 +31,14 @@ namespace MMM.Repository
         public bool IsTransactionCorrect(int id, int bankAccountId, string userId)
         {
             return _dbSet.AsNoTracking().Any(t => t.Id == id && t.Account.Id == bankAccountId && t.Account.User.Id == userId);
+        }
+
+
+        public IEnumerable<Transaction> GetAllData(int bankAcccountId)
+        {
+            return _dbSet.AsEnumerable<Transaction>()
+                .Where(t => t.Account.Id == bankAcccountId)
+                .OrderByDescending(t => t.SetDate);
         }
 
         public IEnumerable<Transaction> GetTransactionsByFilters(int bankAccount, DateTime? fromDate, DateTime? toDate, int? itemsForPage, string filterName, string filterValue)
@@ -371,6 +380,5 @@ namespace MMM.Repository
 
             return transactionsList;
         }
-
     }
 }

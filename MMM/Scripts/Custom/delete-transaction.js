@@ -1,11 +1,11 @@
-﻿function DeleteTransactionListener(urlPostActionToSave, id, bankAccountId, userId, urlGetActionLoadFilters, urlEditAccountBalanceAction, amount) {
+﻿function DeleteTransactionListener(urlPostActionToSave, id, bankAccountId, userId, urlGetActionLoadFilters, urlEditAccountBalanceAction, amount, urlEditTransactionsBalance, setDateChangedTransaction) {
     $(document).on('click', '#DeleteTransactionBtn', function (e) {
         e.preventDefault();
-        DeleteTransaction(urlPostActionToSave, id, bankAccountId, userId, urlGetActionLoadFilters, urlEditAccountBalanceAction, amount);
+        DeleteTransaction(urlPostActionToSave, id, bankAccountId, userId, urlGetActionLoadFilters, urlEditAccountBalanceAction, amount, urlEditTransactionsBalance, setDateChangedTransaction);
     });
 }
 
-function DeleteTransaction(urlPostActionToSave, id, bankAccountId, userId, urlGetActionLoadFilters, urlEditAccountBalanceAction, amount) {
+function DeleteTransaction(urlPostActionToSave, id, bankAccountId, userId, urlGetActionLoadFilters, urlEditAccountBalanceAction, amount, urlEditTransactionsBalance, setDateChangedTransaction) {
     var isPermissionToChangeBalance = !($('#ModalDeleteTransaction #DeleteChangeBankAccountBalance').is(':checked'));
 
     $.ajax({
@@ -24,7 +24,16 @@ function DeleteTransaction(urlPostActionToSave, id, bankAccountId, userId, urlGe
                     GetBankAccountBalanceDeleteTransaction(amount),
                     userId,
                     isPermissionToChangeBalance);
-                LoadTransactionsFilters(tranasctionDiv, urlGetActionLoadFilters, bankAccountId);
+                // LoadTransaction as well in EditNewerTransaction...
+                EditNewerTransactionsBalance(urlEditTransactionsBalance,
+                    setDateChangedTransaction,
+                    bankAccountId,
+                    GetDifferenceAmountDeleteTransaction(amount),
+                    isPermissionToChangeBalance,
+                    tranasctionDiv,
+                    urlGetActionLoadFilters
+                );
+                //LoadTransactionsFilters(tranasctionDiv, urlGetActionLoadFilters, bankAccountId);
             }
         },
         error: function () {

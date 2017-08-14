@@ -1,7 +1,12 @@
 ﻿function EditBankAccountBalance(urlPostActionToSave, accountBalance, userId, isPermissionForEdit) {
-
     if (isPermissionForEdit) {
         SaveChangedBankAccountBalance(urlPostActionToSave, accountBalance, userId);
+    }
+}
+
+function EditNewerTransactionsBalance(urlEditTransactionsBalance, setDateChangedTransaction, bankAccountId, differenceAmount, isPermissionForEdit, tranasctionDiv, urlGetActionLoadFilters) {
+    if (isPermissionForEdit) {
+        SaveChangedTransactionsBalances(urlEditTransactionsBalance, setDateChangedTransaction, bankAccountId, differenceAmount, tranasctionDiv, urlGetActionLoadFilters);
     }
 }
 
@@ -22,6 +27,27 @@ function SaveChangedBankAccountBalance(urlPostActionToSave, accountBalance, user
         },
         error: function () {
             alert('Coś poszło nie tak przy updateowaniu salda konta.');
+        }
+    });
+}
+
+
+function SaveChangedTransactionsBalances(urlEditTransactionsBalance, setDateChangedTransaction, bankAccountId, differenceAmount, tranasctionDiv, urlGetActionLoadFilters) {
+    $.ajax({
+        url: urlEditTransactionsBalance,
+        type: 'POST',
+        data: {
+            setDateChangedTransaction: setDateChangedTransaction,
+            bankAccountId: bankAccountId,
+            differenceAmount: differenceAmount
+        },
+        success: function (dataBack) {
+            if (dataBack.status) {
+                LoadTransactionsFilters(tranasctionDiv, urlGetActionLoadFilters, bankAccountId);
+            }
+        },
+        error: function () {
+            alert('Coś poszło nie tak przy updateowaniu sald transakcji nowszych od edytowanej/usuwanej.');
         }
     });
 }
@@ -53,4 +79,13 @@ function GetBankAccountBalanceDeleteTransaction(amount) {
     balanceAfterUpdate = balanceAfterUpdate.toString().replace('.', ',');
 
     return balanceAfterUpdate;
+}
+
+function GetDifferenceAmountDeleteTransaction(amount) {
+    //debugger;
+    amount = amount.replace(',', '.');
+    amount = parseFloat(amount);
+    amount = amount.toFixed(2);
+
+    return amount;
 }

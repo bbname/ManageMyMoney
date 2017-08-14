@@ -9,5 +9,6 @@ namespace MMM.Repository.Interfaces
 {
     public interface ITransactionWriteRepository : IWriteRepository<Transaction>
     {
+
     }
 }

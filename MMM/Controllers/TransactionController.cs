@@ -27,6 +27,20 @@ namespace MMM.Controllers
             this._writeTransaction = writeTransaction;
         }
 
+        [HttpPost]
+        public ActionResult UpdateBalanceInNewerTransactions(DateTime setDateChangedTransaction, int? bankAccountId, decimal differenceAmount)
+        {
+            var status = false;
+
+            if (Request.IsAjaxRequest()  && bankAccountId != null)
+            {
+                _writeTransaction.UpdateTransactionsBalanceForNewer(setDateChangedTransaction, bankAccountId.Value, differenceAmount);
+                status = true;
+            }
+
+            return new JsonResult(){ Data = new { status = status} };
+        }
+
         [System.Web.Mvc.HttpGet]
         //public ActionResult GetTransactionsByBankAccountIdFilters(int? bankAccountId, DateTime? fromDate, DateTime? toDate, int? selectedItemsForPage, int? selectedFilterId)
         public ActionResult GetTransactionsByBankAccountIdFilters(int? bankAccountId, string fromDate, string toDate, int? selectedItemsForPage, int? selectedFilterId)

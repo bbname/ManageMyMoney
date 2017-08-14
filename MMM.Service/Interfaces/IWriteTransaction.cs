@@ -1,4 +1,5 @@
-﻿using MMM.Model;
+﻿using System;
+using MMM.Model;
 
 namespace MMM.Service.Interfaces
 {
@@ -8,5 +9,6 @@ namespace MMM.Service.Interfaces
         void Edit(Transaction transaction);
         void Delete(Transaction transaction);
         void DeleteById(int id);
+        void UpdateTransactionsBalanceForNewer(DateTime setDateChangedTransaction, int bankAccountId, decimal differenceAmount);
     }
 }
