@@ -9,6 +9,6 @@ namespace MMM.Service.Interfaces
         void Edit(Transaction transaction);
         void Delete(Transaction transaction);
         void DeleteById(int id);
-        void UpdateTransactionsBalanceForNewer(DateTime setDateChangedTransaction, int bankAccountId, decimal differenceAmount);
+        void UpdateTransactionsBalanceForNewer(DateTime setDateChangedTransaction, int bankAccountId, decimal differenceAmount, int? editedTranasctionId);
     }
 }

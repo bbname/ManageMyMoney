@@ -28,13 +28,13 @@ namespace MMM.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateBalanceInNewerTransactions(DateTime setDateChangedTransaction, int? bankAccountId, decimal differenceAmount)
+        public ActionResult UpdateBalanceInNewerTransactions(DateTime setDateChangedTransaction, int? bankAccountId, decimal differenceAmount, int? editedTranasctionId = null)
         {
             var status = false;
 
             if (Request.IsAjaxRequest()  && bankAccountId != null)
             {
-                _writeTransaction.UpdateTransactionsBalanceForNewer(setDateChangedTransaction, bankAccountId.Value, differenceAmount);
+                _writeTransaction.UpdateTransactionsBalanceForNewer(setDateChangedTransaction, bankAccountId.Value, differenceAmount, editedTranasctionId);
                 status = true;
             }
 

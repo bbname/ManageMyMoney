@@ -17,11 +17,17 @@ namespace MMM.Service
             this._transactionReadRepository = transactionReadRepository;
         }
 
-        public void UpdateTransactionsBalanceForNewer(DateTime setDateChangedTransaction, int bankAccountId, decimal differenceAmount)
+        public void UpdateTransactionsBalanceForNewer(DateTime setDateChangedTransaction, int bankAccountId, decimal differenceAmount, int? editedTranasctionId)
         {
             var listTransactions = _transactionReadRepository.GetAllData(bankAccountId);
-
             listTransactions = listTransactions.Where(t => t.SetDate >= setDateChangedTransaction);
+
+            if (editedTranasctionId != null)
+            {
+                //var editedTransaction = _transactionReadRepository.GetById(editedTranasctionId.Value);
+                listTransactions = listTransactions.Where(t => t.Id != editedTranasctionId);
+                //var status = listTransactions.ToList().Remove(editedTransaction);
+            }
 
             foreach (var transaction in listTransactions)
             {
@@ -30,6 +36,7 @@ namespace MMM.Service
             }
 
             _transactionWriteRepository.Save();
+
         }
         public void Create(Transaction transaction)
         {

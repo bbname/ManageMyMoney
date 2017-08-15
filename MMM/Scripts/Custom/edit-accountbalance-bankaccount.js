@@ -4,9 +4,9 @@
     }
 }
 
-function EditNewerTransactionsBalance(urlEditTransactionsBalance, setDateChangedTransaction, bankAccountId, differenceAmount, isPermissionForEdit, tranasctionDiv, urlGetActionLoadFilters) {
+function EditNewerTransactionsBalance(urlEditTransactionsBalance, setDateChangedTransaction, bankAccountId, differenceAmount, isPermissionForEdit, tranasctionDiv, urlGetActionLoadFilters, editedTransactionId) {
     if (isPermissionForEdit) {
-        SaveChangedTransactionsBalances(urlEditTransactionsBalance, setDateChangedTransaction, bankAccountId, differenceAmount, tranasctionDiv, urlGetActionLoadFilters);
+        SaveChangedTransactionsBalances(urlEditTransactionsBalance, setDateChangedTransaction, bankAccountId, differenceAmount, tranasctionDiv, urlGetActionLoadFilters, editedTransactionId);
     }
 }
 
@@ -32,14 +32,15 @@ function SaveChangedBankAccountBalance(urlPostActionToSave, accountBalance, user
 }
 
 
-function SaveChangedTransactionsBalances(urlEditTransactionsBalance, setDateChangedTransaction, bankAccountId, differenceAmount, tranasctionDiv, urlGetActionLoadFilters) {
+function SaveChangedTransactionsBalances(urlEditTransactionsBalance, setDateChangedTransaction, bankAccountId, differenceAmount, tranasctionDiv, urlGetActionLoadFilters, editedTransactionId = null) {
     $.ajax({
         url: urlEditTransactionsBalance,
         type: 'POST',
         data: {
             setDateChangedTransaction: setDateChangedTransaction,
             bankAccountId: bankAccountId,
-            differenceAmount: differenceAmount
+            differenceAmount: differenceAmount,
+            editedTranasctionId: editedTransactionId
         },
         success: function (dataBack) {
             if (dataBack.status) {

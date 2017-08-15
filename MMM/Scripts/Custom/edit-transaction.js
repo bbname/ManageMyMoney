@@ -112,7 +112,8 @@ function SaveEditTransaction(urlActionToEdit, urlGetActionLoadFilters, urlAction
                     GetDifferenceAmountEditTranasction(firstAmount, $('#ModalEditTransaction #Balance').val()),
                     isPermissionToChangeBalance,
                     transactionsDiv,
-                    urlGetActionLoadFilters
+                    urlGetActionLoadFilters,
+                    $('#ModalEditTransaction #Id').val().trim()
                 );
                 $('#ModalEditTransaction #Balance').val('');
                 $('#ModalEditTransaction #AccountBalance').val('');
