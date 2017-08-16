@@ -15,6 +15,7 @@ using MMM.ModelBinders.AccountToBankAccount;
 using MMM.ModelBinders.Transaction;
 using MMM.Service.Interfaces;
 using MMM.ViewModels.BankAccountViewModel;
+using PagedList;
 
 namespace MMM.Controllers
 {
@@ -94,8 +95,7 @@ namespace MMM.Controllers
                     var bankAccount = _readBankAccount.GetAccountById(id.Value);
                     var currencyLogic = new CurrencyLogic();
                     var binder = new AccountToBankAccountDetailsViewModel();
-                    var binderTransaction = new ToTransactionListViewModel();
-                    var viewModel = binder.GetBankAccount(bankAccount, currencyLogic, binderTransaction);
+                    var viewModel = binder.GetBankAccount(bankAccount, currencyLogic);
 
                     return View(viewModel);
                 }

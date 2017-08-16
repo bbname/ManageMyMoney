@@ -78,7 +78,7 @@ namespace MMM.Controllers
         }
 
         [System.Web.Mvc.HttpGet]
-        public ActionResult GetTransactionsByBankAccountId(int? bankAccountId)
+        public ActionResult GetTransactionsByBankAccountId(int? bankAccountId, int page = 1, int itemsForPage = 20)
         {
             if (bankAccountId != null)
             {
@@ -86,7 +86,7 @@ namespace MMM.Controllers
                 var binder = new ToTransactionListViewModel();
                 var currencyLogic = new CurrencyLogic();
                 var viewModelTransactions = binder.GetTransactions(bankAccount.Transactions,
-                    currencyLogic.GetCurrencyIconById(bankAccount.Currency));
+                    currencyLogic.GetCurrencyIconById(bankAccount.Currency)).ToPagedList(page, itemsForPage);
 
                 return PartialView("TransactionList", viewModelTransactions);
             }
