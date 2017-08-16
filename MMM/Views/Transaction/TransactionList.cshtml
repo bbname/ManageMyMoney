@@ -19,9 +19,9 @@
             @Html.Partial("~/Views/Transaction/Transaction.cshtml", transaction)
         </div>
 }
-
-<div class="row col-xs-12 col-sm-12 col-md-12" id="pagingSystem">
+<div class="row col-xs-12 col-sm-12 col-md-12" style="z-index: -1;"></div>
+<div class="col-xs-12 col-sm-12 col-md-12" id="pagingSystem">
     @Html.PagedListPager(Model, page => Url.Action("GetTransactionsByBankAccountId", "Transaction" ,
         new {page}))
-    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) z @Model.PageCount
 </div>

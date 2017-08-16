@@ -1,5 +1,4 @@
 ﻿function LoadTransactions(outputDiv, urlGetAction, bankAccountId, page = 1) {
-    //debugger;
     outputDiv.wrap("<div id='TransactionListLoad'></div>");
     var loader = $('#TransactionListLoad');
     outputDiv.css('opacity', '0.0');

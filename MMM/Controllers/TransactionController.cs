@@ -87,7 +87,6 @@ namespace MMM.Controllers
                 var currencyLogic = new CurrencyLogic();
                 var filterLogic = new FiltersLogic();
                 var itemsForPage = filterLogic.GetItemsForPageById(selectedItemsForPage);
-
                 var viewModelTransactions = binder.GetTransactions(bankAccount.Transactions,
                     currencyLogic.GetCurrencyIconById(bankAccount.Currency)).ToPagedList(page, itemsForPage);
 

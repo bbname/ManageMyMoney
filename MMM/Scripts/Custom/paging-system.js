@@ -1,12 +1,13 @@
 ﻿function PagingListener(urlGetAction, bankAccountId) {
     $('#pagingSystem').on('click', 'a', function (e) {
-        //debugger;
         e.preventDefault();
         
-        var pageNr = GetPageNumber($(this).attr('href'));
-        var transactionsListDiv = $('#TransactionsList');
+        if (!CheckIsActive($(this))) {
+            var pageNr = GetPageNumber($(this).attr('href'));
+            var transactionsListDiv = $('#TransactionsList');
+            LoadTransactions(transactionsListDiv, urlGetAction, bankAccountId, pageNr);
+        }
 
-        LoadTransactions(transactionsListDiv, urlGetAction, bankAccountId, pageNr);
     });
 }
 
@@ -17,6 +18,12 @@ function GetPageNumber(ahref) {
     return pageNr;
 }
 
-//function CheckIsActive(ahref) {
-//    ahref.parent()
-//}
+function CheckIsActive(ahref) {
+    var isActive = false;
+
+    if (ahref.parent(".active").length) {
+        isActive = true;
+    }
+
+    return isActive;
+}
