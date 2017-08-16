@@ -11,6 +11,7 @@ using MMM.Infrastructure;
 using MMM.ModelBinders.Transaction;
 using MMM.Service.Interfaces;
 using MMM.ViewModels.TransactionViewModel;
+using PagedList;
 
 namespace MMM.Controllers
 {
@@ -41,7 +42,7 @@ namespace MMM.Controllers
             return new JsonResult(){ Data = new { status = status} };
         }
 
-        [System.Web.Mvc.HttpGet]
+        [HttpGet]
         //public ActionResult GetTransactionsByBankAccountIdFilters(int? bankAccountId, DateTime? fromDate, DateTime? toDate, int? selectedItemsForPage, int? selectedFilterId)
         public ActionResult GetTransactionsByBankAccountIdFilters(int? bankAccountId, string fromDate, string toDate, int? selectedItemsForPage, int? selectedFilterId)
         {
