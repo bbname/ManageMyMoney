@@ -5,7 +5,8 @@
         if (!CheckIsActive($(this))) {
             var pageNr = GetPageNumber($(this).attr('href'));
             var transactionsListDiv = $('#TransactionsList');
-            LoadTransactions(transactionsListDiv, urlGetAction, bankAccountId, pageNr);
+            //LoadTransactions(transactionsListDiv, urlGetAction, bankAccountId, pageNr);
+            LoadTransactionsFilters(transactionsListDiv, urlGetAction, bankAccountId, pageNr);
         }
 
     });

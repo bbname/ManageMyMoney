@@ -12,7 +12,8 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var transactionsDiv = $('#TransactionsList');
-        LoadTransactions(transactionsDiv, '@Url.Action("GetTransactionsByBankAccountId", "Transaction")', '@Model.Id');
+        @*LoadTransactions(transactionsDiv, '@Url.Action("GetTransactionsByBankAccountId", "Transaction")', '@Model.Id');*@
+        LoadTransactionsFilters(transactionsDiv, '@Url.Action("GetTransactionsByBankAccountIdFilters", "Transaction")', '@Model.Id');
         LoadTransactionsFiltersListener(transactionsDiv, '@Url.Action("GetTransactionsByBankAccountIdFilters", "Transaction")', '@Model.Id');
         DateFromToFilterListener(transactionsDiv, '@Url.Action("GetTransactionsByBankAccountIdFilters", "Transaction")', '@Model.Id');
         ClearDateFromToInputsListener();

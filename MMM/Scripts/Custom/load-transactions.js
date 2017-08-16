@@ -70,15 +70,15 @@ function DateFromToCheck(outputDiv, urlGetAction, bankAccountId) {
     }
 }
 
-function LoadTransactionsFiltersListener(outputDiv, urlGetAction, bankAccountId) {
+function LoadTransactionsFiltersListener(outputDiv, urlGetAction, bankAccountId, page) {
     $('#TransactionListFilters').on('change',
         '#SelectedItemsForPageId, #SelectedFilterId',
         function () {
-            LoadTransactionsFilters(outputDiv, urlGetAction, bankAccountId);
+            LoadTransactionsFilters(outputDiv, urlGetAction, bankAccountId, page);
         });
 }
 
-function LoadTransactionsFilters(outputDiv, urlGetAction, bankAccountId) {
+function LoadTransactionsFilters(outputDiv, urlGetAction, bankAccountId, page = 1) {
     outputDiv.wrap("<div id='TransactionListLoad'></div>");
     var loader = $('#TransactionListLoad');
     outputDiv.css('opacity', '0.0');
@@ -91,7 +91,8 @@ function LoadTransactionsFilters(outputDiv, urlGetAction, bankAccountId) {
             toDate: $('#ToDate').val().trim(),
             fromDate: $('#FromDate').val().trim(),
             selectedItemsForPage: $('#SelectedItemsForPageId').val().trim(),
-            selectedFilterId: $('#SelectedFilterId').val().trim()
+            selectedFilterId: $('#SelectedFilterId').val().trim(),
+            page: page
         },
         success: function (dataBack) {
             loader.removeClass("loader col-xs-offset-6 col-sm-offset-6 col-md-offset-6");
