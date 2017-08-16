@@ -44,7 +44,7 @@ namespace MMM.Controllers
 
         [HttpGet]
         //public ActionResult GetTransactionsByBankAccountIdFilters(int? bankAccountId, DateTime? fromDate, DateTime? toDate, int? selectedItemsForPage, int? selectedFilterId)
-        public ActionResult GetTransactionsByBankAccountIdFilters(int? bankAccountId, string fromDate, string toDate, int? selectedItemsForPage, int? selectedFilterId)
+        public ActionResult GetTransactionsByBankAccountIdFilters(int? bankAccountId, string fromDate, string toDate, int? selectedItemsForPage, int? selectedFilterId, int page = 1)
         {
             if (bankAccountId != null)
             {
@@ -62,7 +62,7 @@ namespace MMM.Controllers
                 var transactions = _readTransaction.GetTransactionsByFilters(bankAccountId.Value, fromDateConverted, toDateConverted,
                     itemsForPage, filterName, filterValue);
                 var viewModelTransactions = binder.GetTransactions(transactions,
-                    currencyLogic.GetCurrencyIconById(bankAccount.Currency));
+                    currencyLogic.GetCurrencyIconById(bankAccount.Currency)).ToPagedList(page, itemsForPage);
 
                 return PartialView("TransactionList", viewModelTransactions);
             }
@@ -78,7 +78,7 @@ namespace MMM.Controllers
         }
 
         [System.Web.Mvc.HttpGet]
-        public ActionResult GetTransactionsByBankAccountId(int? bankAccountId, int page = 1, int itemsForPage = 20)
+        public ActionResult GetTransactionsByBankAccountId(int? bankAccountId, int page = 1, int itemsForPage = 5)
         {
             if (bankAccountId != null)
             {
