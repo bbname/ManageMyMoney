@@ -23,9 +23,8 @@ namespace MMM.Repository
 
         public override IEnumerable<Transaction> GetAllData()
         {
-           return _dbSet.AsEnumerable<Transaction>()
-                .OrderByDescending(t => t.SetDate)
-                .Take(20);
+            return _dbSet.AsEnumerable<Transaction>()
+                .OrderByDescending(t => t.SetDate);
         }
 
         public bool IsTransactionCorrect(int id, int bankAccountId, string userId)
