@@ -45,7 +45,8 @@ namespace MMM
 
             bundles.Add(new ScriptBundle("~/bundles/load-transaction-to-modal").Include(
                 "~/Scripts/Custom/get-transaction.js",
-                "~/Scripts/Custom/load-modal.js"));
+                "~/Scripts/Custom/load-modal.js",
+                "~/Scripts/Custom/paging-system.js"));
         }
     }
 }

@@ -330,6 +330,7 @@
     <Content Include="Scripts\Custom\get-transaction.js" />
     <Content Include="Scripts\Custom\load-modal.js" />
     <Content Include="Scripts\Custom\load-transactions.js" />
+    <Content Include="Scripts\Custom\paging-system.js" />
     <Content Include="Scripts\i18n\jquery-ui-timepicker-addon-i18n.js" />
     <Content Include="Scripts\i18n\jquery-ui-timepicker-addon-i18n.min.js" />
     <Content Include="Scripts\i18n\jquery-ui-timepicker-af.js" />

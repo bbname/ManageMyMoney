@@ -78,13 +78,16 @@ namespace MMM.Controllers
         }
 
         [System.Web.Mvc.HttpGet]
-        public ActionResult GetTransactionsByBankAccountId(int? bankAccountId, int page = 1, int itemsForPage = 5)
+        public ActionResult GetTransactionsByBankAccountId(int? bankAccountId, int page = 1, int selectedItemsForPage = 1)
         {
             if (bankAccountId != null)
             {
                 var bankAccount = _readBankAccount.GetAccountById(bankAccountId.Value);
                 var binder = new ToTransactionListViewModel();
                 var currencyLogic = new CurrencyLogic();
+                var filterLogic = new FiltersLogic();
+                var itemsForPage = filterLogic.GetItemsForPageById(selectedItemsForPage);
+
                 var viewModelTransactions = binder.GetTransactions(bankAccount.Transactions,
                     currencyLogic.GetCurrencyIconById(bankAccount.Currency)).ToPagedList(page, itemsForPage);
 

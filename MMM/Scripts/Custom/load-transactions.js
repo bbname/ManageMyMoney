@@ -1,17 +1,45 @@
-﻿function LoadTransactions(outputDiv, urlGetAction) {
+﻿function LoadTransactions(outputDiv, urlGetAction, bankAccountId, page = 1) {
+    //debugger;
     outputDiv.wrap("<div id='TransactionListLoad'></div>");
     var loader = $('#TransactionListLoad');
     outputDiv.css('opacity', '0.0');
     loader.addClass("loader col-xs-offset-6 col-sm-offset-6 col-md-offset-6");
-    $.get(
-        urlGetAction,
-        function (data) {
-            loader.removeClass("loader col-xs-offset-6 col-sm-offset-6 col-md-offset-6");
-            outputDiv.unwrap();
-            outputDiv.css('opacity', '1.0');
-            outputDiv.html(data);
+    var selectedIdItemsForPage = $('#SelectedItemsForPageId').val().trim();
+
+        $.ajax({
+            url: urlGetAction,
+            type: 'GET',
+            data: {
+                bankAccountId: bankAccountId,
+                page: page,
+                selectedItemsForPage: selectedIdItemsForPage
+            },
+            success: function (data) {
+                loader.removeClass("loader col-xs-offset-6 col-sm-offset-6 col-md-offset-6");
+                outputDiv.unwrap();
+                outputDiv.css('opacity', '1.0');
+                outputDiv.html(data);
+            },
+            error: function () {
+                alert('Nie zadziałało pageowanie.');
+            }
         });
 }
+
+//function LoadTransactions(outputDiv, urlGetAction) {
+//    outputDiv.wrap("<div id='TransactionListLoad'></div>");
+//    var loader = $('#TransactionListLoad');
+//    outputDiv.css('opacity', '0.0');
+//    loader.addClass("loader col-xs-offset-6 col-sm-offset-6 col-md-offset-6");
+//    $.get(
+//        urlGetAction,
+//        function (data) {
+//            loader.removeClass("loader col-xs-offset-6 col-sm-offset-6 col-md-offset-6");
+//            outputDiv.unwrap();
+//            outputDiv.css('opacity', '1.0');
+//            outputDiv.html(data);
+//        });
+//}
 
 function ClearDateFromToInputsListener() {
     $('#TransactionListFilters').on('click',

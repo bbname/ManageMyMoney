@@ -16,7 +16,7 @@ namespace MMM.ModelBinders.AccountToBankAccount
                 Balance = bankAccount.Balance,
                 Currency = currencyLogic.GetCurrencyIconById(bankAccount.Currency),
                 User = bankAccount.User,
-                SelectedItemsForPageId = 3
+                SelectedItemsForPageId = 1
             };
 
             return viewModel;

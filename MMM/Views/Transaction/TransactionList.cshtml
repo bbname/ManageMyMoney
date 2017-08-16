@@ -4,49 +4,13 @@
 @model PagedList.IPagedList<MMM.ViewModels.TransactionViewModel.TransactionListViewModel>
 @Scripts.Render("~/bundles/load-transaction-to-modal")
 <script type="text/javascript">
-    $(document).ready(function () {
+    $(document).ready(function() {
         TransactionDeleteOpenModalListener('@Url.Action("Delete", "Transaction")', $bankAccountId);
-        TransactionEditOpenModalListener('@Url.Action("Edit", "Transaction")', $bankAccountId, '@User.Identity.GetUserId()');
-
-        $('#myPager').on('click', 'a', function (e) {
-            //debugger;
-            e.preventDefault();
-
-            var outputDiv = $('#TransactionsList');
-            outputDiv.wrap("<div id='TransactionListLoad'></div>");
-            var loader = $('#TransactionListLoad');
-            outputDiv.css('opacity', '0.0');
-            loader.addClass("loader col-xs-offset-6 col-sm-offset-6 col-md-offset-6");
-
-            $.ajax({
-                url: '@Url.Action("GetTransactionsByBankAccountId", "Transaction")',
-                type: 'GET',
-                data: {
-                    bankAccountId: $bankAccountId,
-                    page: GetPageNumber($(this).attr("href")),
-                    itemsForPage: 5
-                },
-                success: function (data){
-                    loader.removeClass("loader col-xs-offset-6 col-sm-offset-6 col-md-offset-6");
-                    outputDiv.unwrap();
-                    outputDiv.css('opacity', '1.0');
-                    outputDiv.html(data);
-                },
-                error: function () {
-                    alert('Nie zadziałało pageowanie.');
-                }
-            });
-
-
-        });
+        TransactionEditOpenModalListener('@Url.Action("Edit", "Transaction")',
+            $bankAccountId,
+            '@User.Identity.GetUserId()');
+        PagingListener('@Url.Action("GetTransactionsByBankAccountId", "Transaction")', $bankAccountId);
     });
-
-    function GetPageNumber(ahref) {
-        //debugger;
-        var pageNr = ahref.split('?page=').pop();
-
-        return pageNr;
-    }
 </script>
 
 @foreach (var transaction in Model)
@@ -56,7 +20,7 @@
         </div>
 }
 
-<div class="row col-xs-12 col-sm-12 col-md-12" id="myPager">
+<div class="row col-xs-12 col-sm-12 col-md-12" id="pagingSystem">
     @Html.PagedListPager(Model, page => Url.Action("GetTransactionsByBankAccountId", "Transaction" ,
         new {page}))
     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
