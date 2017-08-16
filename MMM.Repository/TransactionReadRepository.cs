@@ -41,12 +41,11 @@ namespace MMM.Repository
                 .OrderByDescending(t => t.SetDate);
         }
 
-        public IEnumerable<Transaction> GetTransactionsByFilters(int bankAccount, DateTime? fromDate, DateTime? toDate, int? itemsForPage, string filterName, string filterValue)
+        public IEnumerable<Transaction> GetTransactionsByFilters(int bankAccount, DateTime? fromDate, DateTime? toDate, string filterName, string filterValue)
         {
             var transaction = new Transaction();
             // Setting itemsForPage
             IEnumerable<Transaction> transactionsList = null;
-            itemsForPage = itemsForPage ?? 20;
 
             // fromDate, toDate have values
             if (fromDate != null && toDate != null)
@@ -70,9 +69,9 @@ namespace MMM.Repository
                                 try
                                 {
                                     transactionsList = _dbSet.AsEnumerable<Transaction>()
-                                        .Where(t => t.Account.Id == bankAccount && t.Amount <= 0 && t.SetDate >= fromDate && t.SetDate <= toDate)
-                                        .OrderByDescending(t => prop.GetValue(t, null))
-                                        .Take(itemsForPage.Value);
+                                        .Where(t => t.Account.Id == bankAccount && t.Amount <= 0 &&
+                                                    t.SetDate >= fromDate && t.SetDate <= toDate)
+                                        .OrderByDescending(t => prop.GetValue(t, null));
                                 }
                                 catch (NullReferenceException e)
                                 {
@@ -90,9 +89,9 @@ namespace MMM.Repository
                                 try
                                 {
                                     transactionsList = _dbSet.AsEnumerable<Transaction>()
-                                        .Where(t => t.Account.Id == bankAccount && t.Amount <= 0 && t.SetDate >= fromDate && t.SetDate <= toDate)
-                                        .OrderBy(t => prop.GetValue(t, null))
-                                        .Take(itemsForPage.Value);
+                                        .Where(t => t.Account.Id == bankAccount && t.Amount <= 0 &&
+                                                    t.SetDate >= fromDate && t.SetDate <= toDate)
+                                        .OrderBy(t => prop.GetValue(t, null));
                                 }
                                 catch (NullReferenceException e)
                                 {
@@ -118,9 +117,9 @@ namespace MMM.Repository
                                 try
                                 {
                                     transactionsList = _dbSet.AsEnumerable<Transaction>()
-                                        .Where(t => t.Account.Id == bankAccount && t.Amount >= 0 && t.SetDate >= fromDate && t.SetDate <= toDate)
-                                        .OrderByDescending(t => prop.GetValue(t, null))
-                                        .Take(itemsForPage.Value);
+                                        .Where(t => t.Account.Id == bankAccount && t.Amount >= 0 &&
+                                                    t.SetDate >= fromDate && t.SetDate <= toDate)
+                                        .OrderByDescending(t => prop.GetValue(t, null));
                                 }
                                 catch (NullReferenceException e)
                                 {
@@ -138,9 +137,9 @@ namespace MMM.Repository
                                 try
                                 {
                                     transactionsList = _dbSet.AsEnumerable<Transaction>()
-                                        .Where(t => t.Account.Id == bankAccount && t.Amount >= 0 && t.SetDate >= fromDate && t.SetDate <= toDate)
-                                        .OrderBy(t => prop.GetValue(t, null))
-                                        .Take(itemsForPage.Value);
+                                        .Where(t => t.Account.Id == bankAccount && t.Amount >= 0 &&
+                                                    t.SetDate >= fromDate && t.SetDate <= toDate)
+                                        .OrderBy(t => prop.GetValue(t, null));
                                 }
                                 catch (NullReferenceException e)
                                 {
@@ -165,9 +164,9 @@ namespace MMM.Repository
                             try
                             {
                                 transactionsList = _dbSet.AsEnumerable<Transaction>()
-                                    .Where(t => t.Account.Id == bankAccount && t.SetDate >= fromDate && t.SetDate <= toDate)
-                                    .OrderByDescending(t => prop.GetValue(t, null))
-                                    .Take(itemsForPage.Value);
+                                    .Where(t => t.Account.Id == bankAccount && t.SetDate >= fromDate &&
+                                                t.SetDate <= toDate)
+                                    .OrderByDescending(t => prop.GetValue(t, null));
                             }
                             catch (NullReferenceException e)
                             {
@@ -185,9 +184,9 @@ namespace MMM.Repository
                             try
                             {
                                 transactionsList = _dbSet.AsEnumerable<Transaction>()
-                                    .Where(t => t.Account.Id == bankAccount && t.SetDate >= fromDate && t.SetDate <= toDate)
-                                    .OrderBy(t => prop.GetValue(t, null))
-                                    .Take(itemsForPage.Value);
+                                    .Where(t => t.Account.Id == bankAccount && t.SetDate >= fromDate &&
+                                                t.SetDate <= toDate)
+                                    .OrderBy(t => prop.GetValue(t, null));
                             }
                             catch (NullReferenceException e)
                             {
@@ -207,8 +206,7 @@ namespace MMM.Repository
                 {
                     transactionsList = _dbSet.AsEnumerable<Transaction>()
                         .Where(t => t.Account.Id == bankAccount && t.SetDate >= fromDate && t.SetDate <= toDate)
-                        .OrderByDescending(t => t.SetDate)
-                        .Take(itemsForPage.Value);
+                        .OrderByDescending(t => t.SetDate);
                 }
 
             }
@@ -235,8 +233,7 @@ namespace MMM.Repository
                                 {
                                     transactionsList = _dbSet.AsEnumerable<Transaction>()
                                         .Where(t => t.Account.Id == bankAccount && t.Amount <= 0)
-                                        .OrderByDescending(t => prop.GetValue(t, null))
-                                        .Take(itemsForPage.Value);
+                                        .OrderByDescending(t => prop.GetValue(t, null));
                                 }
                                 catch (NullReferenceException e)
                                 {
@@ -255,8 +252,7 @@ namespace MMM.Repository
                                 {
                                     transactionsList = _dbSet.AsEnumerable<Transaction>()
                                         .Where(t => t.Account.Id == bankAccount && t.Amount <= 0)
-                                        .OrderBy(t => prop.GetValue(t,null))
-                                        .Take(itemsForPage.Value);
+                                        .OrderBy(t => prop.GetValue(t, null));
                                 }
                                 catch (NullReferenceException e)
                                 {
@@ -283,8 +279,7 @@ namespace MMM.Repository
                                 {
                                     transactionsList = _dbSet.AsEnumerable<Transaction>()
                                         .Where(t => t.Account.Id == bankAccount && t.Amount >= 0)
-                                        .OrderByDescending(t => prop.GetValue(t, null))
-                                        .Take(itemsForPage.Value);
+                                        .OrderByDescending(t => prop.GetValue(t, null));
                                 }
                                 catch (NullReferenceException e)
                                 {
@@ -303,8 +298,7 @@ namespace MMM.Repository
                                 {
                                     transactionsList = _dbSet.AsEnumerable<Transaction>()
                                         .Where(t => t.Account.Id == bankAccount && t.Amount >= 0)
-                                        .OrderBy(t => prop.GetValue(t, null))
-                                        .Take(itemsForPage.Value);
+                                        .OrderBy(t => prop.GetValue(t, null));
                                 }
                                 catch (NullReferenceException e)
                                 {
@@ -331,8 +325,7 @@ namespace MMM.Repository
                             {
                                 transactionsList = _dbSet.AsEnumerable<Transaction>()
                                     .Where(t => t.Account.Id == bankAccount)
-                                    .OrderByDescending(t => prop.GetValue(t, null))
-                                    .Take(itemsForPage.Value);
+                                    .OrderByDescending(t => prop.GetValue(t, null));
                             }
                             catch (NullReferenceException e)
                             {
@@ -351,8 +344,7 @@ namespace MMM.Repository
                             {
                                 transactionsList = _dbSet.AsEnumerable<Transaction>()
                                     .Where(t => t.Account.Id == bankAccount)
-                                    .OrderBy(t => prop.GetValue(t, null))
-                                    .Take(itemsForPage.Value);
+                                    .OrderBy(t => prop.GetValue(t, null));
                             }
                             catch (NullReferenceException e)
                             {
@@ -373,8 +365,7 @@ namespace MMM.Repository
                 {
                     transactionsList = _dbSet.AsEnumerable<Transaction>()
                         .Where(t => t.Account.Id == bankAccount)
-                        .OrderByDescending(t => t.SetDate)
-                        .Take(itemsForPage.Value);
+                        .OrderByDescending(t => t.SetDate);
                 }
             }
 

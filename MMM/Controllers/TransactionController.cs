@@ -59,8 +59,7 @@ namespace MMM.Controllers
                 filterLogic.GetFilterNameFilterValueById(selectedFilterId, out filterName, out filterValue);
                 var itemsForPage = filterLogic.GetItemsForPageById(selectedItemsForPage);
 
-                var transactions = _readTransaction.GetTransactionsByFilters(bankAccountId.Value, fromDateConverted, toDateConverted,
-                    itemsForPage, filterName, filterValue);
+                var transactions = _readTransaction.GetTransactionsByFilters(bankAccountId.Value, fromDateConverted, toDateConverted, filterName, filterValue);
                 var viewModelTransactions = binder.GetTransactions(transactions,
                     currencyLogic.GetCurrencyIconById(bankAccount.Currency)).ToPagedList(page, itemsForPage);
 

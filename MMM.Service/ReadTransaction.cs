@@ -23,10 +23,9 @@ namespace MMM.Service
             return _transactionReadRepository.GetById(id);
         }
 
-        public IEnumerable<Transaction> GetTransactionsByFilters(int bankAccount, DateTime? fromDate, DateTime? toDate, int? itemsForPage, string filterName, string filterValue)
+        public IEnumerable<Transaction> GetTransactionsByFilters(int bankAccount, DateTime? fromDate, DateTime? toDate, string filterName, string filterValue)
         {
-            return _transactionReadRepository.GetTransactionsByFilters(bankAccount, fromDate, toDate, itemsForPage, filterName,
-                filterValue);
+            return _transactionReadRepository.GetTransactionsByFilters(bankAccount, fromDate, toDate, filterName, filterValue);
         }
 
         public bool IsTransactionCorrect(int id, int bankAccountId, string userId)
