@@ -17,6 +17,7 @@
             outputDiv.unwrap();
             outputDiv.css('opacity', '1.0');
             outputDiv.html(data);
+            ShowSearchTransactionReset();
         },
         error: function() {
             alert('Nie zadziałało odnalezienie transakcji po nazwie.');

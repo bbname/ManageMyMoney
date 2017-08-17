@@ -1,4 +1,26 @@
-﻿function SearchTransactionListener(urlGetSearchTransactionAction, urlLoadTransactionBySearchName, bankAccountId) {
+﻿function LoadTransactionBtnListener(urlLoadTransactionsFilters, bankAccountId) {
+    $('#SearchTransactionReset').on('click',
+        '#LoadTransactionBtn',
+        function() {
+            ClearSearchInput();
+            HideSearchTransactionReset();
+            LoadTransactionsFilters($('#TransactionsList'), urlLoadTransactionsFilters, bankAccountId);
+        });
+}
+
+function ClearSearchInput() {
+    $('#SearchTransactionByName').val('');
+}
+
+function HideSearchTransactionReset() {
+    $('#SearchTransactionReset').css('display', 'none');
+}
+
+function ShowSearchTransactionReset() {
+    $('#SearchTransactionReset').css('display', 'inline-block');
+}
+
+function SearchTransactionListener(urlGetSearchTransactionAction, urlLoadTransactionBySearchName, bankAccountId) {
     $('#SearchTransaction').on('#SearchTransactionByName input',
         function() {
             SearchTransactions(urlGetSearchTransactionAction, urlLoadTransactionBySearchName, bankAccountId);
