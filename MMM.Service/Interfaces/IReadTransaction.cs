@@ -10,5 +10,7 @@ namespace MMM.Service.Interfaces
         IEnumerable<Transaction> GetAllTransactions();
         Transaction GetTransactionById(int id);
         bool IsTransactionCorrect(int id, int bankAccountId, string userId);
+        IEnumerable<string> GetTransactionNamesBySimilarName(int bankAccountId, string name);
+        IEnumerable<Transaction> GetTransactionByName(string name, int bankAccountId);
     }
 }

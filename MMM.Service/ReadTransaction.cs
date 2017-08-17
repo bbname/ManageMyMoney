@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using MMM.Model;
 using MMM.Repository.Interfaces;
 using MMM.Service.Interfaces;
@@ -31,6 +33,22 @@ namespace MMM.Service
         public bool IsTransactionCorrect(int id, int bankAccountId, string userId)
         {
             return _transactionReadRepository.IsTransactionCorrect(id, bankAccountId, userId);
+        }
+
+        public IEnumerable<string> GetTransactionNamesBySimilarName(int bankAccountId, string name)
+        {
+            var transactions = _transactionReadRepository.GetAllData(bankAccountId)
+                .Where(t => t.Name.StartsWith(name))
+                .Take(10)
+                .Select(t => t.Name);
+
+            return transactions;
+        }
+
+
+        public IEnumerable<Transaction> GetTransactionByName(string name, int bankAccountId)
+        {
+            return _transactionReadRepository.GetAllData(bankAccountId).Where(t => t.Name == name).Take(1);
         }
     }
 }

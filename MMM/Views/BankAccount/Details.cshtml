@@ -17,6 +17,7 @@
         LoadTransactionsFiltersListener(transactionsDiv, '@Url.Action("GetTransactionsByBankAccountIdFilters", "Transaction")', '@Model.Id');
         DateFromToFilterListener(transactionsDiv, '@Url.Action("GetTransactionsByBankAccountIdFilters", "Transaction")', '@Model.Id');
         ClearDateFromToInputsListener();
+        SearchTransactionListener('@Url.Action("AutocompleteSearchTransaction", "Transaction")', '@Url.Action("LoadTransactionBySearchName", "Transaction")', '@Model.Id');
         $bankAccountId = '@Model.Id';
 
         $(function () {
@@ -36,6 +37,11 @@
                 dateFormat: 'dd.mm.yy',
                 controlType: 'select',
                 showTimepicker: false
+            });
+        });
+
+        $(function() {
+            $('#SearchTransactionByName').autocomplete({
             });
         });
 
@@ -104,12 +110,20 @@
             @Html.ValidationMessageFor(model => model.SelectedFilterId, "", new { @class = "text-danger" })
         </div>
     @*<div class="col-sm-offset-5 col-sm-5 col-md-offset-5 col-md-5 col-xs-12">*@
-    <div class=" col-xs-12 col-sm-5 col-md-5">
+    <div class="col-xs-12 col-sm-5 col-md-5">
         <input id="FromDate" name="FromDate" class="form-control form-group transaction-date-filter" type="text" placeholder="Data od" />
         <input id="ToDate" name="ToDate" class="form-control form-group transaction-date-filter" type="text" placeholder="Data do" />
         <button type="button" class="btn btn-default" id="ClearFromToDateBtn" style="margin-bottom: 15px;">
             <span class="glyphicon glyphicon-calendar"></span> Wyczyść
         </button>
+    </div>
+    <div id="SearchTransaction" class="col-xs-5 col-sm-4 col-md-3">
+        <div class="input-group">
+            <input id="SearchTransactionByName" name="SearchTransactionByName" class="form-control" type="text" placeholder="Szukaj po nazwie"/>
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button" style="border-left: none;"><span class="glyphicon glyphicon-search"></span></button>
+            </span>
+        </div>
     </div>
 </div>
 

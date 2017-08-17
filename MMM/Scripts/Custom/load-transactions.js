@@ -1,4 +1,30 @@
-﻿function LoadTransactions(outputDiv, urlGetAction, bankAccountId, page = 1) {
+﻿function LoadTransactionBySearchName(urlGetAction, transactionName ,bankAccountId) {
+    var outputDiv = $('#TransactionsList');
+    outputDiv.wrap("<div id='TransactionListLoad'></div>");
+    var loader = $('#TransactionListLoad');
+    outputDiv.css('opacity', '0.0');
+    loader.addClass("loader col-xs-offset-6 col-sm-offset-6 col-md-offset-6");
+
+    $.ajax({
+        url: urlGetAction,
+        type: 'GET',
+        data: {
+            bankAccountId: bankAccountId,
+            name: transactionName
+        },
+        success: function(data) {
+            loader.removeClass("loader col-xs-offset-6 col-sm-offset-6 col-md-offset-6");
+            outputDiv.unwrap();
+            outputDiv.css('opacity', '1.0');
+            outputDiv.html(data);
+        },
+        error: function() {
+            alert('Nie zadziałało odnalezienie transakcji po nazwie.');
+        }
+    });
+}
+
+function LoadTransactions(outputDiv, urlGetAction, bankAccountId, page = 1) {
     outputDiv.wrap("<div id='TransactionListLoad'></div>");
     var loader = $('#TransactionListLoad');
     outputDiv.css('opacity', '0.0');

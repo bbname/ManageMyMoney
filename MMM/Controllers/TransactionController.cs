@@ -28,6 +28,42 @@ namespace MMM.Controllers
             this._writeTransaction = writeTransaction;
         }
 
+        [HttpGet]
+        public ActionResult LoadTransactionBySearchName(string name, int? bankAccountId)
+        {
+            if (Request.IsAjaxRequest() && bankAccountId != null && !String.IsNullOrEmpty(name))
+            {
+                var currencyLogic = new CurrencyLogic();
+                var binder = new ToTransactionListViewModel();
+
+                var bankAccount = _readBankAccount.GetAccountById(bankAccountId.Value);
+                var transaction = _readTransaction.GetTransactionByName(name, bankAccountId.Value);
+
+                var viewModelTransaction =
+                    binder.GetTransactions(transaction, currencyLogic.GetCurrencyIconById(bankAccount.Currency)).ToPagedList(1,1);
+
+                return PartialView("TransactionList", viewModelTransaction);
+            }
+
+            return new JsonResult()
+            {
+                Data = "Wystąpił błąd podczas operacji wczytywania transakcji po nazwie.",
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        [HttpGet]
+        public ActionResult AutocompleteSearchTransaction(string searchText, int? bankAccountId)
+        {
+            if (Request.IsAjaxRequest() && bankAccountId != null && !String.IsNullOrEmpty(searchText))
+            {
+                var results = _readTransaction.GetTransactionNamesBySimilarName(bankAccountId.Value, searchText);
+
+                return Json(results, JsonRequestBehavior.AllowGet);
+            }
+            return Json("Coś poszło nie tak przy wyszukiwaniu.", JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public ActionResult UpdateBalanceInNewerTransactions(DateTime setDateChangedTransaction, int? bankAccountId, decimal differenceAmount, int? editedTranasctionId = null)
         {
