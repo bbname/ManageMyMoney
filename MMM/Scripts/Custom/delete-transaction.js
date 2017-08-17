@@ -33,7 +33,7 @@ function DeleteTransaction(urlPostActionToSave, id, bankAccountId, userId, urlGe
                     tranasctionDiv,
                     urlGetActionLoadFilters
                 );
-                LoadTransactionsFilters(tranasctionDiv, urlGetActionLoadFilters, bankAccountId);
+                LoadTransactionsFilters(tranasctionDiv, urlGetActionLoadFilters, bankAccountId, GetCurrentPageNumber());
             }
         },
         error: function () {

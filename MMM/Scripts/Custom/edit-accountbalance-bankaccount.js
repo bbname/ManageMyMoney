@@ -44,7 +44,7 @@ function SaveChangedTransactionsBalances(urlEditTransactionsBalance, setDateChan
         },
         success: function (dataBack) {
             if (dataBack.status) {
-                LoadTransactionsFilters(tranasctionDiv, urlGetActionLoadFilters, bankAccountId);
+                LoadTransactionsFilters(tranasctionDiv, urlGetActionLoadFilters, bankAccountId, GetCurrentPageNumber());
             }
         },
         error: function () {

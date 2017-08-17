@@ -102,7 +102,7 @@ function SaveTransaction(urlActionToAdd, urlActionToEditBankAccount, urlGetActio
                 EditBankAccountBalance(urlActionToEditBankAccount, GetAccountBalanceInputValue($('#AccountBalance')), $('#UserId').val().trim(), true);
                 $('#SetDate').val('');
                 var transactionsDiv = $('#TransactionsList');
-                LoadTransactionsFilters(transactionsDiv,  urlGetActionLoadFilters, $('#BankAccountId').val().trim());
+                LoadTransactionsFilters(transactionsDiv, urlGetActionLoadFilters, $('#BankAccountId').val().trim(), GetCurrentPageNumber());
             }
         },
         error: function () {
