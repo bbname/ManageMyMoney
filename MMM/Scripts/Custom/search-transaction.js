@@ -17,7 +17,6 @@ function SearchTransactionsFiltersBtnListener(urlLoadTransactionsFiltersBySearch
 function SearchTransactionsFilters(urlLoadTransactionsFiltersBySearchName, bankAccountId) {
     if (!CheckIfSearchIsEmpty()) {
         LoadTransactionsFiltersBySearchName(urlLoadTransactionsFiltersBySearchName,
-            $('#SearchTransactionByName').val(),
             bankAccountId);
         AddSearchToFiltersIds(GetFilterInputs());
     }
@@ -69,8 +68,40 @@ function GetSearchFilterInputs() {
     return filterInputs;
 }
 
+function LoadSearchDateTimePickersListener() {
+    $('#TransactionListFilters').on('focus',
+        '#SearchFromDate',
+        function () {
+            debugger;
+            $(function () {
+                $(this).datetimepicker({
+                    showAnim: 'slideDown',
+                    oneLine: true,
+                    dateFormat: 'dd.mm.yy',
+                    controlType: 'select',
+                    showTimepicker: false
+                });
+            });
+            LoadSearchDateTimePickers();
+        });
+}
+
+function LoadSearchDateTimePickers() {
+
+    $(function () {
+        $("#SearchToDate").datetimepicker({
+            showAnim: 'slideDown',
+            oneLine: true,
+            dateFormat: 'dd.mm.yy',
+            controlType: 'select',
+            showTimepicker: false
+        });
+    });
+}
+
 function AddSearchToFiltersIds(filterInputs) {
     debugger;
+
     filterInputs.each(function() {
         var currentInput = $(this);
         var currentInputId = currentInput.attr('id');
@@ -81,6 +112,7 @@ function AddSearchToFiltersIds(filterInputs) {
 
 function RemoveSearchFromFiltersIds(filterInputs) {
     debugger;
+
     filterInputs.each(function () {
         var currentInput = $(this);
         var currentInputId = currentInput.attr('id');

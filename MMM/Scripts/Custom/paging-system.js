@@ -17,7 +17,6 @@ function PagingListener(urlGetAction, urlGetActionSearch, bankAccountId) {
             }
             else {
                 LoadTransactionsFiltersBySearchName(urlGetActionSearch,
-                    $('#SearchTransactionByName').val(),
                     bankAccountId,
                     pageNr);
             }

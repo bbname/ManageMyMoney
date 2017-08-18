@@ -7,7 +7,10 @@
 }
 
 function LoadCurrentBankAccountBalance(modelAccountBalanceValue, modelCurrency) {
-    SetAccountBalanceInputValue($('#AccountBalance'), $('#BankAccountBalance').text().trim(), modelAccountBalanceValue, modelCurrency)
+    SetAccountBalanceInputValue($('#AccountBalance'),
+        $('#BankAccountBalance').text().trim(),
+        modelAccountBalanceValue,
+        modelCurrency);
 }
 
 function ChangeAccountBalanceListener(modelAccountBalanceValue, modelCurrency) {
