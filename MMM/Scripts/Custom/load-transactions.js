@@ -1,4 +1,60 @@
-﻿function LoadTransactionBySearchName(urlGetAction, transactionName ,bankAccountId) {
+﻿function LoadTransactionsFiltersBySearchName(urlLoadTransactionsFiltersBySearchName, transactionName, bankAccountId, page = 1) {
+    var outputDiv = $('#TransactionsList');
+    outputDiv.wrap("<div id='TransactionListLoad'></div>");
+    var loader = $('#TransactionListLoad');
+    outputDiv.css('opacity', '0.0');
+    loader.addClass("loader col-xs-offset-6 col-sm-offset-6 col-md-offset-6");
+    if ($('#SearchToDate').length > 0) {
+        $.ajax({
+            url: urlLoadTransactionsFiltersBySearchName,
+            type: 'GET',
+            data: {
+                bankAccountId: bankAccountId,
+                name: transactionName,
+                toDate: $('#SearchToDate').val().trim(),
+                fromDate: $('#SearchFromDate').val().trim(),
+                selectedItemsForPage: $('#SearchSelectedItemsForPageId').val().trim(),
+                selectedFilterId: $('#SearchSelectedFilterId').val().trim(),
+                page: page
+            },
+            success: function (data) {
+                loader.removeClass("loader col-xs-offset-6 col-sm-offset-6 col-md-offset-6");
+                outputDiv.unwrap();
+                outputDiv.css('opacity', '1.0');
+                outputDiv.html(data);
+                ShowSearchTransactionReset();
+            },
+            error: function () {
+                alert('Nie zadziałało odnalezienie wielu transakcji po nazwie.');
+            }
+        }); 
+    }
+    else {
+        $.ajax({
+            url: urlLoadTransactionsFiltersBySearchName,
+            type: 'GET',
+            data: {
+                bankAccountId: bankAccountId,
+                name: transactionName,
+                selectedItemsForPage: $('#SelectedItemsForPageId').val().trim(),
+                page: page
+            },
+            success: function (data) {
+                loader.removeClass("loader col-xs-offset-6 col-sm-offset-6 col-md-offset-6");
+                outputDiv.unwrap();
+                outputDiv.css('opacity', '1.0');
+                outputDiv.html(data);
+                ShowSearchTransactionReset();
+            },
+            error: function () {
+                alert('Nie zadziałało odnalezienie wielu transakcji po nazwie.');
+            }
+        }); 
+    }
+
+}
+
+function LoadTransactionBySearchName(urlGetAction, transactionName, bankAccountId) {
     var outputDiv = $('#TransactionsList');
     outputDiv.wrap("<div id='TransactionListLoad'></div>");
     var loader = $('#TransactionListLoad');
@@ -52,21 +108,6 @@ function LoadTransactions(outputDiv, urlGetAction, bankAccountId, page = 1) {
         });
 }
 
-//function LoadTransactions(outputDiv, urlGetAction) {
-//    outputDiv.wrap("<div id='TransactionListLoad'></div>");
-//    var loader = $('#TransactionListLoad');
-//    outputDiv.css('opacity', '0.0');
-//    loader.addClass("loader col-xs-offset-6 col-sm-offset-6 col-md-offset-6");
-//    $.get(
-//        urlGetAction,
-//        function (data) {
-//            loader.removeClass("loader col-xs-offset-6 col-sm-offset-6 col-md-offset-6");
-//            outputDiv.unwrap();
-//            outputDiv.css('opacity', '1.0');
-//            outputDiv.html(data);
-//        });
-//}
-
 function ClearDateFromToInputsListener() {
     $('#TransactionListFilters').on('click',
         '#ClearFromToDateBtn',
@@ -97,15 +138,17 @@ function DateFromToCheck(outputDiv, urlGetAction, bankAccountId) {
     }
 }
 
-function LoadTransactionsFiltersListener(outputDiv, urlGetAction, bankAccountId, page) {
+function LoadTransactionsFiltersListener(outputDiv, urlGetAction, bankAccountId) {
     $('#TransactionListFilters').on('change',
         '#SelectedItemsForPageId, #SelectedFilterId',
         function () {
-            LoadTransactionsFilters(outputDiv, urlGetAction, bankAccountId, page);
+            LoadTransactionsFilters(outputDiv, urlGetAction, bankAccountId);
         });
 }
 
 function LoadTransactionsFilters(outputDiv, urlGetAction, bankAccountId, page = 1) {
+    //RemoveSearchFromFiltersIds(GetSearchFilterInputs());
+    $search = false;
     outputDiv.wrap("<div id='TransactionListLoad'></div>");
     var loader = $('#TransactionListLoad');
     outputDiv.css('opacity', '0.0');
@@ -118,7 +161,6 @@ function LoadTransactionsFilters(outputDiv, urlGetAction, bankAccountId, page = 
             toDate: $('#ToDate').val().trim(),
             fromDate: $('#FromDate').val().trim(),
             selectedItemsForPage: $('#SelectedItemsForPageId').val().trim(),
-            selectedFilterId: $('#SelectedFilterId').val().trim(),
             page: page
         },
         success: function (dataBack) {

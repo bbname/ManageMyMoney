@@ -10,7 +10,7 @@
             $bankAccountId,
             '@User.Identity.GetUserId()');
         @*PagingListener('@Url.Action("GetTransactionsByBankAccountId", "Transaction")', $bankAccountId);*@
-        PagingListener('@Url.Action("GetTransactionsByBankAccountIdFilters", "Transaction")', $bankAccountId);
+        PagingListener('@Url.Action("GetTransactionsByBankAccountIdFilters", "Transaction")', '@Url.Action("GetTransactionsBySearchNameFilters", "Transaction")' ,$bankAccountId);
     });
 </script>
 

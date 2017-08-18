@@ -1,11 +1,10 @@
 ﻿function GetCurrentPageNumber() {
-    debugger;
     var currentPageNr = $('#pagingSystem .pagination .active a').text().trim();
 
     return currentPageNr;
 }
 
-function PagingListener(urlGetAction, bankAccountId) {
+function PagingListener(urlGetAction, urlGetActionSearch, bankAccountId) {
     $('#pagingSystem').on('click', 'a', function (e) {
         e.preventDefault();
         
@@ -13,7 +12,15 @@ function PagingListener(urlGetAction, bankAccountId) {
             var pageNr = GetPageNumberFromHref($(this).attr('href'));
             var transactionsListDiv = $('#TransactionsList');
             //LoadTransactions(transactionsListDiv, urlGetAction, bankAccountId, pageNr);
-            LoadTransactionsFilters(transactionsListDiv, urlGetAction, bankAccountId, pageNr);
+            if (!$search) {
+                LoadTransactionsFilters(transactionsListDiv, urlGetAction, bankAccountId, pageNr);
+            }
+            else {
+                LoadTransactionsFiltersBySearchName(urlGetActionSearch,
+                    $('#SearchTransactionByName').val(),
+                    bankAccountId,
+                    pageNr);
+            }
         }
 
     });

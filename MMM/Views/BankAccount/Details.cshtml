@@ -19,7 +19,9 @@
         ClearDateFromToInputsListener();
         SearchTransactionListener('@Url.Action("AutocompleteSearchTransaction", "Transaction")', '@Url.Action("LoadTransactionBySearchName", "Transaction")', '@Model.Id');
         LoadTransactionBtnListener('@Url.Action("GetTransactionsByBankAccountIdFilters", "Transaction")', '@Model.Id');
+        SearchTransactionsFiltersBtnListener('@Url.Action("GetTransactionsBySearchNameFilters", "Transaction")', '@Model.Id');
         $bankAccountId = '@Model.Id';
+        $search = false;
 
         $(function () {
             $("#FromDate").datetimepicker({
@@ -122,7 +124,7 @@
         <div class="input-group">
             <input id="SearchTransactionByName" name="SearchTransactionByName" class="form-control" type="text" placeholder="Szukaj po nazwie"/>
             <span class="input-group-btn">
-                <button class="btn btn-default" type="button" style="border-left: none;"><span class="glyphicon glyphicon-search"></span></button>
+                <button class="btn btn-default" type="button" id="SearchTransactionsByNameBtn" style="border-left: none;"><span class="glyphicon glyphicon-search"></span></button>
             </span>
         </div>
     </div>

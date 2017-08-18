@@ -64,18 +64,38 @@ namespace MMM.Controllers
             return Json("Coś poszło nie tak przy wyszukiwaniu.", JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public ActionResult UpdateBalanceInNewerTransactions(DateTime setDateChangedTransaction, int? bankAccountId, decimal differenceAmount, int? editedTranasctionId = null)
+        [HttpGet]
+        public ActionResult GetTransactionsBySearchNameFilters(int? bankAccountId, string name ,string fromDate, string toDate,
+            int? selectedItemsForPage, int? selectedFilterId, int page = 1)
         {
-            var status = false;
-
-            if (Request.IsAjaxRequest()  && bankAccountId != null)
+            if (bankAccountId != null && !String.IsNullOrEmpty(name))
             {
-                _writeTransaction.UpdateTransactionsBalanceForNewer(setDateChangedTransaction, bankAccountId.Value, differenceAmount, editedTranasctionId);
-                status = true;
-            }
+                var bankAccount = _readBankAccount.GetAccountById(bankAccountId.Value);
+                var binder = new ToTransactionListViewModel();
+                var currencyLogic = new CurrencyLogic();
+                var filterLogic = new FiltersLogic();
+                var filterName = "";
+                var filterValue = "";
+                var fromDateConverted = filterLogic.GetDateTimeByDateStringWithDots(fromDate);
+                var toDateConverted = filterLogic.GetEndDateTimeDateStringWithDots(toDate);
+                filterLogic.GetFilterNameFilterValueById(selectedFilterId, out filterName, out filterValue);
+                var itemsForPage = filterLogic.GetItemsForPageById(selectedItemsForPage);
 
-            return new JsonResult(){ Data = new { status = status} };
+
+                var transactions = _readTransaction.GetSearchTransactionsByFilters(bankAccountId.Value, fromDateConverted, toDateConverted, filterName, filterValue, name);
+                var viewModelTransactions = binder.GetTransactions(transactions,
+                    currencyLogic.GetCurrencyIconById(bankAccount.Currency)).ToPagedList(page, itemsForPage);
+
+                return PartialView("TransactionList", viewModelTransactions);
+            }
+            else
+            {
+                return new JsonResult
+                {
+                    Data = "Wystąpił błąd podczas operacji.",
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
+            }
         }
 
         [HttpGet]
@@ -110,6 +130,20 @@ namespace MMM.Controllers
                 };
             }
 
+        }
+
+        [HttpPost]
+        public ActionResult UpdateBalanceInNewerTransactions(DateTime setDateChangedTransaction, int? bankAccountId, decimal differenceAmount, int? editedTranasctionId = null)
+        {
+            var status = false;
+
+            if (Request.IsAjaxRequest() && bankAccountId != null)
+            {
+                _writeTransaction.UpdateTransactionsBalanceForNewer(setDateChangedTransaction, bankAccountId.Value, differenceAmount, editedTranasctionId);
+                status = true;
+            }
+
+            return new JsonResult() { Data = new { status = status } };
         }
 
         [System.Web.Mvc.HttpGet]

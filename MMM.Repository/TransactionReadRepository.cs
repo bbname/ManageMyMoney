@@ -56,8 +56,8 @@ namespace MMM.Repository
                     // is filterName Amount
                     if (filter.CheckIfFilterIsAmount(filterName))
                     {
-                        // is -Amount 
                         if (filter.CheckIfAmountIsNegative(filterName))
+                        // is -Amount 
                         {
                             // encode -Amount
                             filterName = filter.EncodeAmountFilter(filterName);

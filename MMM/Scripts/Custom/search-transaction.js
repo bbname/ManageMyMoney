@@ -1,33 +1,29 @@
-﻿function LoadTransactionBtnListener(urlLoadTransactionsFilters, bankAccountId) {
-    $('#SearchTransactionReset').on('click',
-        '#LoadTransactionBtn',
-        function() {
-            ClearSearchInput();
-            HideSearchTransactionReset();
-            LoadTransactionsFilters($('#TransactionsList'), urlLoadTransactionsFilters, bankAccountId);
-        });
-}
-
-function ClearSearchInput() {
-    $('#SearchTransactionByName').val('');
-}
-
-function HideSearchTransactionReset() {
-    $('#SearchTransactionReset').css('display', 'none');
-}
-
-function ShowSearchTransactionReset() {
-    $('#SearchTransactionReset').css('display', 'inline-block');
-}
-
-function SearchTransactionListener(urlGetSearchTransactionAction, urlLoadTransactionBySearchName, bankAccountId) {
+﻿function SearchTransactionListener(urlGetSearchTransactionAction, urlLoadTransactionBySearchName, bankAccountId) {
     $('#SearchTransaction').on('#SearchTransactionByName input',
         function() {
-            SearchTransactions(urlGetSearchTransactionAction, urlLoadTransactionBySearchName, bankAccountId);
+            SearchTransaction(urlGetSearchTransactionAction, urlLoadTransactionBySearchName, bankAccountId);
         });
 }
 
-function SearchTransactions(urlGetSearchTransactionAction, urlLoadTransactionBySearchName, bankAccountId) {
+function SearchTransactionsFiltersBtnListener(urlLoadTransactionsFiltersBySearchName, bankAccountId, page) {
+    $('#SearchTransaction').on('click',
+        '#SearchTransactionsByNameBtn',
+        function () {
+            $search = true;
+            SearchTransactionsFilters(urlLoadTransactionsFiltersBySearchName, bankAccountId, page);
+        });
+}
+
+function SearchTransactionsFilters(urlLoadTransactionsFiltersBySearchName, bankAccountId) {
+    if (!CheckIfSearchIsEmpty()) {
+        LoadTransactionsFiltersBySearchName(urlLoadTransactionsFiltersBySearchName,
+            $('#SearchTransactionByName').val(),
+            bankAccountId);
+        AddSearchToFiltersIds(GetFilterInputs());
+    }
+}
+
+function SearchTransaction(urlGetSearchTransactionAction, urlLoadTransactionBySearchName, bankAccountId) {
     if (!CheckIfSearchIsEmpty()) {
         $.ajax({
             url: urlGetSearchTransactionAction,
@@ -51,6 +47,70 @@ function SearchTransactions(urlGetSearchTransactionAction, urlLoadTransactionByS
             }
         });
     }
+}
+
+function GetFilterInputs() {
+    debugger;
+    var filterInputs = $('#ToDate');
+    filterInputs = filterInputs.add($('#FromDate'));
+    filterInputs = filterInputs.add($('#SelectedItemsForPageId'));
+    filterInputs = filterInputs.add($('#SelectedFilterId'));
+
+    return filterInputs;
+}
+
+function GetSearchFilterInputs() {
+    debugger;
+    var filterInputs = $('#SearchToDate');
+    filterInputs = filterInputs.add($('#SearchFromDate'));
+    filterInputs = filterInputs.add($('#SearchSelectedItemsForPageId'));
+    filterInputs = filterInputs.add($('#SearchSelectedFilterId'));
+
+    return filterInputs;
+}
+
+function AddSearchToFiltersIds(filterInputs) {
+    debugger;
+    filterInputs.each(function() {
+        var currentInput = $(this);
+        var currentInputId = currentInput.attr('id');
+        var changedInputId = 'Search' + currentInputId;
+        currentInput.attr('id', changedInputId);
+    });
+}
+
+function RemoveSearchFromFiltersIds(filterInputs) {
+    debugger;
+    filterInputs.each(function () {
+        var currentInput = $(this);
+        var currentInputId = currentInput.attr('id');
+        var changedInputId = currentInputId.replace('Search', '');
+        currentInput.attr('id', changedInputId);
+    });
+}
+
+function LoadTransactionBtnListener(urlLoadTransactionsFilters, bankAccountId) {
+    $('#SearchTransactionReset').on('click',
+        '#LoadTransactionBtn',
+        function () {
+            $search = false;
+            HideSearchTransactionReset();
+            RemoveSearchFromFiltersIds(GetSearchFilterInputs());
+            LoadTransactionsFilters($('#TransactionsList'), urlLoadTransactionsFilters, bankAccountId);
+        });
+}
+
+function ClearSearchInput() {
+    $('#SearchTransactionByName').val('');
+}
+
+function HideSearchTransactionReset() {
+    $('#SearchTransactionReset').css('display', 'none');
+    ClearSearchInput();
+}
+
+function ShowSearchTransactionReset() {
+    $('#SearchTransactionReset').css('display', 'inline-block');
 }
 
 function CheckIfSearchIsEmpty() {

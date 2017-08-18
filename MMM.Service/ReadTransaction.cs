@@ -25,6 +25,11 @@ namespace MMM.Service
             return _transactionReadRepository.GetById(id);
         }
 
+        public IEnumerable<Transaction> GetSearchTransactionsByFilters(int bankAccount, DateTime? fromDate, DateTime? toDate, string filterName, string filterValue, string searchText)
+        {
+            return _transactionReadRepository.GetTransactionsByFilters(bankAccount, fromDate, toDate, filterName, filterValue).Where(t => t.Name.Contains(searchText));
+        }
+
         public IEnumerable<Transaction> GetTransactionsByFilters(int bankAccount, DateTime? fromDate, DateTime? toDate, string filterName, string filterValue)
         {
             return _transactionReadRepository.GetTransactionsByFilters(bankAccount, fromDate, toDate, filterName, filterValue);
