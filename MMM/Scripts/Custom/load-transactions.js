@@ -126,6 +126,7 @@ function LoadTransactionsFilters(outputDiv, urlGetAction, bankAccountId, page = 
             outputDiv.unwrap();
             outputDiv.css('opacity', '1.0');
             outputDiv.html(dataBack);
+            HideSearchTransactionReset();
         },
         error: function () {
             alert('Coś poszło nie tak przy pobieraniu danych poprzez filtry.');
