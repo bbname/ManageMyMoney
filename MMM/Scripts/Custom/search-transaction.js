@@ -50,9 +50,10 @@ function SearchTransaction(urlGetSearchTransactionAction, urlLoadTransactionBySe
 
 function GetFilterInputs() {
     debugger;
-    var filterInputs = $('#ToDate');
-    filterInputs = filterInputs.add($('#FromDate'));
-    filterInputs = filterInputs.add($('#SelectedItemsForPageId'));
+    //var filterInputs = $('#ToDate');
+    //filterInputs = filterInputs.add($('#FromDate'));
+    //filterInputs = filterInputs.add($('#SelectedItemsForPageId'));
+    var filterInputs = $('#SelectedItemsForPageId');
     filterInputs = filterInputs.add($('#SelectedFilterId'));
 
     return filterInputs;
@@ -60,43 +61,13 @@ function GetFilterInputs() {
 
 function GetSearchFilterInputs() {
     debugger;
-    var filterInputs = $('#SearchToDate');
-    filterInputs = filterInputs.add($('#SearchFromDate'));
-    filterInputs = filterInputs.add($('#SearchSelectedItemsForPageId'));
+    //var filterInputs = $('#SearchToDate');
+    //filterInputs = filterInputs.add($('#SearchFromDate'));
+    //filterInputs = filterInputs.add($('#SearchSelectedItemsForPageId'));
+    var filterInputs = $('#SearchSelectedItemsForPageId');
     filterInputs = filterInputs.add($('#SearchSelectedFilterId'));
 
     return filterInputs;
-}
-
-function LoadSearchDateTimePickersListener() {
-    $('#TransactionListFilters').on('focus',
-        '#SearchFromDate',
-        function () {
-            debugger;
-            $(function () {
-                $(this).datetimepicker({
-                    showAnim: 'slideDown',
-                    oneLine: true,
-                    dateFormat: 'dd.mm.yy',
-                    controlType: 'select',
-                    showTimepicker: false
-                });
-            });
-            LoadSearchDateTimePickers();
-        });
-}
-
-function LoadSearchDateTimePickers() {
-
-    $(function () {
-        $("#SearchToDate").datetimepicker({
-            showAnim: 'slideDown',
-            oneLine: true,
-            dateFormat: 'dd.mm.yy',
-            controlType: 'select',
-            showTimepicker: false
-        });
-    });
 }
 
 function AddSearchToFiltersIds(filterInputs) {

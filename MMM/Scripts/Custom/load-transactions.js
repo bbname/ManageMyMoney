@@ -5,15 +5,16 @@
     var loader = $('#TransactionListLoad');
     outputDiv.css('opacity', '0.0');
     loader.addClass("loader col-xs-offset-6 col-sm-offset-6 col-md-offset-6");
-    if ($('#SearchToDate').length > 0) {
+    if ($('#SearchSelectedItemsForPageId').length > 0
+        && $('#SearchSelectedFilterId').length > 0) {
         $.ajax({
             url: urlLoadTransactionsFiltersBySearchName,
             type: 'GET',
             data: {
                 bankAccountId: bankAccountId,
                 name: $('#SearchTransactionByName').val(),
-                toDate: $('#SearchToDate').val().trim(),
-                fromDate: $('#SearchFromDate').val().trim(),
+                toDate: $('#ToDate').val().trim(),
+                fromDate: $('#FromDate').val().trim(),
                 selectedItemsForPage: $('#SearchSelectedItemsForPageId').val().trim(),
                 selectedFilterId: $('#SearchSelectedFilterId').val().trim(),
                 page: page
@@ -82,22 +83,22 @@ function LoadTransactionBySearchName(urlGetAction, transactionName, bankAccountI
     });
 }
 
-function SearchDateFromToFilterListener(urlGetAction, bankAccountId) {
-    $('#TransactionListFilters').on('change',
-        '#SearchFromDate, #SearchToDate',
-        function () {
-            SearchDateFromToCheck(urlGetAction, bankAccountId);
-        });
-}
+//function SearchDateFromToFilterListener(urlGetAction, bankAccountId) {
+//    $('#TransactionListFilters').on('change',
+//        '#SearchFromDate, #SearchToDate',
+//        function () {
+//            SearchDateFromToCheck(urlGetAction, bankAccountId);
+//        });
+//}
 
-function SearchDateFromToCheck(urlGetAction, bankAccountId) {
-    var searchDateFrom = $('#SearchFromDate');
-    var searchDateTo = $('#SearchToDate');
+//function SearchDateFromToCheck(urlGetAction, bankAccountId) {
+//    var searchDateFrom = $('#SearchFromDate');
+//    var searchDateTo = $('#SearchToDate');
 
-    if (searchDateFrom.val() && searchDateTo.val()) {
-        LoadTransactionsFiltersBySearchName(urlGetAction, bankAccountId);
-    }
-}
+//    if (searchDateFrom.val() && searchDateTo.val()) {
+//        LoadTransactionsFiltersBySearchName(urlGetAction, bankAccountId);
+//    }
+//}
 
 function SearchLoadTransactionsFiltersListener(urlGetAction, bankAccountId) {
     $('#TransactionListFilters').on('change',
@@ -105,6 +106,20 @@ function SearchLoadTransactionsFiltersListener(urlGetAction, bankAccountId) {
         function () {
             LoadTransactionsFiltersBySearchName(urlGetAction, bankAccountId);
         });
+}
+
+function DateFromToCheckIfSearch() {
+    debugger;
+    var isSearch = false;
+
+    if ($search
+        && $('#SearchTransactionReset').css('display') != 'none'
+        && $('#SearchSelectedFilterId').length > 0
+        && $('#SearchSelectedItemsForPageId').length > 0) {
+        isSearch = true;
+    }
+
+    return isSearch;
 }
 
 function ClearDateFromToInputsListener() {
@@ -116,32 +131,47 @@ function ClearDateFromToInputsListener() {
 }
 
 function ClearDateFromToInputs() {
-    if (!$search) {
-        $('#FromDate').val('');
-        $('#ToDate').val('');
-    }
-    else {
-        $('#SearchFromDate').val('');
-        $('#SearchToDate').val('');
-    }
+    $('#FromDate').val('');
+    $('#ToDate').val('');
 }
 
-function DateFromToFilterListener(outputDiv, urlGetAction, bankAccountId) {
+function DateFromToFilterListener(outputDiv, urlGetAction, urlGetSearchAction, bankAccountId) {
     $('#TransactionListFilters').on('change',
         '#FromDate, #ToDate',
         function () {
-            DateFromToCheck(outputDiv, urlGetAction, bankAccountId);
+            if (DateFromToCheckIfSearch()
+                && DateFromToCheckInputs()) {
+                LoadTransactionsFiltersBySearchName(urlGetSearchAction, bankAccountId);
+            }
+            else {
+                //DateFromToCheck(outputDiv, urlGetAction, bankAccountId);
+                if (DateFromToCheckInputs()) {
+                    LoadTransactionsFilters(outputDiv, urlGetAction, bankAccountId);
+                }
+            }
         });
 }
 
-function DateFromToCheck(outputDiv, urlGetAction, bankAccountId) {
+function DateFromToCheckInputs() {
     var dateFrom = $('#FromDate');
     var dateTo = $('#ToDate');
+    var areFilled = false;
 
     if (dateFrom.val() && dateTo.val()) {
-        LoadTransactionsFilters(outputDiv, urlGetAction, bankAccountId);
+        areFilled = true;
     }
+
+    return areFilled;
 }
+
+//function DateFromToCheck(outputDiv, urlGetAction, bankAccountId) {
+//    var dateFrom = $('#FromDate');
+//    var dateTo = $('#ToDate');
+
+//    if (dateFrom.val() && dateTo.val()) {
+//        LoadTransactionsFilters(outputDiv, urlGetAction, bankAccountId);
+//    }
+//}
 
 function LoadTransactionsFiltersListener(outputDiv, urlGetAction, bankAccountId) {
     $('#TransactionListFilters').on('change',
@@ -166,6 +196,7 @@ function LoadTransactionsFilters(outputDiv, urlGetAction, bankAccountId, page = 
             toDate: $('#ToDate').val().trim(),
             fromDate: $('#FromDate').val().trim(),
             selectedItemsForPage: $('#SelectedItemsForPageId').val().trim(),
+            selectedFilterId: $('#SelectedFilterId').val().trim(),
             page: page
         },
         success: function (dataBack) {
