@@ -1,11 +1,11 @@
-﻿function DeleteTransactionListener(urlPostActionToSave, id, bankAccountId, userId, urlGetActionLoadFilters, urlEditAccountBalanceAction, amount, urlEditTransactionsBalance, setDateChangedTransaction) {
+﻿function DeleteTransactionListener(urlPostActionToSave, id, bankAccountId, userId, urlGetActionLoadFilters, urlGetActionLoadFiltersBySearch, urlEditAccountBalanceAction, amount, urlEditTransactionsBalance, setDateChangedTransaction) {
     $(document).on('click', '#DeleteTransactionBtn', function (e) {
         e.preventDefault();
-        DeleteTransaction(urlPostActionToSave, id, bankAccountId, userId, urlGetActionLoadFilters, urlEditAccountBalanceAction, amount, urlEditTransactionsBalance, setDateChangedTransaction);
+        DeleteTransaction(urlPostActionToSave, id, bankAccountId, userId, urlGetActionLoadFilters, urlGetActionLoadFiltersBySearch, urlEditAccountBalanceAction, amount, urlEditTransactionsBalance, setDateChangedTransaction);
     });
 }
 
-function DeleteTransaction(urlPostActionToSave, id, bankAccountId, userId, urlGetActionLoadFilters, urlEditAccountBalanceAction, amount, urlEditTransactionsBalance, setDateChangedTransaction) {
+function DeleteTransaction(urlPostActionToSave, id, bankAccountId, userId, urlGetActionLoadFilters, urlGetActionLoadFiltersBySearch, urlEditAccountBalanceAction, amount, urlEditTransactionsBalance, setDateChangedTransaction) {
     var isPermissionToChangeBalance = !($('#ModalDeleteTransaction #DeleteChangeBankAccountBalance').is(':checked'));
 
     $.ajax({
@@ -31,9 +31,10 @@ function DeleteTransaction(urlPostActionToSave, id, bankAccountId, userId, urlGe
                     GetDifferenceAmountDeleteTransaction(amount),
                     isPermissionToChangeBalance,
                     tranasctionDiv,
-                    urlGetActionLoadFilters
+                    urlGetActionLoadFilters,
+                    urlGetActionLoadFiltersBySearch
                 );
-                LoadTransactionsFilters(tranasctionDiv, urlGetActionLoadFilters, bankAccountId, GetCurrentPageNumber());
+                //LoadTransactionsFilters(tranasctionDiv, urlGetActionLoadFilters, bankAccountId, GetCurrentPageNumber());
             }
         },
         error: function () {
