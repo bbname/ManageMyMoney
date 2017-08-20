@@ -73,6 +73,11 @@ namespace MMM.Models
         public string Email { get; set; }
 
         [Required]
+        [StringLength(25, ErrorMessage = "Pole {0} musi posiadać co najmniej {2} znaków", MinimumLength = 3)]
+        [Display(Name = "Login")]
+        public string Login { get; set; }
+
+        [Required]
         [StringLength(100, ErrorMessage = "Pole {0} musi posiadać co najmniej {2} znaków.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Hasło")]

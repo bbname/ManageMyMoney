@@ -1,5 +1,4 @@
 ﻿function SelectProperLoadTransactions(urlGetActionFilters, urlGetActionFiltersBySearch, bankAccountId, currentPage = 1) {
-    //debugger;
     if (CheckIfSearch()) {
         LoadTransactionsFiltersBySearchName(urlGetActionFiltersBySearch, bankAccountId, currentPage);
     }

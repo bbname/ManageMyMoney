@@ -77,7 +77,6 @@ function CheckEditAmountInput(amountInput) {
 }
 
 function SaveEditTransaction(urlActionToEdit, urlGetActionLoadFilters, urlGetActionLoadFiltersBySearch, urlActionToUpdateBankAccountBalance, firstAmount, urlEditAccountBalanceAction) {
-    //debugger;
     var viewModel = {
         Id: $('#ModalEditTransaction #Id').val().trim(),
         Name: $('#ModalEditTransaction #Name').val().trim(),

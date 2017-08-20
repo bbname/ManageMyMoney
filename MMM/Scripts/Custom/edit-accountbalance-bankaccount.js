@@ -33,7 +33,6 @@ function SaveChangedBankAccountBalance(urlPostActionToSave, accountBalance, user
 
 
 function SaveChangedTransactionsBalances(urlEditTransactionsBalance, setDateChangedTransaction, bankAccountId, differenceAmount, tranasctionDiv, urlGetActionLoadFilters, urlGetActionLoadFiltersBySearch, editedTransactionId = null) {
-    //debugger;
     $.ajax({
         url: urlEditTransactionsBalance,
         type: 'POST',
@@ -88,7 +87,6 @@ function GetBankAccountBalanceDeleteTransaction(amount) {
 }
 
 function GetDifferenceAmountDeleteTransaction(amount) {
-    //debugger;
     amount = amount.replace(',', '.');
     amount = parseFloat(amount);
     amount = amount.toFixed(2);

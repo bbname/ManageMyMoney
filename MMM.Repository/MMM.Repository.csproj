@@ -130,6 +130,7 @@
     <Compile Include="TransactionReadRepository.cs" />
     <Compile Include="TransactionWriteRepository.cs" />
     <Compile Include="UserReadRepository.cs" />
+    <Compile Include="UserWriteRepository.cs" />
     <Compile Include="WriteRepository.cs" />
   </ItemGroup>
   <ItemGroup>
