@@ -1,4 +1,14 @@
-﻿function LoadTransactionsFiltersBySearchName(urlLoadTransactionsFiltersBySearchName, bankAccountId, page = 1) {
+﻿function SelectProperLoadTransactions(urlGetActionFilters, urlGetActionFiltersBySearch, bankAccountId, currentPage = 1) {
+    //debugger;
+    if (CheckIfSearch()) {
+        LoadTransactionsFiltersBySearchName(urlGetActionFiltersBySearch, bankAccountId, currentPage);
+    }
+    else {
+        LoadTransactionsFilters($('#TransactionsList'), urlGetActionFilters, bankAccountId, currentPage);
+    }
+}
+
+function LoadTransactionsFiltersBySearchName(urlLoadTransactionsFiltersBySearchName, bankAccountId, page = 1) {
     $search = true;
     var outputDiv = $('#TransactionsList');
     outputDiv.wrap("<div id='TransactionListLoad'></div>");
@@ -83,23 +93,6 @@ function LoadTransactionBySearchName(urlGetAction, transactionName, bankAccountI
     });
 }
 
-//function SearchDateFromToFilterListener(urlGetAction, bankAccountId) {
-//    $('#TransactionListFilters').on('change',
-//        '#SearchFromDate, #SearchToDate',
-//        function () {
-//            SearchDateFromToCheck(urlGetAction, bankAccountId);
-//        });
-//}
-
-//function SearchDateFromToCheck(urlGetAction, bankAccountId) {
-//    var searchDateFrom = $('#SearchFromDate');
-//    var searchDateTo = $('#SearchToDate');
-
-//    if (searchDateFrom.val() && searchDateTo.val()) {
-//        LoadTransactionsFiltersBySearchName(urlGetAction, bankAccountId);
-//    }
-//}
-
 function SearchLoadTransactionsFiltersListener(urlGetAction, bankAccountId) {
     $('#TransactionListFilters').on('change',
         '#SearchSelectedItemsForPageId, #SearchSelectedFilterId',
@@ -108,43 +101,33 @@ function SearchLoadTransactionsFiltersListener(urlGetAction, bankAccountId) {
         });
 }
 
-function DateFromToCheckIfSearch() {
-    debugger;
-    var isSearch = false;
-
-    if ($search
-        && $('#SearchTransactionReset').css('display') != 'none'
-        && $('#SearchSelectedFilterId').length > 0
-        && $('#SearchSelectedItemsForPageId').length > 0) {
-        isSearch = true;
-    }
-
-    return isSearch;
-}
-
-function ClearDateFromToInputsListener() {
+function ClearDateFromToInputsListener(urlGetActionFilters, urlGetActionFiltersBySearch, bankAccountId) {
     $('#TransactionListFilters').on('click',
         '#ClearFromToDateBtn',
         function () {
-            ClearDateFromToInputs();
+            ClearDateFromToInputs(urlGetActionFilters, urlGetActionFiltersBySearch, bankAccountId);
         });
 }
 
-function ClearDateFromToInputs() {
+function ClearDateFromToInputs(urlGetActionFilters, urlGetActionFiltersBySearch, bankAccountId) {
+    var wereFilled = DateFromToCheckInputs();
     $('#FromDate').val('');
     $('#ToDate').val('');
+
+    if (wereFilled) {
+        SelectProperLoadTransactions(urlGetActionFilters, urlGetActionFiltersBySearch, bankAccountId);
+    }
 }
 
 function DateFromToFilterListener(outputDiv, urlGetAction, urlGetSearchAction, bankAccountId) {
     $('#TransactionListFilters').on('change',
         '#FromDate, #ToDate',
         function () {
-            if (DateFromToCheckIfSearch()
+            if (CheckIfSearch()
                 && DateFromToCheckInputs()) {
                 LoadTransactionsFiltersBySearchName(urlGetSearchAction, bankAccountId);
             }
             else {
-                //DateFromToCheck(outputDiv, urlGetAction, bankAccountId);
                 if (DateFromToCheckInputs()) {
                     LoadTransactionsFilters(outputDiv, urlGetAction, bankAccountId);
                 }
@@ -163,15 +146,6 @@ function DateFromToCheckInputs() {
 
     return areFilled;
 }
-
-//function DateFromToCheck(outputDiv, urlGetAction, bankAccountId) {
-//    var dateFrom = $('#FromDate');
-//    var dateTo = $('#ToDate');
-
-//    if (dateFrom.val() && dateTo.val()) {
-//        LoadTransactionsFilters(outputDiv, urlGetAction, bankAccountId);
-//    }
-//}
 
 function LoadTransactionsFiltersListener(outputDiv, urlGetAction, bankAccountId) {
     $('#TransactionListFilters').on('change',

@@ -49,10 +49,6 @@ function SearchTransaction(urlGetSearchTransactionAction, urlLoadTransactionBySe
 }
 
 function GetFilterInputs() {
-    debugger;
-    //var filterInputs = $('#ToDate');
-    //filterInputs = filterInputs.add($('#FromDate'));
-    //filterInputs = filterInputs.add($('#SelectedItemsForPageId'));
     var filterInputs = $('#SelectedItemsForPageId');
     filterInputs = filterInputs.add($('#SelectedFilterId'));
 
@@ -60,10 +56,6 @@ function GetFilterInputs() {
 }
 
 function GetSearchFilterInputs() {
-    debugger;
-    //var filterInputs = $('#SearchToDate');
-    //filterInputs = filterInputs.add($('#SearchFromDate'));
-    //filterInputs = filterInputs.add($('#SearchSelectedItemsForPageId'));
     var filterInputs = $('#SearchSelectedItemsForPageId');
     filterInputs = filterInputs.add($('#SearchSelectedFilterId'));
 
@@ -71,8 +63,6 @@ function GetSearchFilterInputs() {
 }
 
 function AddSearchToFiltersIds(filterInputs) {
-    debugger;
-
     filterInputs.each(function() {
         var currentInput = $(this);
         var currentInputId = currentInput.attr('id');
@@ -82,8 +72,6 @@ function AddSearchToFiltersIds(filterInputs) {
 }
 
 function RemoveSearchFromFiltersIds(filterInputs) {
-    debugger;
-
     filterInputs.each(function () {
         var currentInput = $(this);
         var currentInputId = currentInput.attr('id');
@@ -124,4 +112,18 @@ function CheckIfSearchIsEmpty() {
     }
 
     return isEmpty;
+}
+
+
+function CheckIfSearch() {
+    var isSearch = false;
+
+    if ($search
+        && $('#SearchTransactionReset').css('display') != 'none'
+        && $('#SearchSelectedFilterId').length > 0
+        && $('#SearchSelectedItemsForPageId').length > 0) {
+        isSearch = true;
+    }
+
+    return isSearch;
 }

@@ -6,7 +6,10 @@
 <script type="text/javascript">
     $(document).ready(function () {
         LoadValidation();
-        AddTransactionListener('@Url.Action("Create", "Transaction")', '@Url.Action("UpdateBankAccountBalance", "BankAccount")', '@Url.Action("GetTransactionsByBankAccountIdFilters", "Transaction")');
+        AddTransactionListener('@Url.Action("Create", "Transaction")',
+            '@Url.Action("UpdateBankAccountBalance", "BankAccount")',
+            '@Url.Action("GetTransactionsByBankAccountIdFilters", "Transaction")',
+            '@Url.Action("GetTransactionsBySearchNameFilters", "Transaction")');
         BalanceControl();
         ChangeAccountBalanceListener('@Model.AccountBalance', '@Model.Currency');
         LoadCurrentBankAccountBalanceListener('@Model.AccountBalance', '@Model.Currency');

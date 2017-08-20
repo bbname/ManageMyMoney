@@ -4,9 +4,9 @@
     }
 }
 
-function EditNewerTransactionsBalance(urlEditTransactionsBalance, setDateChangedTransaction, bankAccountId, differenceAmount, isPermissionForEdit, tranasctionDiv, urlGetActionLoadFilters, editedTransactionId) {
+function EditNewerTransactionsBalance(urlEditTransactionsBalance, setDateChangedTransaction, bankAccountId, differenceAmount, isPermissionForEdit, tranasctionDiv, urlGetActionLoadFilters, urlGetActionLoadFiltersBySearch, editedTransactionId) {
     if (isPermissionForEdit) {
-        SaveChangedTransactionsBalances(urlEditTransactionsBalance, setDateChangedTransaction, bankAccountId, differenceAmount, tranasctionDiv, urlGetActionLoadFilters, editedTransactionId);
+        SaveChangedTransactionsBalances(urlEditTransactionsBalance, setDateChangedTransaction, bankAccountId, differenceAmount, tranasctionDiv, urlGetActionLoadFilters, urlGetActionLoadFiltersBySearch, editedTransactionId);
     }
 }
 
@@ -32,7 +32,8 @@ function SaveChangedBankAccountBalance(urlPostActionToSave, accountBalance, user
 }
 
 
-function SaveChangedTransactionsBalances(urlEditTransactionsBalance, setDateChangedTransaction, bankAccountId, differenceAmount, tranasctionDiv, urlGetActionLoadFilters, editedTransactionId = null) {
+function SaveChangedTransactionsBalances(urlEditTransactionsBalance, setDateChangedTransaction, bankAccountId, differenceAmount, tranasctionDiv, urlGetActionLoadFilters, urlGetActionLoadFiltersBySearch, editedTransactionId = null) {
+    //debugger;
     $.ajax({
         url: urlEditTransactionsBalance,
         type: 'POST',
@@ -44,7 +45,11 @@ function SaveChangedTransactionsBalances(urlEditTransactionsBalance, setDateChan
         },
         success: function (dataBack) {
             if (dataBack.status) {
-                LoadTransactionsFilters(tranasctionDiv, urlGetActionLoadFilters, bankAccountId, GetCurrentPageNumber());
+                SelectProperLoadTransactions(urlGetActionLoadFilters,
+                    urlGetActionLoadFiltersBySearch,
+                    bankAccountId,
+                    GetCurrentPageNumber());
+                //LoadTransactionsFilters(tranasctionDiv, urlGetActionLoadFilters, bankAccountId, GetCurrentPageNumber());
             }
         },
         error: function () {

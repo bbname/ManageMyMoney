@@ -79,7 +79,7 @@ function CheckAmountInput(amountInput) {
     return valueToReturn;
 }
 
-function SaveTransaction(urlActionToAdd, urlActionToEditBankAccount, urlGetActionLoadFilters) {
+function SaveTransaction(urlActionToAdd, urlActionToEditBankAccount, urlGetActionLoadFilters, urlGetActionLoadFiltersBySearchName) {
     //alert('W AJAXIE');
     var viewModel = {
         Name: $('#Name').val().trim(),
@@ -104,8 +104,10 @@ function SaveTransaction(urlActionToAdd, urlActionToEditBankAccount, urlGetActio
                 $('#Balance').val('');
                 EditBankAccountBalance(urlActionToEditBankAccount, GetAccountBalanceInputValue($('#AccountBalance')), $('#UserId').val().trim(), true);
                 $('#SetDate').val('');
-                var transactionsDiv = $('#TransactionsList');
-                LoadTransactionsFilters(transactionsDiv, urlGetActionLoadFilters, $('#BankAccountId').val().trim(), GetCurrentPageNumber());
+                SelectProperLoadTransactions(urlGetActionLoadFilters,
+                    urlGetActionLoadFiltersBySearchName,
+                    $('#BankAccountId').val().trim(),
+                    GetCurrentPageNumber());
             }
         },
         error: function () {
@@ -115,14 +117,14 @@ function SaveTransaction(urlActionToAdd, urlActionToEditBankAccount, urlGetActio
 
 }
 
-function AddTransactionListener(urlPostActionToSave, urlPostActionToEditBankAccount, urlGetActionLoadFilters) {
+function AddTransactionListener(urlPostActionToSave, urlPostActionToEditBankAccount, urlGetActionLoadFilters, urlGetActionLoadFiltersBySearchName) {
     $("#ModalContent").on('click', '#AddTransactionBtn', function (e) {
         e.preventDefault();
-        AddTransaction(urlPostActionToSave, urlPostActionToEditBankAccount, urlGetActionLoadFilters);
+        AddTransaction(urlPostActionToSave, urlPostActionToEditBankAccount, urlGetActionLoadFilters, urlGetActionLoadFiltersBySearchName);
     });
 }
 
-function AddTransaction(urlPostActionToSave, urlPostActionToEditBankAccount, urlGetActionLoadFilters) {
+function AddTransaction(urlPostActionToSave, urlPostActionToEditBankAccount, urlGetActionLoadFilters, urlGetActionLoadFiltersBySearchName) {
     var button = $('#AddTransactionBtn');
     if (!(AreFieldsFilled())) {
         button.attr('data-dismiss', '');
@@ -134,7 +136,7 @@ function AddTransaction(urlPostActionToSave, urlPostActionToEditBankAccount, url
             button.attr('data-dismiss', 'modal');
             //alert("Wypełnione");
         }
-        SaveTransaction(urlPostActionToSave, urlPostActionToEditBankAccount, urlGetActionLoadFilters);
+        SaveTransaction(urlPostActionToSave, urlPostActionToEditBankAccount, urlGetActionLoadFilters, urlGetActionLoadFiltersBySearchName);
     }
 }
 

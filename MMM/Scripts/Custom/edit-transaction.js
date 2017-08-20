@@ -1,9 +1,9 @@
 ﻿
-function EditTransactionListener(currency, urlPostActionToSave, urlGetActionLoadFilters, urlActionToUpdateBankAccountBalance, firstAmount, urlEditAccountBalanceAction) {
+function EditTransactionListener(currency, urlPostActionToSave, urlGetActionLoadFilters, urlGetActionLoadFiltersBySearch, urlActionToUpdateBankAccountBalance, firstAmount, urlEditAccountBalanceAction) {
     $currencyVal = currency;
     $("#EditModalContent").on('click', '#EditTransactionBtn', function (e) {
         e.preventDefault();
-        EditTransaction(urlPostActionToSave, urlGetActionLoadFilters, urlActionToUpdateBankAccountBalance, firstAmount, urlEditAccountBalanceAction);
+        EditTransaction(urlPostActionToSave, urlGetActionLoadFilters, urlGetActionLoadFiltersBySearch, urlActionToUpdateBankAccountBalance, firstAmount, urlEditAccountBalanceAction);
     });
 }
 
@@ -76,7 +76,8 @@ function CheckEditAmountInput(amountInput) {
     return valueToReturn;
 }
 
-function SaveEditTransaction(urlActionToEdit, urlGetActionLoadFilters, urlActionToUpdateBankAccountBalance, firstAmount, urlEditAccountBalanceAction) {
+function SaveEditTransaction(urlActionToEdit, urlGetActionLoadFilters, urlGetActionLoadFiltersBySearch, urlActionToUpdateBankAccountBalance, firstAmount, urlEditAccountBalanceAction) {
+    //debugger;
     var viewModel = {
         Id: $('#ModalEditTransaction #Id').val().trim(),
         Name: $('#ModalEditTransaction #Name').val().trim(),
@@ -113,6 +114,7 @@ function SaveEditTransaction(urlActionToEdit, urlGetActionLoadFilters, urlAction
                     isPermissionToChangeBalance,
                     transactionsDiv,
                     urlGetActionLoadFilters,
+                    urlGetActionLoadFiltersBySearch,
                     $('#ModalEditTransaction #Id').val().trim()
                 );
                 $('#ModalEditTransaction #Balance').val('');
@@ -127,7 +129,7 @@ function SaveEditTransaction(urlActionToEdit, urlGetActionLoadFilters, urlAction
 
 }
 
-function EditTransaction(urlPostActionToSave, urlGetActionLoadFilters, urlActionToUpdateBankAccountBalance, firstAmount, urlEditAccountBalanceAction) {
+function EditTransaction(urlPostActionToSave, urlGetActionLoadFilters, urlGetActionLoadFiltersBySearch, urlActionToUpdateBankAccountBalance, firstAmount, urlEditAccountBalanceAction) {
     var button = $('#EditTransactionBtn');
     if (!(EditAreFieldsFilled())) {
         button.attr('data-dismiss', '');
@@ -137,7 +139,7 @@ function EditTransaction(urlPostActionToSave, urlGetActionLoadFilters, urlAction
         if (!(button.attr('data-dismiss').length > 0)) {
             button.attr('data-dismiss', 'modal');
         }
-        SaveEditTransaction(urlPostActionToSave, urlGetActionLoadFilters, urlActionToUpdateBankAccountBalance, firstAmount, urlEditAccountBalanceAction);
+        SaveEditTransaction(urlPostActionToSave, urlGetActionLoadFilters, urlGetActionLoadFiltersBySearch, urlActionToUpdateBankAccountBalance, firstAmount, urlEditAccountBalanceAction);
     }
 }
 

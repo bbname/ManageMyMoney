@@ -17,11 +17,9 @@
         LoadTransactionsFiltersListener(transactionsDiv, '@Url.Action("GetTransactionsByBankAccountIdFilters", "Transaction")', '@Model.Id');
         DateFromToFilterListener(transactionsDiv, '@Url.Action("GetTransactionsByBankAccountIdFilters", "Transaction")', '@Url.Action("GetTransactionsBySearchNameFilters", "Transaction")','@Model.Id');
 
-        ClearDateFromToInputsListener();
+        ClearDateFromToInputsListener('@Url.Action("GetTransactionsByBankAccountIdFilters", "Transaction")', '@Url.Action("GetTransactionsBySearchNameFilters", "Transaction")','@Model.Id');
 
         SearchLoadTransactionsFiltersListener('@Url.Action("GetTransactionsBySearchNameFilters", "Transaction")', '@Model.Id');
-        @*SearchDateFromToFilterListener('@Url.Action("GetTransactionsBySearchNameFilters", "Transaction")', '@Model.Id');*@
-
         SearchTransactionListener('@Url.Action("AutocompleteSearchTransaction", "Transaction")', '@Url.Action("LoadTransactionBySearchName", "Transaction")', '@Model.Id');
         LoadTransactionBtnListener('@Url.Action("GetTransactionsByBankAccountIdFilters", "Transaction")', '@Model.Id');
         SearchTransactionsFiltersBtnListener('@Url.Action("GetTransactionsBySearchNameFilters", "Transaction")', '@Model.Id');
