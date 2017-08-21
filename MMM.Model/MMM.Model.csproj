@@ -163,7 +163,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BankAccount.cs" />
+    <Compile Include="Configurations\BankAccountConfiguration.cs" />
     <Compile Include="Configurations\TransactionConfiguration.cs" />
+    <Compile Include="Configurations\UserConfiguration.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="Migrations\201705301359478_init.cs" />
     <Compile Include="Migrations\201705301359478_init.Designer.cs">

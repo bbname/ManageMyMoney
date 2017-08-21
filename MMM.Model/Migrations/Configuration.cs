@@ -108,7 +108,7 @@ namespace MMM.Model.Migrations
 
             // Bank accounts for users.
             // Admin
-            if (!(context.Accounts.Any(b => b.User.Id == userAdminId)))
+            if (!(context.BankAccounts.Any(b => b.User.Id == userAdminId)))
             {
                 var bankAccount = new BankAccount
                 {
@@ -119,12 +119,12 @@ namespace MMM.Model.Migrations
                     User = (User)context.Users.First(u => u.Id == userAdminId),
                     Transactions = listAdminTransactions
                 };
-                context.Accounts.AddOrUpdate(bankAccount);
+                context.BankAccounts.AddOrUpdate(bankAccount);
                 context.SaveChanges();
             }
 
             // Test
-            if (!(context.Accounts.Any(b => b.User.Id == userTestId)))
+            if (!(context.BankAccounts.Any(b => b.User.Id == userTestId)))
             {
                 var bankAccount = new BankAccount
                 {
@@ -135,7 +135,7 @@ namespace MMM.Model.Migrations
                     User = (User)context.Users.First(u => u.Id == userTestId),
                     Transactions = listTestTransactions
                 };
-                context.Accounts.AddOrUpdate(bankAccount);
+                context.BankAccounts.AddOrUpdate(bankAccount);
                 context.SaveChanges();
             }
         }

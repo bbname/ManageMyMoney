@@ -8,7 +8,7 @@ namespace MMM.Model.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.Accounts",
+                "dbo.BankAccounts",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -31,7 +31,7 @@ namespace MMM.Model.Migrations
                         Account_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Accounts", t => t.Account_Id)
+                .ForeignKey("dbo.BankAccounts", t => t.Account_Id)
                 .Index(t => t.Account_Id);
             
             CreateTable(
@@ -111,7 +111,7 @@ namespace MMM.Model.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Transactions", "Account_Id", "dbo.Accounts");
+            DropForeignKey("dbo.Transactions", "Account_Id", "dbo.BankAccounts");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
@@ -125,7 +125,7 @@ namespace MMM.Model.Migrations
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.Transactions");
-            DropTable("dbo.Accounts");
+            DropTable("dbo.BankAccounts");
         }
     }
 }

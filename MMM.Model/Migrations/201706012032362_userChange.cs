@@ -11,12 +11,12 @@ namespace MMM.Model.Migrations
             AddColumn("dbo.AspNetUsers", "LastName", c => c.String());
             AddColumn("dbo.AspNetUsers", "Account_Id", c => c.Int());
             CreateIndex("dbo.AspNetUsers", "Account_Id");
-            AddForeignKey("dbo.AspNetUsers", "Account_Id", "dbo.Accounts", "Id");
+            AddForeignKey("dbo.AspNetUsers", "Account_Id", "dbo.BankAccounts", "Id");
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.AspNetUsers", "Account_Id", "dbo.Accounts");
+            DropForeignKey("dbo.AspNetUsers", "Account_Id", "dbo.BankAccounts");
             DropIndex("dbo.AspNetUsers", new[] { "Account_Id" });
             DropColumn("dbo.AspNetUsers", "Account_Id");
             DropColumn("dbo.AspNetUsers", "LastName");
