@@ -5,7 +5,7 @@ using System.Web;
 
 namespace MMM.Model
 {
-    public class Account : Entity
+    public class BankAccount : Entity
     {
         public string Name { get; set; }
         public decimal Balance { get; set; }

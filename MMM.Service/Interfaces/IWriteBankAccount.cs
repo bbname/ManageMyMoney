@@ -4,8 +4,8 @@ namespace MMM.Service.Interfaces
 {
     public interface IWriteBankAccount
     {
-        void Create(Account account);
-        void Edit(Account account);
+        void Create(BankAccount bankAccount);
+        void Edit(BankAccount bankAccount);
         void Delete(int id);
     }
 }

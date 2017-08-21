@@ -9,7 +9,7 @@ using MMM.Repository.Interfaces;
 
 namespace MMM.Repository
 {
-    public class AccountWriteRepository : WriteRepository<Account>, IAccountWriteRepository
+    public class AccountWriteRepository : WriteRepository<BankAccount>, IAccountWriteRepository
     {
         public AccountWriteRepository(DbContext ctx) : base(ctx)
         {

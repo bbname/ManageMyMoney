@@ -5,9 +5,9 @@ using MMM.ViewModels.BankAccountViewModel;
 
 namespace MMM.ModelBinders.AccountToBankAccount
 {
-    public class AccountToBankAccountDetailsViewModel
+    public class ToBankAccountDetailsViewModel
     {
-        public BankAccountDetailsViewModel GetBankAccount(Account bankAccount, CurrencyLogic currencyLogic)
+        public BankAccountDetailsViewModel GetViewModel(BankAccount bankAccount, CurrencyLogic currencyLogic)
         {
             var viewModel = new BankAccountDetailsViewModel()
             {

@@ -14,9 +14,9 @@ namespace MMM.ModelBinders.Transaction
                 Balance = transaction.Amount,
                 AccountBalance = transaction.AccountBalance,
                 SetDate = transaction.SetDate,
-                Currency = currencyLogic.GetCurrencyIconById(transaction.Account.Currency),
-                BankAccountId = transaction.Account.Id,
-                UserId = transaction.Account.User.Id
+                Currency = currencyLogic.GetCurrencyIconById(transaction.BankAccount.Currency),
+                BankAccountId = transaction.BankAccount.Id,
+                UserId = transaction.BankAccount.User.Id
             };
 
             return viewModel;

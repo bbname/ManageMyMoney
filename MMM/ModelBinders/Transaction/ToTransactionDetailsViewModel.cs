@@ -10,13 +10,13 @@ namespace MMM.ModelBinders.Transaction
             var viewModel = new TransactionDetailsViewModel
             {
                 Id = transaction.Id,
-                BankAccountId = transaction.Account.Id,
-                UserId = transaction.Account.User.Id,
+                BankAccountId = transaction.BankAccount.Id,
+                UserId = transaction.BankAccount.User.Id,
                 Name = transaction.Name,
                 Amount = transaction.Amount,
                 AccountBalance = transaction.AccountBalance,
                 SetDate = transaction.SetDate,
-                Currency = currencyLogic.GetCurrencyIconById(transaction.Account.Currency)
+                Currency = currencyLogic.GetCurrencyIconById(transaction.BankAccount.Currency)
             };
 
             return viewModel;

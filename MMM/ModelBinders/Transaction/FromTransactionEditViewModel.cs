@@ -6,7 +6,7 @@ namespace MMM.ModelBinders.Transaction
 {
     public class FromTransactionEditViewModel
     {
-        public Model.Transaction GetTransaction(TransactionEditViewModel viewModel, Account account)
+        public Model.Transaction GetTransaction(TransactionEditViewModel viewModel, BankAccount bankAccount)
         {
             var transaction = new Model.Transaction()
             {
@@ -15,7 +15,7 @@ namespace MMM.ModelBinders.Transaction
                 Amount = viewModel.Balance,
                 AccountBalance = viewModel.AccountBalance,
                 SetDate = viewModel.SetDate,
-                Account = account
+                BankAccount = bankAccount
             };
 
             return transaction;

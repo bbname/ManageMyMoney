@@ -5,8 +5,8 @@ namespace MMM.Service.Interfaces
 {
     public interface IReadBankAccount
     {
-        IEnumerable<Account> GetAllBankAccountsByUserId(string userId);
-        Account GetAccountById(int id);
+        IEnumerable<BankAccount> GetAllBankAccountsByUserId(string userId);
+        BankAccount GetAccountById(int id);
         string GetUserIdByBankAccountId(int bankAccountId);
         bool IsBankAccountCorrect(int id, string userId);
     }

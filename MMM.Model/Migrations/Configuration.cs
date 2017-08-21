@@ -42,7 +42,7 @@ namespace MMM.Model.Migrations
                 }
             }
 
-            // First version of creation user. Admin account.
+            // First version of creation user. Admin bankAccount.
             if (!(context.Users.Any(u => u.UserName == "admin")))
             {
                 var passwordHash = new PasswordHasher();
@@ -62,7 +62,7 @@ namespace MMM.Model.Migrations
             var userStore = new UserStore<User>(context);
             var userManager = new UserManager<User>(userStore);
 
-            // Second version of creation user. Test user account.
+            // Second version of creation user. Test user bankAccount.
             if (!(context.Users.Any(u => u.UserName == "test")))
             {
                 var userToCreate = new User
@@ -110,7 +110,7 @@ namespace MMM.Model.Migrations
             // Admin
             if (!(context.Accounts.Any(b => b.User.Id == userAdminId)))
             {
-                var bankAccount = new Account
+                var bankAccount = new BankAccount
                 {
                     Name = "Studenckie",
                     Balance = 23.33M,
@@ -126,7 +126,7 @@ namespace MMM.Model.Migrations
             // Test
             if (!(context.Accounts.Any(b => b.User.Id == userTestId)))
             {
-                var bankAccount = new Account
+                var bankAccount = new BankAccount
                 {
                     Name = "Standard",
                     Balance = 300M,

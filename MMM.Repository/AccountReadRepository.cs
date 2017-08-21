@@ -9,21 +9,21 @@ using MMM.Repository.Interfaces;
 
 namespace MMM.Repository
 {
-    public class AccountReadRepository : ReadRepository<Account>, IAccountReadRepository
+    public class AccountReadRepository : ReadRepository<BankAccount>, IAccountReadRepository
     {
         public AccountReadRepository(DbContext ctx) : base(ctx)
         {
             
         }
 
-        public override Account GetById(int id)
+        public override BankAccount GetById(int id)
         {
             var account = _dbSet.Find(id);
             account.Transactions = account.Transactions.OrderByDescending(t => t.SetDate).ToList();
             return account;
         }
 
-        public IEnumerable<Account> GetBankAccountsByUserId(string userId)
+        public IEnumerable<BankAccount> GetBankAccountsByUserId(string userId)
         {
             return _dbSet.AsEnumerable().Where(b => b.User.Id == userId);
         }

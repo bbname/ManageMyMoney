@@ -23,7 +23,7 @@ namespace MMM.Controllers
     public class BankAccountController : Controller
     {
         private readonly IReadBankAccount _readBankAccount;
-        private IWriteBankAccount _writeBankAccount;
+        private readonly IWriteBankAccount _writeBankAccount;
         private readonly IReadUser _readUser;
 
         public BankAccountController(IReadBankAccount readBankAccount, IWriteBankAccount writeBankAccount, IReadUser readUser)
@@ -55,14 +55,14 @@ namespace MMM.Controllers
         public ActionResult Index()
         {
                 var userId = User.Identity.GetUserId();
-                var accounts = _readBankAccount.GetAllBankAccountsByUserId(userId);
+                var bankAccounts = _readBankAccount.GetAllBankAccountsByUserId(userId);
                 var currencyLogic = new CurrencyLogic();
-                var binder = new AccountToBankAccountListViewModel();
-                var listAccountViewModel = binder.GetBankAccounts(accounts, currencyLogic);
+                var binder = new ToBankAccountListViewModel();
+                var listAccountViewModel = binder.GetListViewModel(bankAccounts, currencyLogic);
 
                 // For the reflection binder, maybe another time..
                 //var accountTest = _readBankAccount.GetAccountById(accounts.ElementAt(0).Id);
-                //var bindViewModel = new BindModelToViewModel<BankAccountListViewModel, Account>(new BankAccountListViewModel(), accountTest);
+                //var bindViewModel = new BindModelToViewModel<BankAccountListViewModel, BankAccount>(new BankAccountListViewModel(), accountTest);
                 //var bankAccountViewModel = bindViewModel.BindViewModelByModelWithout("Transactions","Created", "Currency");
 
                 return View(listAccountViewModel);
@@ -94,8 +94,8 @@ namespace MMM.Controllers
                 {
                     var bankAccount = _readBankAccount.GetAccountById(id.Value);
                     var currencyLogic = new CurrencyLogic();
-                    var binder = new AccountToBankAccountDetailsViewModel();
-                    var viewModel = binder.GetBankAccount(bankAccount, currencyLogic);
+                    var binder = new ToBankAccountDetailsViewModel();
+                    var viewModel = binder.GetViewModel(bankAccount, currencyLogic);
 
                     return View(viewModel);
                 }
@@ -120,9 +120,9 @@ namespace MMM.Controllers
         {
             if (ModelState.IsValid && User.Identity.GetUserId() == viewModel.UserId)
             {
-                var binder = new BankAccountCreateViewModelToAccount();
+                var binder = new FromBankAccountCreateViewModel();
                 var user = _readUser.GetUserById(viewModel.UserId);
-                var model = binder.GetAccount(viewModel, user);
+                var model = binder.GetBankAccount(viewModel, user);
                 _writeBankAccount.Create(model);
 
                 return RedirectToAction("Index");
@@ -156,9 +156,9 @@ namespace MMM.Controllers
 
                 if (userIdIdentity == userId)
                 {
-                    var account = _readBankAccount.GetAccountById(id.Value);
-                    var binder = new AccountToBankAccountEditViewModel();
-                    var viewModel = binder.GetBankAccount(account);
+                    var bankAccount = _readBankAccount.GetAccountById(id.Value);
+                    var binder = new ToBankAccountEditViewModel();
+                    var viewModel = binder.GetViewModel(bankAccount);
 
                     return View(viewModel);
                 }
@@ -173,9 +173,9 @@ namespace MMM.Controllers
         {
             if (ModelState.IsValid && User.Identity.GetUserId() == viewModel.UserId)
             {
-                var binder = new BankAccountEditViewModelToAccount();
+                var binder = new FromBankAccountEditViewModel();
                 var user = _readUser.GetUserById(viewModel.UserId);
-                var model = binder.GetAccount(viewModel, user);
+                var model = binder.GetBankAccount(viewModel, user);
                 _writeBankAccount.Edit(model);
 
                 return RedirectToAction("Details", new {id = viewModel.Id});
@@ -209,10 +209,10 @@ namespace MMM.Controllers
 
                 if (userIdIdentity == userId)
                 {
-                    var account = _readBankAccount.GetAccountById(id.Value);
-                    var binder = new AccountToBankAccountDeleteViewModel();
+                    var bankAccount = _readBankAccount.GetAccountById(id.Value);
+                    var binder = new ToBankAccountDeleteViewModel();
                     var currencyLogic = new CurrencyLogic();
-                    var viewModel = binder.GetBankAccount(account, currencyLogic);
+                    var viewModel = binder.GetViewModel(bankAccount, currencyLogic);
 
                     return View(viewModel);
                 }

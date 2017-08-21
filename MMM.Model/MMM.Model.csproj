@@ -162,7 +162,8 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account.cs" />
+    <Compile Include="BankAccount.cs" />
+    <Compile Include="Configurations\TransactionConfiguration.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="Migrations\201705301359478_init.cs" />
     <Compile Include="Migrations\201705301359478_init.Designer.cs">

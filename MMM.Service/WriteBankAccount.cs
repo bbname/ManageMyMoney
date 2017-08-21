@@ -11,15 +11,15 @@ namespace MMM.Service
         {
             this._accountWriteRepository = accountWriteRepository;
         }
-        public void Create(Account account)
+        public void Create(BankAccount bankAccount)
         {
-            _accountWriteRepository.Add(account);
+            _accountWriteRepository.Add(bankAccount);
             _accountWriteRepository.Save();
         }
 
-        public void Edit(Account account)
+        public void Edit(BankAccount bankAccount)
         {
-            _accountWriteRepository.Edit(account);
+            _accountWriteRepository.Edit(bankAccount);
             _accountWriteRepository.Save();
         }
 

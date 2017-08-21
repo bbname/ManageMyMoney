@@ -7,9 +7,9 @@ using MMM.Model;
 
 namespace MMM.Repository.Interfaces
 {
-    public interface IAccountReadRepository : IReadRepository<Account>
+    public interface IAccountReadRepository : IReadRepository<BankAccount>
     {
-        IEnumerable<Account> GetBankAccountsByUserId(string userId);
+        IEnumerable<BankAccount> GetBankAccountsByUserId(string userId);
         string GetUserIdByBankAccountId(int bankAccountId);
         bool IsBankAccountCorrect(int id, string userId);
     }
