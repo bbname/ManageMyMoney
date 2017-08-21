@@ -199,6 +199,10 @@
     <Compile Include="Migrations\201707311935249_AddedBankAccountToTransactionAndChangedCreatedToSetDate.Designer.cs">
       <DependentUpon>201707311935249_AddedBankAccountToTransactionAndChangedCreatedToSetDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708211551343_SetConfigurationOfColumnsAndAddedDescriptionField.cs" />
+    <Compile Include="Migrations\201708211551343_SetConfigurationOfColumnsAndAddedDescriptionField.Designer.cs">
+      <DependentUpon>201708211551343_SetConfigurationOfColumnsAndAddedDescriptionField.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MmmContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -229,6 +233,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707311935249_AddedBankAccountToTransactionAndChangedCreatedToSetDate.resx">
       <DependentUpon>201707311935249_AddedBankAccountToTransactionAndChangedCreatedToSetDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708211551343_SetConfigurationOfColumnsAndAddedDescriptionField.resx">
+      <DependentUpon>201708211551343_SetConfigurationOfColumnsAndAddedDescriptionField.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

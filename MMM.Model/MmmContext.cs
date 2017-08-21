@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Identity.EntityFramework;
+using MMM.Model.Configurations;
 
 namespace MMM.Model
 {
@@ -17,6 +18,10 @@ namespace MMM.Model
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Configurations.Add(new UserConfiguration());
+            modelBuilder.Configurations.Add(new BankAccountConfiguration());
+            modelBuilder.Configurations.Add(new TransactionConfiguration());
+
             base.OnModelCreating(modelBuilder);
         }
 
