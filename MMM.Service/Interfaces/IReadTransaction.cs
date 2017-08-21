@@ -9,6 +9,7 @@ namespace MMM.Service.Interfaces
         IEnumerable<Transaction> GetTransactionsByFilters(int bankAccount, DateTime? fromDate, DateTime? toDate, string filterName, string filterValue);
         IEnumerable<Transaction> GetAllTransactions();
         Transaction GetTransactionById(int id);
+        Transaction GetTransactionById(int id, int bankAccountId);
         bool IsTransactionCorrect(int id, int bankAccountId, string userId);
         IEnumerable<string> GetTransactionNamesBySimilarName(int bankAccountId, string name);
         IEnumerable<Transaction> GetTransactionByName(string name, int bankAccountId);

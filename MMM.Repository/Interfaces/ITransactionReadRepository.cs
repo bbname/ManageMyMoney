@@ -14,5 +14,7 @@ namespace MMM.Repository.Interfaces
         bool IsTransactionCorrect(int id, int bankAccountId, string userId);
 
         IEnumerable<Transaction> GetAllData(int bankAccountId);
+
+        Transaction GetTransactionById(int id, int bankAccountId);
     }
 }

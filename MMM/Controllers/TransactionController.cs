@@ -146,7 +146,7 @@ namespace MMM.Controllers
             return new JsonResult() { Data = new { status = status } };
         }
 
-        [System.Web.Mvc.HttpGet]
+        [HttpGet]
         public ActionResult GetTransactionsByBankAccountId(int? bankAccountId, int page = 1, int selectedItemsForPage = 1)
         {
             if (bankAccountId != null)
@@ -172,19 +172,30 @@ namespace MMM.Controllers
 
         }
 
-        [System.Web.Mvc.HttpGet]
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
         }
 
-        [System.Web.Mvc.HttpGet]
-        public ActionResult Details(int? id)
+        [HttpGet]
+        public ActionResult Details(int? id, int bankAccountId)
         {
-            return View();
+
+            if (Request.IsAjaxRequest() && id != null)
+            {
+                var transaction = _readTransaction.GetTransactionById(id.Value, bankAccountId);
+                var binder = new ToTransactionDetailsViewModel();
+                var currencyLogic = new CurrencyLogic();
+                var viewModel = binder.GetViewModel(transaction, currencyLogic);
+
+                return PartialView("Details", viewModel);
+            }
+            
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Cos poszło nie tak przy details.");
         }
 
-        [System.Web.Mvc.HttpGet]
+        [HttpGet]
         public ActionResult Create(int bankAccountId, string userId, decimal accountBalance, string currency)
         {
             if (User.Identity.GetUserId() == userId)
@@ -206,7 +217,7 @@ namespace MMM.Controllers
             }
         }
 
-        [System.Web.Mvc.HttpPost]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(TransactionCreateViewModel viewModel)
         {
@@ -244,7 +255,7 @@ namespace MMM.Controllers
             return View();
         }
 
-        [System.Web.Mvc.HttpPost]
+        [HttpPost]
         public ActionResult Edit(TransactionEditViewModel viewModel)
         {
             var status = false;
@@ -264,7 +275,7 @@ namespace MMM.Controllers
             return new JsonResult() { Data = new { status = status } };
         }
 
-        // GET: Transaction/Delete/5
+        [HttpGet]
         public ActionResult Delete(int? id, int bankAccountId)
         {
             if (id != null && Request.IsAjaxRequest())
@@ -281,8 +292,7 @@ namespace MMM.Controllers
             return View();
         }
 
-        // POST: Transaction/Delete/5
-        [System.Web.Mvc.HttpPost]
+        [HttpPost]
         public ActionResult Delete(int id, int bankAccountId, string userId)
         {
             var status = false;

@@ -20,6 +20,10 @@ namespace MMM.Repository
             
         }
 
+        public Transaction GetTransactionById(int id, int bankAccountId)
+        {
+            return _dbSet.SingleOrDefault(t => t.Id == id && t.Account.Id == bankAccountId);
+        }
 
         public override IEnumerable<Transaction> GetAllData()
         {
@@ -370,5 +374,6 @@ namespace MMM.Repository
 
             return transactionsList;
         }
+
     }
 }

@@ -1,0 +1,54 @@
+﻿@model MMM.ViewModels.TransactionViewModel.TransactionDetailsViewModel
+
+<div class="modal-content" id="ModalContent">
+    <div class="modal-header">
+        <button class="close" type="button" data-dismiss="modal">&times;</button>
+        <h4>Informacje</h4>
+    </div>
+    <div class="modal-body">
+        <dl class="row h5">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Amount)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Amount)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AccountBalance)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AccountBalance)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SetDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SetDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Currency)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Currency)
+            </dd>
+        </dl>
+    </div>
+    <div class="modal-footer">
+        
+    </div>
+</div>
