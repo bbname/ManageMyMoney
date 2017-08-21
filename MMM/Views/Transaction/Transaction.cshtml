@@ -2,7 +2,10 @@
 
 <div class="transaction-info panel panel-default">
     <div class="panel-heading" id="TransactionHeader">
-        <a href="@Url.Action("Details", "Transaction", new { id = Model.Id})" id="TransactionHeader-Title">
+        @*<a href="@Url.Action("Details", "Transaction", new { id = Model.Id})" id="TransactionHeader-Title">
+            <h4>@Html.DisplayFor(t => t.Name)</h4>
+        </a>*@
+        <a id="@Model.Id" class="transaction-header-title">
             <h4>@Html.DisplayFor(t => t.Name)</h4>
         </a>
         <a id="@Model.Id" class="transaction-header-glyphicons transaction-header-remove">
