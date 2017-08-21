@@ -15,6 +15,7 @@ namespace MMM.ModelBinders.Transaction
                 Amount = viewModel.Balance,
                 AccountBalance = viewModel.AccountBalance,
                 SetDate = viewModel.SetDate,
+                Description = viewModel.Description,
                 BankAccount = bankAccount
             };
 

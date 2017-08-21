@@ -21,6 +21,7 @@ namespace MMM.ViewModels.TransactionViewModel
         [DataType(DataType.DateTime)]
         public DateTime SetDate { get; set; }
         [Display(Name = "Opis")]
+        [MaxLength(1500)]
         public string Description { get; set; }
         [Display(Name = "Waluta")]
         public string Currency { get; set; }

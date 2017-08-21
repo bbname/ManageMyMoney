@@ -83,6 +83,7 @@ function SaveEditTransaction(urlActionToEdit, urlGetActionLoadFilters, urlGetAct
         Balance: $('#ModalEditTransaction #Balance').val().trim(),
         AccountBalance: GetEditAccountBalanceInputValue($('#ModalEditTransaction #AccountBalance')),
         SetDate: $('#ModalEditTransaction #EditSetDate').val().trim(),
+        Description: $('#ModalEditTransaction #Description').val().trim(),
         BankAccountId: $('#ModalEditTransaction #BankAccountId').val().trim(),
         UserId: $('#ModalEditTransaction #UserId').val().trim()
     };
@@ -119,6 +120,7 @@ function SaveEditTransaction(urlActionToEdit, urlGetActionLoadFilters, urlGetAct
                 $('#ModalEditTransaction #Balance').val('');
                 $('#ModalEditTransaction #AccountBalance').val('');
                 $('#ModalEditTransaction #EditSetDate').val('');
+                $('#ModalEditTransaction #Description').val('');
             }
         },
         error: function() {
