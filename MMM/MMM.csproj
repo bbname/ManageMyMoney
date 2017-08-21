@@ -237,12 +237,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="ModelBinders\AccountToBankAccount\AccountToBankAccountDeleteViewModel.cs" />
-    <Compile Include="ModelBinders\AccountToBankAccount\AccountToBankAccountDetailsViewModel.cs" />
-    <Compile Include="ModelBinders\AccountToBankAccount\AccountToBankAccountEditViewModel.cs" />
-    <Compile Include="ModelBinders\AccountToBankAccount\AccountToBankAccountListViewModel.cs" />
-    <Compile Include="ModelBinders\AccountToBankAccount\BankAccountCreateViewModelToAccount.cs" />
-    <Compile Include="ModelBinders\AccountToBankAccount\BankAccountEditViewModelToAccount.cs" />
+    <Compile Include="ModelBinders\AccountToBankAccount\ToBankAccountDeleteViewModel.cs" />
+    <Compile Include="ModelBinders\AccountToBankAccount\ToBankAccountDetailsViewModel.cs" />
+    <Compile Include="ModelBinders\AccountToBankAccount\ToBankAccountEditViewModel.cs" />
+    <Compile Include="ModelBinders\AccountToBankAccount\ToBankAccountListViewModel.cs" />
+    <Compile Include="ModelBinders\AccountToBankAccount\FromBankAccountCreateViewModel.cs" />
+    <Compile Include="ModelBinders\AccountToBankAccount\FromBankAccountEditViewModel.cs" />
     <Compile Include="ModelBinders\BindModelToViewModel.cs" />
     <Compile Include="ModelBinders\Transaction\FromTransactionCreateViewModel.cs" />
     <Compile Include="ModelBinders\Transaction\FromTransactionEditViewModel.cs" />

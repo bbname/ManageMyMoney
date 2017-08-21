@@ -11,26 +11,26 @@ namespace MMM.Service
 {
     public class ReadBankAccount : IReadBankAccount
     {
-        private readonly IAccountReadRepository _accountReadRepository;
-        public ReadBankAccount(IAccountReadRepository accountReadRepository)
+        private readonly IBankAccountReadRepository _bankAccountReadRepository;
+        public ReadBankAccount(IBankAccountReadRepository bankAccountReadRepository)
         {
-            this._accountReadRepository = accountReadRepository;
+            this._bankAccountReadRepository = bankAccountReadRepository;
         }
         public IEnumerable<BankAccount> GetAllBankAccountsByUserId(string userId)
         {
-            return this._accountReadRepository.GetBankAccountsByUserId(userId);
+            return this._bankAccountReadRepository.GetBankAccountsByUserId(userId);
         }
 
         public BankAccount GetAccountById(int id)
         {
-            return this._accountReadRepository.GetById(id);
+            return this._bankAccountReadRepository.GetById(id);
         }
 
         public string GetUserIdByBankAccountId(int bankAccountId)
         {
             try
             {
-                return this._accountReadRepository.GetUserIdByBankAccountId(bankAccountId);
+                return this._bankAccountReadRepository.GetUserIdByBankAccountId(bankAccountId);
             }
             catch (NullReferenceException)
             {
@@ -44,7 +44,7 @@ namespace MMM.Service
 
         public bool IsBankAccountCorrect(int id, string userId)
         {
-            return this._accountReadRepository.IsBankAccountCorrect(id, userId);
+            return this._bankAccountReadRepository.IsBankAccountCorrect(id, userId);
         }
     }
 }

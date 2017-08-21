@@ -9,9 +9,9 @@ using MMM.Repository.Interfaces;
 
 namespace MMM.Repository
 {
-    public class AccountReadRepository : ReadRepository<BankAccount>, IAccountReadRepository
+    public class BankAccountReadRepository : ReadRepository<BankAccount>, IBankAccountReadRepository
     {
-        public AccountReadRepository(DbContext ctx) : base(ctx)
+        public BankAccountReadRepository(DbContext ctx) : base(ctx)
         {
             
         }

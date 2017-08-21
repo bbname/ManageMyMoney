@@ -13,8 +13,8 @@ namespace MMM.Repository.Mocks
 {
     public class AccountRead
     {
-        private Mock<IAccountReadRepository> _mock;
-        public AccountRead(Mock<IAccountReadRepository> mock)
+        private Mock<IBankAccountReadRepository> _mock;
+        public AccountRead(Mock<IBankAccountReadRepository> mock)
         {
             this._mock = mock;
         }
@@ -31,7 +31,7 @@ namespace MMM.Repository.Mocks
             });
         }
 
-        public Mock<IAccountReadRepository> GetMock()
+        public Mock<IBankAccountReadRepository> GetMock()
         {
             this.ConfigureMock();
             return this._mock;

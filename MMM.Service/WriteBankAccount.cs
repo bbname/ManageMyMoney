@@ -6,27 +6,27 @@ namespace MMM.Service
 {
     public class WriteBankAccount : IWriteBankAccount
     {
-        private readonly IAccountWriteRepository _accountWriteRepository;
-        public WriteBankAccount(IAccountWriteRepository accountWriteRepository)
+        private readonly IBankAccountWriteRepository _bankAccountWriteRepository;
+        public WriteBankAccount(IBankAccountWriteRepository bankAccountWriteRepository)
         {
-            this._accountWriteRepository = accountWriteRepository;
+            this._bankAccountWriteRepository = bankAccountWriteRepository;
         }
         public void Create(BankAccount bankAccount)
         {
-            _accountWriteRepository.Add(bankAccount);
-            _accountWriteRepository.Save();
+            _bankAccountWriteRepository.Add(bankAccount);
+            _bankAccountWriteRepository.Save();
         }
 
         public void Edit(BankAccount bankAccount)
         {
-            _accountWriteRepository.Edit(bankAccount);
-            _accountWriteRepository.Save();
+            _bankAccountWriteRepository.Edit(bankAccount);
+            _bankAccountWriteRepository.Save();
         }
 
         public void Delete(int id)
         {
-            _accountWriteRepository.DeleteById(id);
-            _accountWriteRepository.Save();
+            _bankAccountWriteRepository.DeleteById(id);
+            _bankAccountWriteRepository.Save();
         }
     }
 }

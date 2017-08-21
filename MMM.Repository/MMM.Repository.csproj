@@ -109,13 +109,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountReadRepository.cs" />
-    <Compile Include="AccountWriteRepository.cs" />
+    <Compile Include="BankAccountReadRepository.cs" />
+    <Compile Include="BankAccountWriteRepository.cs" />
     <Compile Include="AutofacConfig\IDetermineRepositoryAssembly.cs" />
     <Compile Include="AutofacConfig\RepositoryModule.cs" />
     <Compile Include="GenerateTestMessage.cs" />
-    <Compile Include="Interfaces\IAccountReadRepository.cs" />
-    <Compile Include="Interfaces\IAccountWriteRepository.cs" />
+    <Compile Include="Interfaces\IBankAccountReadRepository.cs" />
+    <Compile Include="Interfaces\IBankAccountWriteRepository.cs" />
     <Compile Include="Interfaces\IGenerateTestMessage.cs" />
     <Compile Include="Interfaces\ITransactionReadRepository.cs" />
     <Compile Include="Interfaces\ITransactionWriteRepository.cs" />

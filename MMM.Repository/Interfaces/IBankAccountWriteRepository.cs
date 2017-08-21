@@ -7,7 +7,7 @@ using MMM.Model;
 
 namespace MMM.Repository.Interfaces
 {
-    public interface IAccountWriteRepository : IWriteRepository<BankAccount>
+    public interface IBankAccountWriteRepository : IWriteRepository<BankAccount>
     {
     }
 }
