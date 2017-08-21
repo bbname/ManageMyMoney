@@ -224,9 +224,9 @@ namespace MMM.Controllers
             var status = false;
             if (ModelState.IsValid && Request.IsAjaxRequest())
             {
-                var account = _readBankAccount.GetAccountById(viewModel.BankAccountId);
+                var bankAccount = _readBankAccount.GetAccountById(viewModel.BankAccountId);
                 var binder = new FromTransactionCreateViewModel();
-                var transaction = binder.GetTransaction(viewModel, account);
+                var transaction = binder.GetTransaction(viewModel, bankAccount);
                 _writeTransaction.Create(transaction);
                 status = true;
 
@@ -264,8 +264,8 @@ namespace MMM.Controllers
                 && _readTransaction.IsTransactionCorrect(viewModel.Id, viewModel.BankAccountId, viewModel.UserId))
             {
                 var binder = new FromTransactionEditViewModel();
-                var account = _readBankAccount.GetAccountById(viewModel.BankAccountId);
-                var model = binder.GetTransaction(viewModel, account);
+                var bankAccount = _readBankAccount.GetAccountById(viewModel.BankAccountId);
+                var model = binder.GetTransaction(viewModel, bankAccount);
                 _writeTransaction.Edit(model);
                 status = true;
 

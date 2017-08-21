@@ -6,8 +6,7 @@ namespace MMM.ViewModels.TransactionViewModel
 {
     public class TransactionCreateViewModel
     {
-        //[HiddenInput(DisplayValue = false)]
-        //public int Id { get; set; }
+
         [Required]
         [Display(Name = "Nazwa")]
         [MaxLength(18)]
@@ -17,12 +16,12 @@ namespace MMM.ViewModels.TransactionViewModel
         public decimal Balance { get; set; }
         //public decimal Amount { get; set; }
         [Display(Name = "Saldo")]
-        //[HiddenInput(DisplayValue = false)]
         public decimal AccountBalance { get; set; }
         [Display(Name = "Data")]
-        //[DisplayFormat(DataFormatString = "{0:dd.MM.yyyy HH:mm}", ApplyFormatInEditMode = true)]
         [DataType(DataType.DateTime)]
         public DateTime SetDate { get; set; }
+        [Display(Name = "Opis")]
+        public string Description { get; set; }
         [Display(Name = "Waluta")]
         public string Currency { get; set; }
         [HiddenInput(DisplayValue = false)]

@@ -1,7 +1,7 @@
-﻿function DetailsTranasctionListener() {
-    $(document).on('click',
-        '#DetailsTransactionBtn',
-        function(e) {
-            e.preventDefault();
-        });
-}
+﻿//function DetailsTranasctionListener() {
+//    $(document).on('click',
+//        '#DetailsTransactionBtn',
+//        function(e) {
+//            e.preventDefault();
+//        });
+//}

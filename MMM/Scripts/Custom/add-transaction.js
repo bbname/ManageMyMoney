@@ -87,6 +87,7 @@ function SaveTransaction(urlActionToAdd, urlActionToEditBankAccount, urlGetActio
         //AccountBalance: $('#AccountBalance').val().trim(),
         AccountBalance: GetAccountBalanceInputValue($('#AccountBalance')),
         SetDate: $('#SetDate').val().trim(),
+        Description: $('#Description').val().trim(),
         BankAccountId: $('#BankAccountId').val().trim(),
         UserId: $('#UserId').val().trim()
     };
@@ -104,6 +105,7 @@ function SaveTransaction(urlActionToAdd, urlActionToEditBankAccount, urlGetActio
                 $('#Balance').val('');
                 EditBankAccountBalance(urlActionToEditBankAccount, GetAccountBalanceInputValue($('#AccountBalance')), $('#UserId').val().trim(), true);
                 $('#SetDate').val('');
+                $('#Description').val('');
                 SelectProperLoadTransactions(urlGetActionLoadFilters,
                     urlGetActionLoadFiltersBySearchName,
                     $('#BankAccountId').val().trim(),

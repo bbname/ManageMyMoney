@@ -17,6 +17,8 @@ namespace MMM.ViewModels.TransactionViewModel
         [Display(Name = "Data")]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime SetDate { get; set; }
+        [Display(Name = "Opis")]
+        public string Description { get; set; }
         [Display(Name = "Waluta")]
         public string Currency { get; set; }
         [HiddenInput(DisplayValue = false)]
