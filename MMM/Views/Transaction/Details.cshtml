@@ -1,50 +1,49 @@
 ﻿@model MMM.ViewModels.TransactionViewModel.TransactionDetailsViewModel
 
 <div class="modal-content" id="ModalContent">
-    <div class="modal-header">
+    <div class="modal-header modal-details-header">
         <button class="close" type="button" data-dismiss="modal">&times;</button>
-        <h4>Informacje</h4>
+        <h4>@Html.DisplayFor(m => m.Name)</h4>
     </div>
     <div class="modal-body">
         <dl class="row h5">
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
+            <dd class="col-xs-12 col-sm-2">Kwota:</dd>
+            <dt class="col-xs-12 col-sm-10">
+                @if (Model.Amount > 0)
+                {
+                    <p style="color: #5cb85c;">+@Html.DisplayFor(t => t.Amount) @Html.DisplayFor(t => t.Currency)</p>
+                }
+                else if (Model.Amount == 0)
+                {
+                    <p style="color: #f0ad4e;">@Html.DisplayFor(t => t.Amount) @Html.DisplayFor(t => t.Currency)</p>
+                }
+                else
+                {
+                    <p style="color: #d9534f;">@Html.DisplayFor(t => t.Amount) @Html.DisplayFor(t => t.Currency)</p>
+                }
             </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Amount)
+            <dd class="col-xs-12 col-sm-2">Saldo:</dd>
+            <dt class="col-xs-12 col-sm-10">
+                @if (Model.AccountBalance > 0)
+                {
+                    <p style="color: #5cb85c;">@Html.DisplayFor(t => t.AccountBalance) @Html.DisplayFor(t => t.Currency)</p>
+                }
+                else if (Model.AccountBalance == 0)
+                {
+                    <p style="color: #f0ad4e;">@Html.DisplayFor(t => t.AccountBalance) @Html.DisplayFor(t => t.Currency)</p>
+                }
+                else
+                {
+                    <p style="color: #d9534f;">@Html.DisplayFor(t => t.AccountBalance) @Html.DisplayFor(t => t.Currency)</p>
+                }
             </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Amount)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.AccountBalance)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.AccountBalance)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.SetDate)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.SetDate)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Currency)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Currency)
+            <dd class="col-xs-12 col-sm-2">Data: </dd>
+            <dt class="col-xs-12 col-sm-10"><p>@Html.DisplayFor(t => t.SetDate)</p></dt>
+            <dd class="col-xs-12 col-sm-12"><p>Opis: </p></dd>
+            <dd class="col-xs-12 col-sm-12">           
+                <p style="color: #333;">
+                    Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui, non felis. Maecenas malesuada elit lectus felis, malesuada ultricies. Curabitur et ligula. Ut molestie a, ultricies porta urna. Vestibulum commodo volutpat a, convallis ac, laoreet enim. Phasellus fermentum in, dolor. Pellentesque facilisis. Nulla imperdiet sit amet magna. Vestibulum dapibus, mauris nec malesuada fames ac turpis velit, rhoncus eu, luctus et interdum adipiscing wisi. Aliquam erat ac ipsum. Integer aliquam purus. Quisque lorem tortor fringilla sed, vestibulum id, eleifend justo vel bibendum sapien massa ac turpis faucibus orci luctus non, consectetuer lobortis quis, varius in, purus. Integer ultrices posuere cubilia Curae, Nulla ipsum dolor lacus, suscipit adipiscing. Cum sociis natoque penatibus et ultrices volutpat. Nullam wisi ultricies a, gravida vitae, dapibus risus ante sodales lectus blandit eu, tempor diam pede cursus vitae, ultricies eu, faucibus quis, porttitor eros cursus lectus, pellentesque eget, bibendum a, gravida ullamcorper quam. Nullam viverra consectetuer. Quisque cursus et, porttitor risus. Aliquam sem. In hendrerit nulla quam nunc, accumsan congue. Lorem ipsum primis in nibh vel risus. Sed vel lectus. Ut sagittis, ipsum dolor quam.
+                </p>
             </dd>
         </dl>
     </div>

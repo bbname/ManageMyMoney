@@ -2,9 +2,6 @@
 
 <div class="transaction-info panel panel-default">
     <div class="panel-heading" id="TransactionHeader">
-        @*<a href="@Url.Action("Details", "Transaction", new { id = Model.Id})" id="TransactionHeader-Title">
-            <h4>@Html.DisplayFor(t => t.Name)</h4>
-        </a>*@
         <a id="@Model.Id" class="transaction-header-title">
             <h4>@Html.DisplayFor(t => t.Name)</h4>
         </a>
@@ -15,42 +12,43 @@
             <span class="glyphicon glyphicon-pencil transaction-header-glyphicons-edit"></span>
         </a>
     </div>
-    <a href="@Url.Action("Details", "Transaction", new { id = Model.Id})">
-    <div class="panel-body">
-        <dl class="row h5">
-            <dd class="col-xs-12 col-sm-3">Kwota:</dd>
-            <dt class="col-xs-12 col-sm-9">
-                @if (Model.Amount > 0)
-                {
-                    <p style="color: #5cb85c;">+@Html.DisplayFor(t => t.Amount) @Html.DisplayFor(t => t.Currency)</p>
-                }
-                else if (Model.Amount == 0)
-                {
-                    <p style="color: #f0ad4e;">@Html.DisplayFor(t => t.Amount) @Html.DisplayFor(t => t.Currency)</p>
-                }
-                else
-                {
-                    <p style="color: #d9534f;">@Html.DisplayFor(t => t.Amount) @Html.DisplayFor(t => t.Currency)</p>
-                }
-            </dt>
-            <dd class="col-xs-12 col-sm-3">Saldo:</dd>
-            <dt class="col-xs-12 col-sm-9">
-                @if (Model.AccountBalance > 0)
-                {
-                    <p style="color: #5cb85c;">@Html.DisplayFor(t => t.AccountBalance) @Html.DisplayFor(t => t.Currency)</p>
-                }
-                else if (Model.AccountBalance == 0)
-                {
-                    <p style="color: #f0ad4e;">@Html.DisplayFor(t => t.AccountBalance) @Html.DisplayFor(t => t.Currency)</p>
-                }
-                else
-                {
-                    <p style="color: #d9534f;">@Html.DisplayFor(t => t.AccountBalance) @Html.DisplayFor(t => t.Currency)</p>
-                }
-            </dt>
-            <dd class="col-xs-12 col-sm-3">Data: </dd>
-            <dt class="col-xs-12 col-sm-9">@Html.DisplayFor(t => t.Created)</dt>
-        </dl>
-    </div>
+    @*<a href="@Url.Action("Details", "Transaction", new {id = Model.Id})">*@
+    <a id="@Model.Id" class="transaction-body">
+        <div class="panel-body">
+            <dl class="row h5">
+                <dd class="col-xs-12 col-sm-3">Kwota:</dd>
+                <dt class="col-xs-12 col-sm-9">
+                    @if (Model.Amount > 0)
+                    {
+                        <p style="color: #5cb85c;">+@Html.DisplayFor(t => t.Amount) @Html.DisplayFor(t => t.Currency)</p>
+                    }
+                    else if (Model.Amount == 0)
+                    {
+                        <p style="color: #f0ad4e;">@Html.DisplayFor(t => t.Amount) @Html.DisplayFor(t => t.Currency)</p>
+                    }
+                    else
+                    {
+                        <p style="color: #d9534f;">@Html.DisplayFor(t => t.Amount) @Html.DisplayFor(t => t.Currency)</p>
+                    }
+                </dt>
+                <dd class="col-xs-12 col-sm-3">Saldo:</dd>
+                <dt class="col-xs-12 col-sm-9">
+                    @if (Model.AccountBalance > 0)
+                    {
+                        <p style="color: #5cb85c;">@Html.DisplayFor(t => t.AccountBalance) @Html.DisplayFor(t => t.Currency)</p>
+                    }
+                    else if (Model.AccountBalance == 0)
+                    {
+                        <p style="color: #f0ad4e;">@Html.DisplayFor(t => t.AccountBalance) @Html.DisplayFor(t => t.Currency)</p>
+                    }
+                    else
+                    {
+                        <p style="color: #d9534f;">@Html.DisplayFor(t => t.AccountBalance) @Html.DisplayFor(t => t.Currency)</p>
+                    }
+                </dt>
+                <dd class="col-xs-12 col-sm-3">Data: </dd>
+                <dt class="col-xs-12 col-sm-9">@Html.DisplayFor(t => t.Created)</dt>
+            </dl>
+        </div>
     </a>
 </div>

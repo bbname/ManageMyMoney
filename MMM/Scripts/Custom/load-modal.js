@@ -1,4 +1,17 @@
-﻿function TransactionEditOpenModalListener(urlGetAction, bankAccountId, userId) {
+﻿function TransactionDetailsOpenModalListener(urlGetAction, bankAccountId) {
+    $('.panel-heading, .transaction-info').on('click',
+        '.transaction-header-title, .transaction-body',
+        function() {
+            GetTransactionDetailsData(urlGetAction, $(this).attr('id'), bankAccountId);
+        });
+}
+
+function LoadDataIntoModalDetailsAndOpen(data) {
+    $('#ModalDetailsTransaction .modal-dialog').html(data);
+    $('#ModalDetailsTransaction').modal('show');
+}
+
+function TransactionEditOpenModalListener(urlGetAction, bankAccountId, userId) {
     $('.panel-heading').on('click',
         '.transaction-header-edit',
         function () {
