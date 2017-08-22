@@ -1,4 +1,21 @@
-﻿function GetTransactionDetailsData(urlGetAction, transactionId, bankAccountId) {
+﻿function GetTransactionCreateData(urlGetAction, bankAccountId, userId) {
+    $.ajax({
+        url: urlGetAction,
+        type: 'GET',
+        data: {
+            bankAccountId: bankAccountId,
+            userId: userId
+        },
+        success: function(dataBack) {
+            LoadDataIntoModalCreateAndOpen(dataBack);
+        },
+        error: function() {
+            alert('Coś poszło nie tak przy otwieraniu okna tworzenia transakcji.');
+        }
+    });
+}
+
+function GetTransactionDetailsData(urlGetAction, transactionId, bankAccountId) {
     $.ajax({
         url: urlGetAction,
         type: 'GET',

@@ -21,7 +21,7 @@ namespace MMM.Service
             return this._bankAccountReadRepository.GetBankAccountsByUserId(userId);
         }
 
-        public BankAccount GetAccountById(int id)
+        public BankAccount GetBankAccountById(int id)
         {
             return this._bankAccountReadRepository.GetById(id);
         }

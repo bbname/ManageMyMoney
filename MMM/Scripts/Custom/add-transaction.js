@@ -131,12 +131,10 @@ function AddTransaction(urlPostActionToSave, urlPostActionToEditBankAccount, url
     if (!(AreFieldsFilled())) {
         button.attr('data-dismiss', '');
         ValidationMessage();
-        // alert("Nie wypełnione");
     }
     else {
         if (!(button.attr('data-dismiss').length > 0)) {
             button.attr('data-dismiss', 'modal');
-            //alert("Wypełnione");
         }
         SaveTransaction(urlPostActionToSave, urlPostActionToEditBankAccount, urlGetActionLoadFilters, urlGetActionLoadFiltersBySearchName);
     }
@@ -144,16 +142,13 @@ function AddTransaction(urlPostActionToSave, urlPostActionToEditBankAccount, url
 
 function AreFieldsFilled() {
     var valueToReturn = false;
-    //var collectionOfInputs = $('#InputsToEdit :input');
     $('#InputsToEdit :input').each(function () {
         var element = $(this);
         if (!(element.val().length > 0)) {
-            //alert('- ' + element.val().length);
             valueToReturn = false;
             return false;
         }
         else {
-            //alert(element.val().length);
             valueToReturn = true;
         }
     });

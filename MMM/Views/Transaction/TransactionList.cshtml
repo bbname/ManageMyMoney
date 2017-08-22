@@ -4,9 +4,10 @@
 @model PagedList.IPagedList<MMM.ViewModels.TransactionViewModel.TransactionListViewModel>
 @Scripts.Render("~/bundles/load-transaction-to-modal")
 <script type="text/javascript">
-    $(document).ready(function() {
-        TransactionDeleteOpenModalListener('@Url.Action("Delete", "Transaction")', $bankAccountId);
+    $(document).ready(function () {
+        TransactionCreateOpenModalListener('@Url.Action("Create", "Transaction")', $bankAccountId, '@User.Identity.GetUserId()');
         TransactionEditOpenModalListener('@Url.Action("Edit", "Transaction")', $bankAccountId, '@User.Identity.GetUserId()');
+        TransactionDeleteOpenModalListener('@Url.Action("Delete", "Transaction")', $bankAccountId);
         TransactionDetailsOpenModalListener('@Url.Action("Details", "Transaction")', $bankAccountId);
         @*PagingListener('@Url.Action("GetTransactionsByBankAccountId", "Transaction")', $bankAccountId);*@
         PagingListener('@Url.Action("GetTransactionsByBankAccountIdFilters", "Transaction")', '@Url.Action("GetTransactionsBySearchNameFilters", "Transaction")' ,$bankAccountId);

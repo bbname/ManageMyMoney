@@ -36,7 +36,7 @@ namespace MMM.Controllers
                 var currencyLogic = new CurrencyLogic();
                 var binder = new ToTransactionListViewModel();
 
-                var bankAccount = _readBankAccount.GetAccountById(bankAccountId.Value);
+                var bankAccount = _readBankAccount.GetBankAccountById(bankAccountId.Value);
                 var transaction = _readTransaction.GetTransactionByName(name, bankAccountId.Value);
 
                 var viewModelTransaction =
@@ -70,7 +70,7 @@ namespace MMM.Controllers
         {
             if (bankAccountId != null && !String.IsNullOrEmpty(name))
             {
-                var bankAccount = _readBankAccount.GetAccountById(bankAccountId.Value);
+                var bankAccount = _readBankAccount.GetBankAccountById(bankAccountId.Value);
                 var binder = new ToTransactionListViewModel();
                 var currencyLogic = new CurrencyLogic();
                 var filterLogic = new FiltersLogic();
@@ -104,7 +104,7 @@ namespace MMM.Controllers
         {
             if (bankAccountId != null)
             {
-                var bankAccount = _readBankAccount.GetAccountById(bankAccountId.Value);
+                var bankAccount = _readBankAccount.GetBankAccountById(bankAccountId.Value);
                 var binder = new ToTransactionListViewModel();
                 var currencyLogic = new CurrencyLogic();
                 var filterLogic = new FiltersLogic();
@@ -151,7 +151,7 @@ namespace MMM.Controllers
         {
             if (bankAccountId != null)
             {
-                var bankAccount = _readBankAccount.GetAccountById(bankAccountId.Value);
+                var bankAccount = _readBankAccount.GetBankAccountById(bankAccountId.Value);
                 var binder = new ToTransactionListViewModel();
                 var currencyLogic = new CurrencyLogic();
                 var filterLogic = new FiltersLogic();
@@ -196,20 +196,27 @@ namespace MMM.Controllers
         }
 
         [HttpGet]
-        public ActionResult Create(int bankAccountId, string userId, decimal accountBalance, string currency)
+        //public ActionResult Create(int bankAccountId, string userId, decimal currentBankAccountBalance, string currency)
+        public ActionResult Create(int bankAccountId, string userId)
         {
             if (User.Identity.GetUserId() == userId)
             {
-                var viewModel = new TransactionCreateViewModel
-                {
-                    BankAccountId = bankAccountId,
-                    UserId = userId,
-                    AccountBalance = accountBalance,
-                    Currency = currency,
-                    SetDate = DateTime.Now
-                };
+                var bankAccount = _readBankAccount.GetBankAccountById(bankAccountId);
+                var binder = new ToTransactionCreateViewModel();
+                var currencyLogic = new CurrencyLogic();
+                var viewModel = binder.GetViewModel(bankAccount, currencyLogic);
 
-                return PartialView(viewModel);
+                //var viewModel = new TransactionCreateViewModel
+                //{
+                //    BankAccountId = bankAccountId,
+                //    UserId = userId,
+                //    AccountBalance = currentBankAccountBalance,
+                //    Currency = currency,
+                //    SetDate = DateTime.Now
+                //};
+
+                //return PartialView(viewModel);
+                return PartialView("Create", viewModel);
             }
             else
             {
@@ -224,7 +231,7 @@ namespace MMM.Controllers
             var status = false;
             if (ModelState.IsValid && Request.IsAjaxRequest())
             {
-                var bankAccount = _readBankAccount.GetAccountById(viewModel.BankAccountId);
+                var bankAccount = _readBankAccount.GetBankAccountById(viewModel.BankAccountId);
                 var binder = new FromTransactionCreateViewModel();
                 var transaction = binder.GetTransaction(viewModel, bankAccount);
                 _writeTransaction.Create(transaction);
@@ -264,7 +271,7 @@ namespace MMM.Controllers
                 && _readTransaction.IsTransactionCorrect(viewModel.Id, viewModel.BankAccountId, viewModel.UserId))
             {
                 var binder = new FromTransactionEditViewModel();
-                var bankAccount = _readBankAccount.GetAccountById(viewModel.BankAccountId);
+                var bankAccount = _readBankAccount.GetBankAccountById(viewModel.BankAccountId);
                 var model = binder.GetTransaction(viewModel, bankAccount);
                 _writeTransaction.Edit(model);
                 status = true;

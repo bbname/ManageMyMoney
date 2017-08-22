@@ -237,15 +237,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="ModelBinders\AccountToBankAccount\ToBankAccountDeleteViewModel.cs" />
-    <Compile Include="ModelBinders\AccountToBankAccount\ToBankAccountDetailsViewModel.cs" />
-    <Compile Include="ModelBinders\AccountToBankAccount\ToBankAccountEditViewModel.cs" />
-    <Compile Include="ModelBinders\AccountToBankAccount\ToBankAccountListViewModel.cs" />
-    <Compile Include="ModelBinders\AccountToBankAccount\FromBankAccountCreateViewModel.cs" />
-    <Compile Include="ModelBinders\AccountToBankAccount\FromBankAccountEditViewModel.cs" />
+    <Compile Include="ModelBinders\BankAccount\ToBankAccountDeleteViewModel.cs" />
+    <Compile Include="ModelBinders\BankAccount\ToBankAccountDetailsViewModel.cs" />
+    <Compile Include="ModelBinders\BankAccount\ToBankAccountEditViewModel.cs" />
+    <Compile Include="ModelBinders\BankAccount\ToBankAccountListViewModel.cs" />
+    <Compile Include="ModelBinders\BankAccount\FromBankAccountCreateViewModel.cs" />
+    <Compile Include="ModelBinders\BankAccount\FromBankAccountEditViewModel.cs" />
     <Compile Include="ModelBinders\BindModelToViewModel.cs" />
     <Compile Include="ModelBinders\Transaction\FromTransactionCreateViewModel.cs" />
     <Compile Include="ModelBinders\Transaction\FromTransactionEditViewModel.cs" />
+    <Compile Include="ModelBinders\Transaction\ToTransactionCreateViewModel.cs" />
     <Compile Include="ModelBinders\Transaction\ToTransactionDeleteViewModel.cs" />
     <Compile Include="ModelBinders\Transaction\ToTransactionDetailsViewModel.cs" />
     <Compile Include="ModelBinders\Transaction\ToTransactionEditViewModel.cs" />

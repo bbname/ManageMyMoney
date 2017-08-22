@@ -3,11 +3,11 @@ using MMM.Model;
 using MMM.ModelBinders.Transaction;
 using MMM.ViewModels.BankAccountViewModel;
 
-namespace MMM.ModelBinders.AccountToBankAccount
+namespace MMM.ModelBinders.BankAccount
 {
     public class ToBankAccountDetailsViewModel
     {
-        public BankAccountDetailsViewModel GetViewModel(BankAccount bankAccount, CurrencyLogic currencyLogic)
+        public BankAccountDetailsViewModel GetViewModel(Model.BankAccount bankAccount, CurrencyLogic currencyLogic)
         {
             var viewModel = new BankAccountDetailsViewModel()
             {
