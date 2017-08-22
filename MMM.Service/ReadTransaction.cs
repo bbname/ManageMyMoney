@@ -48,7 +48,7 @@ namespace MMM.Service
         public IEnumerable<string> GetTransactionNamesBySimilarName(int bankAccountId, string name)
         {
             var transactions = _transactionReadRepository.GetAllData(bankAccountId)
-                .Where(t => t.Name.StartsWith(name))
+                .Where(t => t.Name.ToLower().StartsWith(name.ToLower()))
                 .Take(10)
                 .Select(t => t.Name);
 

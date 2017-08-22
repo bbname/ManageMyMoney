@@ -21,7 +21,7 @@ namespace MMM.ViewModels.BankAccountViewModel
         [Display(Name = "Nazwa konta")]
         [MaxLength(18)]
         public string Name { get; set; }
-        [Display(Name = "Saldo początkowe")]
+        [Display(Name = "Saldo")]
         [UIHint("EditorForDecimals")]
         public decimal Balance { get; set; }
         [Required]

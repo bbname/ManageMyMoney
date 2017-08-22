@@ -1,4 +1,13 @@
-﻿function SelectProperLoadTransactions(urlGetActionFilters, urlGetActionFiltersBySearch, bankAccountId, currentPage = 1) {
+﻿function SeparateTransactionsListFromFilters() {
+    if (!$('#pagingSystem').has('.pagination .active a').length) {
+        $('#TransactionsListHr').css('display', 'none');
+    }
+    else {
+        $('#TransactionsListHr').css('display', 'block');
+    }
+}
+
+function SelectProperLoadTransactions(urlGetActionFilters, urlGetActionFiltersBySearch, bankAccountId, currentPage = 1) {
     if (CheckIfSearch()) {
         LoadTransactionsFiltersBySearchName(urlGetActionFiltersBySearch, bankAccountId, currentPage);
     }
@@ -34,6 +43,7 @@ function LoadTransactionsFiltersBySearchName(urlLoadTransactionsFiltersBySearchN
                 outputDiv.css('opacity', '1.0');
                 outputDiv.html(data);
                 ShowSearchTransactionReset();
+                SeparateTransactionsListFromFilters();
             },
             error: function () {
                 alert('Nie zadziałało odnalezienie wielu transakcji po nazwie.');
@@ -178,6 +188,7 @@ function LoadTransactionsFilters(outputDiv, urlGetAction, bankAccountId, page = 
             outputDiv.css('opacity', '1.0');
             outputDiv.html(dataBack);
             HideSearchTransactionReset();
+            SeparateTransactionsListFromFilters();
         },
         error: function () {
             alert('Coś poszło nie tak przy pobieraniu danych poprzez filtry.');
