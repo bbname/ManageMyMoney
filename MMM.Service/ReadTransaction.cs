@@ -20,32 +20,32 @@ namespace MMM.Service
             return _transactionReadRepository.GetAllData();
         }
 
-        public Transaction GetTransactionById(int id)
+        public Transaction GetTransactionById(string id)
         {
             return _transactionReadRepository.GetById(id);
         }
 
-        public Transaction GetTransactionById(int id, int bankAccountId)
+        public Transaction GetTransactionById(string transactionId, string bankAccountId)
         {
-            return _transactionReadRepository.GetTransactionById(id, bankAccountId);
+            return _transactionReadRepository.GetTransactionById(transactionId, bankAccountId);
         }
 
-        public IEnumerable<Transaction> GetSearchTransactionsByFilters(int bankAccount, DateTime? fromDate, DateTime? toDate, string filterName, string filterValue, string searchText)
+        public IEnumerable<Transaction> GetSearchTransactionsByFilters(string bankAccountId, DateTime? fromDate, DateTime? toDate, string filterName, string filterValue, string searchText)
         {
-            return _transactionReadRepository.GetTransactionsByFilters(bankAccount, fromDate, toDate, filterName, filterValue).Where(t => t.Name.Contains(searchText));
+            return _transactionReadRepository.GetTransactionsByFilters(bankAccountId, fromDate, toDate, filterName, filterValue).Where(t => t.Name.Contains(searchText));
         }
 
-        public IEnumerable<Transaction> GetTransactionsByFilters(int bankAccount, DateTime? fromDate, DateTime? toDate, string filterName, string filterValue)
+        public IEnumerable<Transaction> GetTransactionsByFilters(string bankAccountId, DateTime? fromDate, DateTime? toDate, string filterName, string filterValue)
         {
-            return _transactionReadRepository.GetTransactionsByFilters(bankAccount, fromDate, toDate, filterName, filterValue);
+            return _transactionReadRepository.GetTransactionsByFilters(bankAccountId, fromDate, toDate, filterName, filterValue);
         }
 
-        public bool IsTransactionCorrect(int id, int bankAccountId, string userId)
+        public bool IsTransactionCorrect(string transactionId, string bankAccountId, string userId)
         {
-            return _transactionReadRepository.IsTransactionCorrect(id, bankAccountId, userId);
+            return _transactionReadRepository.IsTransactionCorrect(transactionId, bankAccountId, userId);
         }
 
-        public IEnumerable<string> GetTransactionNamesBySimilarName(int bankAccountId, string name)
+        public IEnumerable<string> GetTransactionNamesBySimilarName(string bankAccountId, string name)
         {
             var transactions = _transactionReadRepository.GetAllData(bankAccountId)
                 .Where(t => t.Name.ToLower().StartsWith(name.ToLower()))
@@ -56,7 +56,7 @@ namespace MMM.Service
         }
 
 
-        public IEnumerable<Transaction> GetTransactionByName(string name, int bankAccountId)
+        public IEnumerable<Transaction> GetTransactionByName(string name, string bankAccountId)
         {
             return _transactionReadRepository.GetAllData(bankAccountId).Where(t => t.Name == name).Take(1);
         }

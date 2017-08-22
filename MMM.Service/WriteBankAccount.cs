@@ -23,7 +23,7 @@ namespace MMM.Service
             _bankAccountWriteRepository.Save();
         }
 
-        public void Delete(int id)
+        public void Delete(string id)
         {
             _bankAccountWriteRepository.DeleteById(id);
             _bankAccountWriteRepository.Save();

@@ -14,7 +14,7 @@ namespace MMM.Repository
     public abstract class WriteRepository<TEntity> : Repository<TEntity>,IWriteRepository<TEntity> where TEntity : class
     {
 
-        public WriteRepository(DbContext ctx) : base(ctx)
+        protected WriteRepository(DbContext ctx) : base(ctx)
         {
         }
 
@@ -31,7 +31,7 @@ namespace MMM.Repository
             entry.State = EntityState.Modified;
         }
 
-        public virtual void DeleteById(int id)
+        public virtual void DeleteById(string id)
         {
             var objToDelete = _dbSet.Find(id);
             _dbSet.Remove(objToDelete);

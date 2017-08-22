@@ -13,7 +13,7 @@ namespace MMM.Repository
         protected DbContext _ctx;
         protected readonly IDbSet<TEntity> _dbSet;
 
-        public Repository(DbContext ctx)
+        protected Repository(DbContext ctx)
         {
             this._ctx = ctx;
             _dbSet = _ctx.Set<TEntity>();

@@ -12,7 +12,7 @@ namespace MMM.Repository
     public abstract class ReadRepository<TEntity> : Repository<TEntity>,IReadRepository<TEntity> where TEntity : class
     {
 
-        public ReadRepository(DbContext ctx) : base(ctx)
+        protected ReadRepository(DbContext ctx) : base(ctx)
         {
 
         }
@@ -22,7 +22,7 @@ namespace MMM.Repository
             return _dbSet.AsEnumerable<TEntity>();
         }
 
-        public virtual TEntity GetById(int id)
+        public virtual TEntity GetById(string id)
         {
             return _dbSet.Find(id);
         }

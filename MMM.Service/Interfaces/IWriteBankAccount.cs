@@ -6,6 +6,6 @@ namespace MMM.Service.Interfaces
     {
         void Create(BankAccount bankAccount);
         void Edit(BankAccount bankAccount);
-        void Delete(int id);
+        void Delete(string id);
     }
 }

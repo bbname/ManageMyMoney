@@ -16,11 +16,11 @@ namespace MMM.Repository
             
         }
 
-        public override BankAccount GetById(int id)
+        public override BankAccount GetById(string id)
         {
-            var account = _dbSet.Find(id);
-            account.Transactions = account.Transactions.OrderByDescending(t => t.SetDate).ToList();
-            return account;
+            var bankAccount = _dbSet.Find(id);
+            bankAccount.Transactions = bankAccount.Transactions.OrderByDescending(t => t.SetDate).ToList();
+            return bankAccount;
         }
 
         public IEnumerable<BankAccount> GetBankAccountsByUserId(string userId)
@@ -28,7 +28,7 @@ namespace MMM.Repository
             return _dbSet.AsEnumerable().Where(b => b.User.Id == userId);
         }
 
-        public string GetUserIdByBankAccountId(int bankAccountId)
+        public string GetUserIdByBankAccountId(string bankAccountId)
         {
             try
             {
@@ -44,9 +44,9 @@ namespace MMM.Repository
             }
         }
 
-        public bool IsBankAccountCorrect(int id, string userId)
+        public bool IsBankAccountCorrect(string bankAccountId, string userId)
         {
-            return _dbSet.Any(b => b.Id == id && b.User.Id == userId);
+            return _dbSet.Any(b => b.Id == bankAccountId && b.User.Id == userId);
         }
     }
 }

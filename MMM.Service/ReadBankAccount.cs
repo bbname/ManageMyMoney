@@ -21,12 +21,12 @@ namespace MMM.Service
             return this._bankAccountReadRepository.GetBankAccountsByUserId(userId);
         }
 
-        public BankAccount GetBankAccountById(int id)
+        public BankAccount GetBankAccountById(string id)
         {
             return this._bankAccountReadRepository.GetById(id);
         }
 
-        public string GetUserIdByBankAccountId(int bankAccountId)
+        public string GetUserIdByBankAccountId(string bankAccountId)
         {
             try
             {
@@ -42,9 +42,9 @@ namespace MMM.Service
             }
         }
 
-        public bool IsBankAccountCorrect(int id, string userId)
+        public bool IsBankAccountCorrect(string bankAccountId, string userId)
         {
-            return this._bankAccountReadRepository.IsBankAccountCorrect(id, userId);
+            return this._bankAccountReadRepository.IsBankAccountCorrect(bankAccountId, userId);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace MMM.Repository.Interfaces
     public interface IBankAccountReadRepository : IReadRepository<BankAccount>
     {
         IEnumerable<BankAccount> GetBankAccountsByUserId(string userId);
-        string GetUserIdByBankAccountId(int bankAccountId);
-        bool IsBankAccountCorrect(int id, string userId);
+        string GetUserIdByBankAccountId(string bankAccountId);
+        bool IsBankAccountCorrect(string bankAccountId, string userId);
     }
 }

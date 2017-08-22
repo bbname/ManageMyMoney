@@ -164,6 +164,7 @@
   <ItemGroup>
     <Compile Include="BankAccount.cs" />
     <Compile Include="Configurations\BankAccountConfiguration.cs" />
+    <Compile Include="Configurations\EntityConfiguration.cs" />
     <Compile Include="Configurations\TransactionConfiguration.cs" />
     <Compile Include="Configurations\UserConfiguration.cs" />
     <Compile Include="Entity.cs" />

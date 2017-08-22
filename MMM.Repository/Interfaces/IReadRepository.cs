@@ -9,6 +9,6 @@ namespace MMM.Repository.Interfaces
     public interface IReadRepository<TEntity> where TEntity : class
     {
         IEnumerable<TEntity> GetAllData();
-        TEntity GetById(int id);
+        TEntity GetById(string id);
     }
 }
