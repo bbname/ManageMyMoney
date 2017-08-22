@@ -26,7 +26,7 @@ namespace MMM.ViewModels.TransactionViewModel
         [Display(Name = "Waluta")]
         public string Currency { get; set; }
         [HiddenInput(DisplayValue = false)]
-        public int BankAccountId { get; set; }
+        public string BankAccountId { get; set; }
         [HiddenInput(DisplayValue = false)]
         public string UserId { get; set; }
     }

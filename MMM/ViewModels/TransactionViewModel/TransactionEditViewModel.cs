@@ -7,7 +7,7 @@ namespace MMM.ViewModels.TransactionViewModel
     public class TransactionEditViewModel
     {
         [HiddenInput(DisplayValue = false)]
-        public int Id { get; set; }
+        public string Id { get; set; }
         [Required]
         [Display(Name = "Nazwa")]
         [MaxLength(18)]
@@ -28,7 +28,7 @@ namespace MMM.ViewModels.TransactionViewModel
         [Display(Name = "Waluta")]
         public string Currency { get; set; }
         [HiddenInput(DisplayValue = false)]
-        public int BankAccountId { get; set; }
+        public string BankAccountId { get; set; }
         [HiddenInput(DisplayValue = false)]
         public string UserId { get; set; }
     }

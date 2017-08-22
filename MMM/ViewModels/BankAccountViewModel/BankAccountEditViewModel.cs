@@ -16,7 +16,7 @@ namespace MMM.ViewModels.BankAccountViewModel
 
         private readonly List<Currency> _listCurrencies;
         [HiddenInput(DisplayValue = false)]
-        public int Id { get; set; }
+        public string Id { get; set; }
         [Required]
         [Display(Name = "Nazwa konta")]
         [MaxLength(18)]

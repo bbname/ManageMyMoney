@@ -7,7 +7,7 @@ namespace MMM.ViewModels.BankAccountViewModel
     public class BankAccountListViewModel
     {
         [HiddenInput(DisplayValue = false)]
-        public int Id { get; set; }
+        public string Id { get; set; }
         [Display(Name = "Nazwa")]
         public string Name { get; set; }
         [Display(Name = "Stan")]

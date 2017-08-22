@@ -6,7 +6,6 @@ using System.Net.Mime;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.WebPages.Html;
-using Microsoft.AspNet.Identity;
 using MMM.BussinesLogic;
 using MMM.Infrastructure;
 using MMM.Model;
@@ -16,6 +15,7 @@ using MMM.ModelBinders.Transaction;
 using MMM.Service.Interfaces;
 using MMM.ViewModels.BankAccountViewModel;
 using PagedList;
+using Microsoft.AspNet.Identity;
 
 namespace MMM.Controllers
 {
@@ -35,11 +35,11 @@ namespace MMM.Controllers
 
 
         [HttpPost]
-        public ActionResult UpdateBankAccountBalance(int id, string userId, decimal balance)
+        public ActionResult UpdateBankAccountBalance(string id, string userId, decimal balance)
         {
             var status = false;
 
-            if (id > 0 && User.Identity.GetUserId() == userId && Request.IsAjaxRequest()
+            if (!String.IsNullOrEmpty(id) && User.Identity.GetUserId() == userId && Request.IsAjaxRequest()
                 && _readBankAccount.IsBankAccountCorrect(id, userId))
             {
                 var bankAccount = _readBankAccount.GetBankAccountById(id);
@@ -70,9 +70,9 @@ namespace MMM.Controllers
         }
 
         [HttpGet]
-        public ActionResult Details(int? id)
+        public ActionResult Details(string id)
         {
-            if (id == null)
+            if (String.IsNullOrEmpty(id))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Nie podano zadnego konta.");
             }
@@ -83,7 +83,7 @@ namespace MMM.Controllers
 
                 try
                 {
-                    userId = _readBankAccount.GetUserIdByBankAccountId(id.Value);
+                    userId = _readBankAccount.GetUserIdByBankAccountId(id);
                 }
                 catch (NullReferenceException)
                 {
@@ -92,7 +92,7 @@ namespace MMM.Controllers
 
                 if (userIdIdentity == userId)
                 {
-                    var bankAccount = _readBankAccount.GetBankAccountById(id.Value);
+                    var bankAccount = _readBankAccount.GetBankAccountById(id);
                     var currencyLogic = new CurrencyLogic();
                     var binder = new ToBankAccountDetailsViewModel();
                     var viewModel = binder.GetViewModel(bankAccount, currencyLogic);
@@ -134,9 +134,9 @@ namespace MMM.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(string id)
         {
-            if (id == null)
+            if (String.IsNullOrEmpty(id))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Nie podano zadnego konta.");
             }
@@ -147,7 +147,7 @@ namespace MMM.Controllers
 
                 try
                 {
-                    userId = _readBankAccount.GetUserIdByBankAccountId(id.Value);
+                    userId = _readBankAccount.GetUserIdByBankAccountId(id);
                 }
                 catch (NullReferenceException)
                 {
@@ -156,7 +156,7 @@ namespace MMM.Controllers
 
                 if (userIdIdentity == userId)
                 {
-                    var bankAccount = _readBankAccount.GetBankAccountById(id.Value);
+                    var bankAccount = _readBankAccount.GetBankAccountById(id);
                     var binder = new ToBankAccountEditViewModel();
                     var viewModel = binder.GetViewModel(bankAccount);
 
@@ -187,9 +187,9 @@ namespace MMM.Controllers
         }
 
         [HttpGet]
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(string id)
         {
-            if (id == null)
+            if (String.IsNullOrEmpty(id))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Nie podano zadnego konta.");
             }
@@ -200,7 +200,7 @@ namespace MMM.Controllers
 
                 try
                 {
-                    userId = _readBankAccount.GetUserIdByBankAccountId(id.Value);
+                    userId = _readBankAccount.GetUserIdByBankAccountId(id);
                 }
                 catch (NullReferenceException)
                 {
@@ -209,7 +209,7 @@ namespace MMM.Controllers
 
                 if (userIdIdentity == userId)
                 {
-                    var bankAccount = _readBankAccount.GetBankAccountById(id.Value);
+                    var bankAccount = _readBankAccount.GetBankAccountById(id);
                     var binder = new ToBankAccountDeleteViewModel();
                     var currencyLogic = new CurrencyLogic();
                     var viewModel = binder.GetViewModel(bankAccount, currencyLogic);
@@ -225,9 +225,9 @@ namespace MMM.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, string userId)
+        public ActionResult Delete(string id, string userId)
         {
-            if (User.Identity.GetUserId() == userId)
+            if (User.Identity.GetUserId() == userId && !String.IsNullOrEmpty(id))
             {
                 _writeBankAccount.Delete(id);
                 return RedirectToAction("Index");

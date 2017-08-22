@@ -157,7 +157,6 @@
     <Compile Include="Currencies.cs" />
     <Compile Include="Currency.cs" />
     <Compile Include="CurrencyFormat.cs" />
-    <Compile Include="CustomActionFilter.cs" />
     <Compile Include="FilterForWeb.cs" />
     <Compile Include="FiltersForWeb.cs" />
     <Compile Include="ItemForPage.cs" />

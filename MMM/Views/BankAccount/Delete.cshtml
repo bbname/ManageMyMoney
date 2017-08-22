@@ -43,11 +43,11 @@
         </dd>
 
     </dl>   
-    @Html.HiddenFor(m => m.Id)
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
         @Html.HiddenFor(m => m.UserId)
+        @Html.HiddenFor(m => m.Id)
         <div>
             <div>
                 <a href="@Url.Action("Details", new {id = Model.Id})" class="btn btn-primary">

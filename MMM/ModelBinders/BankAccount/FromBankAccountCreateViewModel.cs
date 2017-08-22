@@ -10,6 +10,7 @@ namespace MMM.ModelBinders.BankAccount
         {
             var bankAccount = new Model.BankAccount
             {
+                Id = Guid.NewGuid().ToString(),
                 Name = viewModel.Name,
                 Balance = viewModel.Balance,
                 Currency = viewModel.SelectedCurrencyId,

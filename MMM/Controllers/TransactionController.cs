@@ -29,15 +29,15 @@ namespace MMM.Controllers
         }
 
         [HttpGet]
-        public ActionResult LoadTransactionBySearchName(string name, int? bankAccountId)
+        public ActionResult LoadTransactionBySearchName(string name, string bankAccountId)
         {
-            if (Request.IsAjaxRequest() && bankAccountId != null && !String.IsNullOrEmpty(name))
+            if (Request.IsAjaxRequest() && !String.IsNullOrEmpty(bankAccountId) && !String.IsNullOrEmpty(name))
             {
                 var currencyLogic = new CurrencyLogic();
                 var binder = new ToTransactionListViewModel();
 
-                var bankAccount = _readBankAccount.GetBankAccountById(bankAccountId.Value);
-                var transaction = _readTransaction.GetTransactionByName(name, bankAccountId.Value);
+                var bankAccount = _readBankAccount.GetBankAccountById(bankAccountId);
+                var transaction = _readTransaction.GetTransactionByName(name, bankAccountId);
 
                 var viewModelTransaction =
                     binder.GetTransactions(transaction, currencyLogic.GetCurrencyIconById(bankAccount.Currency)).ToPagedList(1,1);
@@ -53,11 +53,11 @@ namespace MMM.Controllers
         }
 
         [HttpGet]
-        public ActionResult AutocompleteSearchTransaction(string searchText, int? bankAccountId)
+        public ActionResult AutocompleteSearchTransaction(string searchText, string bankAccountId)
         {
-            if (Request.IsAjaxRequest() && bankAccountId != null && !String.IsNullOrEmpty(searchText))
+            if (Request.IsAjaxRequest() && !String.IsNullOrEmpty(bankAccountId) && !String.IsNullOrEmpty(searchText))
             {
-                var results = _readTransaction.GetTransactionNamesBySimilarName(bankAccountId.Value, searchText);
+                var results = _readTransaction.GetTransactionNamesBySimilarName(bankAccountId, searchText);
 
                 return Json(results, JsonRequestBehavior.AllowGet);
             }
@@ -65,12 +65,12 @@ namespace MMM.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetTransactionsBySearchNameFilters(int? bankAccountId, string name ,string fromDate, string toDate,
+        public ActionResult GetTransactionsBySearchNameFilters(string bankAccountId, string name ,string fromDate, string toDate,
             int? selectedItemsForPage, int? selectedFilterId, int page = 1)
         {
-            if (bankAccountId != null && !String.IsNullOrEmpty(name))
+            if (!String.IsNullOrEmpty(bankAccountId) && !String.IsNullOrEmpty(name))
             {
-                var bankAccount = _readBankAccount.GetBankAccountById(bankAccountId.Value);
+                var bankAccount = _readBankAccount.GetBankAccountById(bankAccountId);
                 var binder = new ToTransactionListViewModel();
                 var currencyLogic = new CurrencyLogic();
                 var filterLogic = new FiltersLogic();
@@ -82,7 +82,7 @@ namespace MMM.Controllers
                 var itemsForPage = filterLogic.GetItemsForPageById(selectedItemsForPage);
 
 
-                var transactions = _readTransaction.GetSearchTransactionsByFilters(bankAccountId.Value, fromDateConverted, toDateConverted, filterName, filterValue, name);
+                var transactions = _readTransaction.GetSearchTransactionsByFilters(bankAccountId, fromDateConverted, toDateConverted, filterName, filterValue, name);
                 var viewModelTransactions = binder.GetTransactions(transactions,
                     currencyLogic.GetCurrencyIconById(bankAccount.Currency)).ToPagedList(page, itemsForPage);
 
@@ -100,11 +100,11 @@ namespace MMM.Controllers
 
         [HttpGet]
         //public ActionResult GetTransactionsByBankAccountIdFilters(int? bankAccountId, DateTime? fromDate, DateTime? toDate, int? selectedItemsForPage, int? selectedFilterId)
-        public ActionResult GetTransactionsByBankAccountIdFilters(int? bankAccountId, string fromDate, string toDate, int? selectedItemsForPage, int? selectedFilterId, int page = 1)
+        public ActionResult GetTransactionsByBankAccountIdFilters(string bankAccountId, string fromDate, string toDate, int? selectedItemsForPage, int? selectedFilterId, int page = 1)
         {
-            if (bankAccountId != null)
+            if (String.IsNullOrEmpty(bankAccountId))
             {
-                var bankAccount = _readBankAccount.GetBankAccountById(bankAccountId.Value);
+                var bankAccount = _readBankAccount.GetBankAccountById(bankAccountId);
                 var binder = new ToTransactionListViewModel();
                 var currencyLogic = new CurrencyLogic();
                 var filterLogic = new FiltersLogic();
@@ -115,7 +115,7 @@ namespace MMM.Controllers
                 filterLogic.GetFilterNameFilterValueById(selectedFilterId, out filterName, out filterValue);
                 var itemsForPage = filterLogic.GetItemsForPageById(selectedItemsForPage);
 
-                var transactions = _readTransaction.GetTransactionsByFilters(bankAccountId.Value, fromDateConverted, toDateConverted, filterName, filterValue);
+                var transactions = _readTransaction.GetTransactionsByFilters(bankAccountId, fromDateConverted, toDateConverted, filterName, filterValue);
                 var viewModelTransactions = binder.GetTransactions(transactions,
                     currencyLogic.GetCurrencyIconById(bankAccount.Currency)).ToPagedList(page, itemsForPage);
 
@@ -133,13 +133,13 @@ namespace MMM.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateBalanceInNewerTransactions(DateTime setDateChangedTransaction, int? bankAccountId, decimal differenceAmount, int? editedTranasctionId = null)
+        public ActionResult UpdateBalanceInNewerTransactions(DateTime setDateChangedTransaction, string bankAccountId, decimal differenceAmount, string editedTranasctionId = null)
         {
             var status = false;
 
-            if (Request.IsAjaxRequest() && bankAccountId != null)
+            if (Request.IsAjaxRequest() && !String.IsNullOrEmpty(bankAccountId))
             {
-                _writeTransaction.UpdateTransactionsBalanceForNewer(setDateChangedTransaction, bankAccountId.Value, differenceAmount, editedTranasctionId);
+                _writeTransaction.UpdateTransactionsBalanceForNewer(setDateChangedTransaction, bankAccountId, differenceAmount, editedTranasctionId);
                 status = true;
             }
 
@@ -147,11 +147,11 @@ namespace MMM.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetTransactionsByBankAccountId(int? bankAccountId, int page = 1, int selectedItemsForPage = 1)
+        public ActionResult GetTransactionsByBankAccountId(string bankAccountId, int page = 1, int selectedItemsForPage = 1)
         {
-            if (bankAccountId != null)
+            if (!String.IsNullOrEmpty(bankAccountId))
             {
-                var bankAccount = _readBankAccount.GetBankAccountById(bankAccountId.Value);
+                var bankAccount = _readBankAccount.GetBankAccountById(bankAccountId);
                 var binder = new ToTransactionListViewModel();
                 var currencyLogic = new CurrencyLogic();
                 var filterLogic = new FiltersLogic();
@@ -179,12 +179,12 @@ namespace MMM.Controllers
         }
 
         [HttpGet]
-        public ActionResult Details(int? id, int bankAccountId)
+        public ActionResult Details(string id, string bankAccountId)
         {
 
-            if (Request.IsAjaxRequest() && id != null)
+            if (Request.IsAjaxRequest() && !String.IsNullOrEmpty(id) && !String.IsNullOrEmpty(bankAccountId))
             {
-                var transaction = _readTransaction.GetTransactionById(id.Value, bankAccountId);
+                var transaction = _readTransaction.GetTransactionById(id, bankAccountId);
                 var binder = new ToTransactionDetailsViewModel();
                 var currencyLogic = new CurrencyLogic();
                 var viewModel = binder.GetViewModel(transaction, currencyLogic);
@@ -196,9 +196,9 @@ namespace MMM.Controllers
         }
 
         [HttpGet]
-        public ActionResult Create(int bankAccountId, string userId)
+        public ActionResult Create(string bankAccountId, string userId)
         {
-            if (User.Identity.GetUserId() == userId)
+            if (User.Identity.GetUserId() == userId && !String.IsNullOrEmpty(bankAccountId))
             {
                 var bankAccount = _readBankAccount.GetBankAccountById(bankAccountId);
                 var binder = new ToTransactionCreateViewModel();
@@ -235,12 +235,11 @@ namespace MMM.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(int? id, int bankAccountId, string userId)
+        public ActionResult Edit(string id, string bankAccountId, string userId)
         {
-            if (id != null && Request.IsAjaxRequest()
-                && _readTransaction.IsTransactionCorrect(id.Value, bankAccountId, userId))
+            if (Request.IsAjaxRequest() && !String.IsNullOrEmpty(id) && !String.IsNullOrEmpty(bankAccountId))
             {
-                var tranasction = _readTransaction.GetTransactionById(id.Value);
+                var tranasction = _readTransaction.GetTransactionById(id);
                 var binder = new ToTransactionEditViewModel();
                 var currencyLogic = new CurrencyLogic();
                 var viewModel = binder.GetViewModel(tranasction, currencyLogic);
@@ -272,11 +271,11 @@ namespace MMM.Controllers
         }
 
         [HttpGet]
-        public ActionResult Delete(int? id, int bankAccountId)
+        public ActionResult Delete(string id, string bankAccountId)
         {
-            if (id != null && Request.IsAjaxRequest())
+            if (Request.IsAjaxRequest() && !String.IsNullOrEmpty(id) && !String.IsNullOrEmpty(bankAccountId))
             {
-                var tranasction = _readTransaction.GetTransactionById(id.Value);
+                var tranasction = _readTransaction.GetTransactionById(id);
                 var binder = new ToTransactionDeleteViewModel();
                 var currencyLogic = new CurrencyLogic();
                 var viewModel = binder.GetTransaction(tranasction, currencyLogic);
@@ -289,12 +288,12 @@ namespace MMM.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(int id, int bankAccountId, string userId)
+        public ActionResult Delete(string id, string bankAccountId, string userId)
         {
             var status = false;
 
-            if (id != 0 && bankAccountId != 0 && User.Identity.GetUserId() == userId && Request.IsAjaxRequest()
-                && _readTransaction.IsTransactionCorrect(id, bankAccountId, userId))
+            if (!String.IsNullOrEmpty(id) && !String.IsNullOrEmpty(bankAccountId) && User.Identity.GetUserId() == userId 
+                && Request.IsAjaxRequest() && _readTransaction.IsTransactionCorrect(id, bankAccountId, userId))
             {
                 var transaction = _readTransaction.GetTransactionById(id);
                 _writeTransaction.Delete(transaction);

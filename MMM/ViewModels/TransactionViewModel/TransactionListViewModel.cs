@@ -7,7 +7,7 @@ namespace MMM.ViewModels.TransactionViewModel
     public class TransactionListViewModel
     {
         [HiddenInput(DisplayValue = false)]
-        public int Id { get; set; }
+        public string Id { get; set; }
         [Display(Name = "Nazwa")]
         public string Name { get; set; }
         [Display(Name = "Kwota")]

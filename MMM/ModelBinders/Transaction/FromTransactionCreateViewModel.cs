@@ -1,4 +1,5 @@
-﻿using MMM.Model;
+﻿using System;
+using MMM.Model;
 using MMM.ViewModels.TransactionViewModel;
 
 namespace MMM.ModelBinders.Transaction
@@ -9,6 +10,7 @@ namespace MMM.ModelBinders.Transaction
         {
             var transaction = new Model.Transaction
             {
+                Id = Guid.NewGuid().ToString(),
                 Name = viewmodel.Name,
                 Amount = viewmodel.Balance,
                 AccountBalance = viewmodel.AccountBalance,

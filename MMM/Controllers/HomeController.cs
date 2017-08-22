@@ -9,14 +9,6 @@ namespace MMM.Controllers
 {
     public class HomeController : Controller
     {
-
-        private readonly IWriteTestMessage _writeTestMessage;
-
-        public HomeController(IWriteTestMessage writeTestMessage)
-        {
-            this._writeTestMessage = writeTestMessage;
-        }
-
         public ActionResult Index()
         {
             return View();
