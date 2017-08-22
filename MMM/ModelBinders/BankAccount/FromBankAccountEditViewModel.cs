@@ -1,13 +1,13 @@
 ﻿using MMM.Model;
 using MMM.ViewModels.BankAccountViewModel;
 
-namespace MMM.ModelBinders.AccountToBankAccount
+namespace MMM.ModelBinders.BankAccount
 {
     public class FromBankAccountEditViewModel
     {
-        public BankAccount GetBankAccount(BankAccountEditViewModel viewModel, User user)
+        public Model.BankAccount GetBankAccount(BankAccountEditViewModel viewModel, User user)
         {
-            var bankAccount = new BankAccount()
+            var bankAccount = new Model.BankAccount()
             {
                 Id = viewModel.Id,
                 Name = viewModel.Name,

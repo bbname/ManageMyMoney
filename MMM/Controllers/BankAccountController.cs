@@ -11,7 +11,7 @@ using MMM.BussinesLogic;
 using MMM.Infrastructure;
 using MMM.Model;
 using MMM.ModelBinders;
-using MMM.ModelBinders.AccountToBankAccount;
+using MMM.ModelBinders.BankAccount;
 using MMM.ModelBinders.Transaction;
 using MMM.Service.Interfaces;
 using MMM.ViewModels.BankAccountViewModel;

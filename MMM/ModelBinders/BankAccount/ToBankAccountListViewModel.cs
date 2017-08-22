@@ -3,11 +3,11 @@ using MMM.BussinesLogic;
 using MMM.Model;
 using MMM.ViewModels.BankAccountViewModel;
 
-namespace MMM.ModelBinders.AccountToBankAccount
+namespace MMM.ModelBinders.BankAccount
 {
     public class ToBankAccountListViewModel
     {
-        public IList<BankAccountListViewModel> GetListViewModel(IEnumerable<BankAccount> bankAccounts, CurrencyLogic currencyLogic)
+        public IList<BankAccountListViewModel> GetListViewModel(IEnumerable<Model.BankAccount> bankAccounts, CurrencyLogic currencyLogic)
         {
             IList<BankAccountListViewModel> listAccountViewModel = new List<BankAccountListViewModel>();
 

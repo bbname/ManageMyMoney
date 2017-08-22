@@ -5,7 +5,7 @@ namespace MMM.ModelBinders.Transaction
 {
     public class FromTransactionCreateViewModel
     {
-        public Model.Transaction GetTransaction(TransactionCreateViewModel viewmodel, BankAccount bankAccount)
+        public Model.Transaction GetTransaction(TransactionCreateViewModel viewmodel, Model.BankAccount bankAccount)
         {
             var transaction = new Model.Transaction
             {

@@ -2,18 +2,18 @@
 using MMM.Model;
 using MMM.ViewModels.BankAccountViewModel;
 
-namespace MMM.ModelBinders.AccountToBankAccount
+namespace MMM.ModelBinders.BankAccount
 {
-    public class ToBankAccountEditViewModel
+    public class ToBankAccountDeleteViewModel
     {
-        public BankAccountEditViewModel GetViewModel(BankAccount bankAccount)
+        public BankAccountDeleteViewModel GetViewModel(Model.BankAccount bankAccount, CurrencyLogic currencyLogic)
         {
-            var viewModel = new BankAccountEditViewModel
+            var viewModel = new BankAccountDeleteViewModel
             {
                 Id = bankAccount.Id,
                 Name = bankAccount.Name,
                 Balance = bankAccount.Balance,
-                SelectedCurrencyId = bankAccount.Currency,
+                Currency = currencyLogic.GetCurrencyIconById(bankAccount.Currency),
                 Created = bankAccount.Created,
                 UserId = bankAccount.User.Id
             };
