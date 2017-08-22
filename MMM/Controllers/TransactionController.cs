@@ -196,7 +196,6 @@ namespace MMM.Controllers
         }
 
         [HttpGet]
-        //public ActionResult Create(int bankAccountId, string userId, decimal currentBankAccountBalance, string currency)
         public ActionResult Create(int bankAccountId, string userId)
         {
             if (User.Identity.GetUserId() == userId)
@@ -206,16 +205,6 @@ namespace MMM.Controllers
                 var currencyLogic = new CurrencyLogic();
                 var viewModel = binder.GetViewModel(bankAccount, currencyLogic);
 
-                //var viewModel = new TransactionCreateViewModel
-                //{
-                //    BankAccountId = bankAccountId,
-                //    UserId = userId,
-                //    AccountBalance = currentBankAccountBalance,
-                //    Currency = currency,
-                //    SetDate = DateTime.Now
-                //};
-
-                //return PartialView(viewModel);
                 return PartialView("Create", viewModel);
             }
             else

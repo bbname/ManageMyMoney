@@ -29,8 +29,4 @@
             new {page}))
         @:Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) z @Model.PageCount
     }
-
-    @*@Html.PagedListPager(Model, page => Url.Action("GetTransactionsByBankAccountIdFilters", "Transaction",
-        new {page}))
-    Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) z @Model.PageCount*@
 </div>
