@@ -7,13 +7,13 @@ namespace MMM.Model.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class init : IMigrationMetadata
+    public sealed partial class initAfterChanges : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initAfterChanges));
         
         string IMigrationMetadata.Id
         {
-            get { return "201705301359478_init"; }
+            get { return "201708221722031_initAfterChanges"; }
         }
         
         string IMigrationMetadata.Source

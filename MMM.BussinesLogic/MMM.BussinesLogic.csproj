@@ -48,6 +48,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClaimsLogic.cs" />
     <Compile Include="CurrencyLogic.cs" />
     <Compile Include="Filter.cs" />
     <Compile Include="FiltersLogic.cs" />

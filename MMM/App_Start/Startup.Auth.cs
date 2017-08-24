@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Configuration;
 using System.Data.Entity;
+using System.Security.Claims;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -61,11 +63,46 @@ namespace MMM
             //   appId: "",
             //   appSecret: "");
 
+            #region Google
+
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+
+            var googleAuthenticationOptions = new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = ConfigurationManager.AppSettings["GoogleClientId"],
+                ClientSecret = ConfigurationManager.AppSettings["GoogleClientSecretKey"],
+                Provider = new GoogleOAuth2AuthenticationProvider()
+                {
+                    OnAuthenticated = async context =>
+                    {
+                        context.Identity.AddClaim(new Claim("GoogleAccessToken", context.AccessToken));
+                        foreach (var claim in context.User)
+                        {
+                            var claimType = string.Format("urn:google:{0}", claim.Key);
+                            string claimValue = claim.Value.ToString();
+                            if (!context.Identity.HasClaim(claimType, claimValue))
+                                context.Identity.AddClaim(new Claim(claimType, claimValue, "XmlSchemaString", "Google"));
+                        }
+                    }                
+                }
+            };
+
+            googleAuthenticationOptions.Scope.Add("https://www.googleapis.com/auth/plus.login email");
+            googleAuthenticationOptions.Scope.Add("https://www.googleapis.com/auth/plus.login profile");
+
+            app.UseGoogleAuthentication(googleAuthenticationOptions);
+
+            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            //{
+            //    ClientId = "",
+            //    ClientSecret = ""
+            //});
+
+            #endregion
         }
     }
 }

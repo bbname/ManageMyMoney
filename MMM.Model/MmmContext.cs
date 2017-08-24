@@ -22,6 +22,14 @@ namespace MMM.Model
             modelBuilder.Configurations.Add(new BankAccountConfiguration());
             modelBuilder.Configurations.Add(new TransactionConfiguration());
 
+            modelBuilder.Entity<BankAccount>()
+                .HasRequired(b => b.User);
+            modelBuilder.Entity<BankAccount>()
+                .HasMany(b => b.Transactions);
+
+            modelBuilder.Entity<Transaction>()
+                .HasRequired(t => t.BankAccount);
+
             base.OnModelCreating(modelBuilder);
         }
 

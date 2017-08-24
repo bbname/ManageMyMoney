@@ -89,55 +89,55 @@ namespace MMM.Model.Migrations
                 userManager.AddToRole(userTestId, "User");
             }
 
-            // Transactions for specified bank accounts of users.
-            // Admin
-            ICollection<Transaction> listAdminTransactions = new List<Transaction>
-            {
-                new Transaction{Name = "Sklep - zakupy", AccountBalance = 84.3M, Amount = -15.69M, SetDate = DateTime.Now.AddDays(1)},
-                new Transaction{Name = "Koszulki", AccountBalance = 44.32M, Amount = -39.98M, SetDate = DateTime.Now.AddDays(2)},
-                new Transaction{Name = "Pizza", AccountBalance = 23.33M, Amount = -20.99M, SetDate = DateTime.Now.AddDays(3)},
-            };
+            //// Transactions for specified bank accounts of users.
+            //// Admin
+            //ICollection<Transaction> listAdminTransactions = new List<Transaction>
+            //{
+            //    new Transaction{Name = "Sklep - zakupy", AccountBalance = 84.3M, Amount = -15.69M, SetDate = DateTime.Now.AddDays(1)},
+            //    new Transaction{Name = "Koszulki", AccountBalance = 44.32M, Amount = -39.98M, SetDate = DateTime.Now.AddDays(2)},
+            //    new Transaction{Name = "Pizza", AccountBalance = 23.33M, Amount = -20.99M, SetDate = DateTime.Now.AddDays(3)},
+            //};
 
-            // Test
-            ICollection<Transaction> listTestTransactions = new List<Transaction>
-            {
-                new Transaction{Name = "Opony do audi", AccountBalance = 1000.6M, Amount = -459.03M, SetDate = DateTime.Now.AddDays(5)},
-                new Transaction{Name = "Nowy wydech do audi", AccountBalance = 900M, Amount = -100.6M, SetDate = DateTime.Now.AddDays(2)},
-                new Transaction{Name = "Wesele Zdzisława", AccountBalance = 300M, Amount = -600M, SetDate = DateTime.Now.AddDays(9)},
-            };
+            //// Test
+            //ICollection<Transaction> listTestTransactions = new List<Transaction>
+            //{
+            //    new Transaction{Name = "Opony do audi", AccountBalance = 1000.6M, Amount = -459.03M, SetDate = DateTime.Now.AddDays(5)},
+            //    new Transaction{Name = "Nowy wydech do audi", AccountBalance = 900M, Amount = -100.6M, SetDate = DateTime.Now.AddDays(2)},
+            //    new Transaction{Name = "Wesele Zdzisława", AccountBalance = 300M, Amount = -600M, SetDate = DateTime.Now.AddDays(9)},
+            //};
 
-            // Bank accounts for users.
-            // Admin
-            if (!(context.BankAccounts.Any(b => b.User.Id == userAdminId)))
-            {
-                var bankAccount = new BankAccount
-                {
-                    Name = "Studenckie",
-                    Balance = 23.33M,
-                    Currency = 1,
-                    Created = DateTime.Now,
-                    User = (User)context.Users.First(u => u.Id == userAdminId),
-                    Transactions = listAdminTransactions
-                };
-                context.BankAccounts.AddOrUpdate(bankAccount);
-                context.SaveChanges();
-            }
+            //// Bank accounts for users.
+            //// Admin
+            //if (!(context.BankAccounts.Any(b => b.User.Id == userAdminId)))
+            //{
+            //    var bankAccount = new BankAccount
+            //    {
+            //        Name = "Studenckie",
+            //        Balance = 23.33M,
+            //        Currency = 1,
+            //        Created = DateTime.Now,
+            //        User = (User)context.Users.First(u => u.Id == userAdminId),
+            //        Transactions = listAdminTransactions
+            //    };
+            //    context.BankAccounts.AddOrUpdate(bankAccount);
+            //    context.SaveChanges();
+            //}
 
-            // Test
-            if (!(context.BankAccounts.Any(b => b.User.Id == userTestId)))
-            {
-                var bankAccount = new BankAccount
-                {
-                    Name = "Standard",
-                    Balance = 300M,
-                    Currency = 3,
-                    Created = DateTime.Now,
-                    User = (User)context.Users.First(u => u.Id == userTestId),
-                    Transactions = listTestTransactions
-                };
-                context.BankAccounts.AddOrUpdate(bankAccount);
-                context.SaveChanges();
-            }
+            //// Test
+            //if (!(context.BankAccounts.Any(b => b.User.Id == userTestId)))
+            //{
+            //    var bankAccount = new BankAccount
+            //    {
+            //        Name = "Standard",
+            //        Balance = 300M,
+            //        Currency = 3,
+            //        Created = DateTime.Now,
+            //        User = (User)context.Users.First(u => u.Id == userTestId),
+            //        Transactions = listTestTransactions
+            //    };
+            //    context.BankAccounts.AddOrUpdate(bankAccount);
+            //    context.SaveChanges();
+            //}
         }
     }
 }

@@ -9,8 +9,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using MMM.BussinesLogic;
 using MMM.Model;
 using MMM.Models;
+using MMM.Service.Interfaces;
 
 namespace MMM.Controllers
 {
@@ -19,15 +21,24 @@ namespace MMM.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private readonly IReadUser _readUser;
 
-        public AccountController()
+        public AccountController(IReadUser readUser)
         {
+            _readUser = readUser;
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        //public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        //{
+        //    UserManager = userManager;
+        //    SignInManager = signInManager;
+        //}
+
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IReadUser readUser)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _readUser = readUser;
         }
 
         public ApplicationSignInManager SignInManager
@@ -294,6 +305,200 @@ namespace MMM.Controllers
         }
 
         //
+        // GET: /Account/ExternalLoginCallback
+        [AllowAnonymous]
+        public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
+        {
+            string userId = null; //to get userId
+            var isEmailConfirmed = false; //to check if email is confirmed
+            string userName = null; //to check if username exists in the database
+
+            var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
+
+            if (loginInfo == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            var userProviderKey = loginInfo.Login.ProviderKey;
+            userId = _readUser.GetUserIdByProviderKey(userProviderKey); //get userId
+
+            if (!String.IsNullOrEmpty(userId))
+            {
+                //check if email is confirmed
+                isEmailConfirmed = _readUser.IsUserEmailConfirmed(userId);
+                //get username
+                userName = _readUser.GetUserNameById(userId);
+            }
+
+            //if email hasn't been confirmed yet, don't allow members
+            //to log in.
+
+            if (!isEmailConfirmed && !String.IsNullOrEmpty(userName))
+            {
+                return RedirectToAction("EmailConfirmationFailed", "Account");
+            }
+            else
+            {
+                // Sign in the user with this external login provider if the user already has a login
+                var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        return RedirectToLocal(returnUrl);
+                    case SignInStatus.LockedOut:
+                        return View("Lockout");
+                    case SignInStatus.RequiresVerification:
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
+                    case SignInStatus.Failure:
+                    default:
+                        // If the user does not have an account, then prompt the user to create an account
+                        ViewBag.ReturnUrl = returnUrl;
+                        ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
+
+                        var email = loginInfo.Email;
+                        var firstName = "";
+                        var lastName = "";
+
+                        if (loginInfo.Login.LoginProvider == "Google")
+                        {
+                            var externalIdentity = AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
+                            var emailClaim = externalIdentity.Result.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email);
+                            var nameClaim = externalIdentity.Result.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name);
+
+                            if (emailClaim != null)
+                                email = emailClaim.Value;
+
+                            if (nameClaim != null)
+                            {
+                                var name = nameClaim.Value;
+                                var claimsLogic = new ClaimsLogic();
+                                claimsLogic.SeparateNameToFirstNameAndLastName(ref name, out firstName, out lastName);
+                            }
+
+                            //email = loginInfo.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
+                            //name = loginInfo.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName).Value;
+
+                            //firstName = loginInfo.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").Value;
+                            //lastName = loginInfo.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname").Value;
+                            //var givenName = loginInfo.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname").Value;
+
+
+                            //viewModel.FirstName = loginInfo.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value;
+                            //viewModel.LastName = loginInfo.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Surname).Value;
+                        }
+                        else if (loginInfo.Login.LoginProvider == "Facebook")
+                        {
+                            
+                        }
+                        else if (loginInfo.Login.LoginProvider == "Linkedin")
+                        {
+
+                        }
+
+                        var viewModel = new ExternalLoginConfirmationViewModel()
+                        {
+                            Email = email,
+                            FirstName = firstName,
+                            LastName = lastName
+                        };
+
+                        return View("ExternalLoginConfirmation", viewModel);
+                        //return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+                }
+            }
+        }
+
+        //
+        // POST: /Account/ExternalLoginConfirmation
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Manage");
+            }
+
+            if (ModelState.IsValid)
+            {
+                // Get the information about the user from the external login provider
+                var info = await AuthenticationManager.GetExternalLoginInfoAsync();
+
+                if (info == null)
+                {
+                    return View("ExternalLoginFailure");
+                }
+
+                var isEmailTaken = _readUser.IsUserEmailTaken(model.Email);
+                var isUserNameTaken = _readUser.IsUserNameTaken(model.UserName);
+
+                var user = new User
+                {
+                    UserName = model.UserName,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName
+                };
+
+                if (!isEmailTaken && !isUserNameTaken)
+                {
+                    var result = await UserManager.CreateAsync(user);
+
+                    if (result.Succeeded)
+                    {
+                        UserManager.AddToRole(user.Id, "User");
+                        result = await UserManager.AddLoginAsync(user.Id, info.Login);
+
+                        if (result.Succeeded)
+                        {
+                            //codeType = "EmailConfirmation";
+                            await SendEmail("ConfirmEmail", "Account", user, model.Email, "WelcomeEmail", "Confirm your account");
+                            //return RedirectToAction("ConfirmationEmailSent", "Account");
+
+                            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                            return RedirectToLocal(returnUrl);
+                        }
+                    }
+
+                    AddErrors(result);
+                }
+                else
+                {
+                    if (isEmailTaken)
+                    {
+                        ModelState.AddModelError("", "Email jest już zajęty.");
+                    }
+
+                    if (isUserNameTaken)
+                    {
+                        ModelState.AddModelError("", "Login jest już zajęty.");
+                    }
+                }
+
+            }
+
+            ViewBag.ReturnUrl = returnUrl;
+            return View(model);
+        }
+
+        //
+        // GET: /Account/ExternalLoginFailure
+        [AllowAnonymous]
+        public ActionResult ExternalLoginFailure()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult EmailConfirmationFailed()
+        {
+            return View();
+        }
+
+        //
         // GET: /Account/SendCode
         [AllowAnonymous]
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
@@ -329,74 +534,6 @@ namespace MMM.Controllers
         }
 
         //
-        // GET: /Account/ExternalLoginCallback
-        [AllowAnonymous]
-        public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
-        {
-            var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
-            if (loginInfo == null)
-            {
-                return RedirectToAction("Login");
-            }
-
-            // Sign in the user with this external login provider if the user already has a login
-            var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
-                case SignInStatus.Failure:
-                default:
-                    // If the user does not have an account, then prompt the user to create an account
-                    ViewBag.ReturnUrl = returnUrl;
-                    ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
-            }
-        }
-
-        //
-        // POST: /Account/ExternalLoginConfirmation
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Manage");
-            }
-
-            if (ModelState.IsValid)
-            {
-                // Get the information about the user from the external login provider
-                var info = await AuthenticationManager.GetExternalLoginInfoAsync();
-                if (info == null)
-                {
-                    return View("ExternalLoginFailure");
-                }
-                var user = new User { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user);
-                if (result.Succeeded)
-                {
-                    result = await UserManager.AddLoginAsync(user.Id, info.Login);
-                    if (result.Succeeded)
-                    {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return RedirectToLocal(returnUrl);
-                    }
-                }
-                AddErrors(result);
-            }
-
-            ViewBag.ReturnUrl = returnUrl;
-            return View(model);
-        }
-
-        //
         // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -404,14 +541,6 @@ namespace MMM.Controllers
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
-        }
-
-        //
-        // GET: /Account/ExternalLoginFailure
-        [AllowAnonymous]
-        public ActionResult ExternalLoginFailure()
-        {
-            return View();
         }
 
         protected override void Dispose(bool disposing)

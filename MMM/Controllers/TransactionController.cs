@@ -102,7 +102,7 @@ namespace MMM.Controllers
         //public ActionResult GetTransactionsByBankAccountIdFilters(int? bankAccountId, DateTime? fromDate, DateTime? toDate, int? selectedItemsForPage, int? selectedFilterId)
         public ActionResult GetTransactionsByBankAccountIdFilters(string bankAccountId, string fromDate, string toDate, int? selectedItemsForPage, int? selectedFilterId, int page = 1)
         {
-            if (String.IsNullOrEmpty(bankAccountId))
+            if (!String.IsNullOrEmpty(bankAccountId))
             {
                 var bankAccount = _readBankAccount.GetBankAccountById(bankAccountId);
                 var binder = new ToTransactionListViewModel();

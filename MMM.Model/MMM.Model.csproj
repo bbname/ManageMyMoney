@@ -164,45 +164,16 @@
   <ItemGroup>
     <Compile Include="BankAccount.cs" />
     <Compile Include="Configurations\BankAccountConfiguration.cs" />
-    <Compile Include="Configurations\EntityConfiguration.cs" />
     <Compile Include="Configurations\TransactionConfiguration.cs" />
     <Compile Include="Configurations\UserConfiguration.cs" />
     <Compile Include="Entity.cs" />
-    <Compile Include="Migrations\201705301359478_init.cs" />
-    <Compile Include="Migrations\201705301359478_init.Designer.cs">
-      <DependentUpon>201705301359478_init.cs</DependentUpon>
+    <Compile Include="Migrations\201708221722031_initAfterChanges.cs" />
+    <Compile Include="Migrations\201708221722031_initAfterChanges.Designer.cs">
+      <DependentUpon>201708221722031_initAfterChanges.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706012032362_userChange.cs" />
-    <Compile Include="Migrations\201706012032362_userChange.Designer.cs">
-      <DependentUpon>201706012032362_userChange.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706012045014_userAndAccountChange.cs" />
-    <Compile Include="Migrations\201706012045014_userAndAccountChange.Designer.cs">
-      <DependentUpon>201706012045014_userAndAccountChange.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707241201298_Users-Roles-BankAccounts-Transations.cs" />
-    <Compile Include="Migrations\201707241201298_Users-Roles-BankAccounts-Transations.Designer.cs">
-      <DependentUpon>201707241201298_Users-Roles-BankAccounts-Transations.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707241341327_updatedAccount.cs" />
-    <Compile Include="Migrations\201707241341327_updatedAccount.Designer.cs">
-      <DependentUpon>201707241341327_updatedAccount.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707261122157_changedNVARCHARTOVARCHAR.cs" />
-    <Compile Include="Migrations\201707261122157_changedNVARCHARTOVARCHAR.Designer.cs">
-      <DependentUpon>201707261122157_changedNVARCHARTOVARCHAR.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707261124371_BackToOlderVersion.cs" />
-    <Compile Include="Migrations\201707261124371_BackToOlderVersion.Designer.cs">
-      <DependentUpon>201707261124371_BackToOlderVersion.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707311935249_AddedBankAccountToTransactionAndChangedCreatedToSetDate.cs" />
-    <Compile Include="Migrations\201707311935249_AddedBankAccountToTransactionAndChangedCreatedToSetDate.Designer.cs">
-      <DependentUpon>201707311935249_AddedBankAccountToTransactionAndChangedCreatedToSetDate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708211551343_SetConfigurationOfColumnsAndAddedDescriptionField.cs" />
-    <Compile Include="Migrations\201708211551343_SetConfigurationOfColumnsAndAddedDescriptionField.Designer.cs">
-      <DependentUpon>201708211551343_SetConfigurationOfColumnsAndAddedDescriptionField.cs</DependentUpon>
+    <Compile Include="Migrations\201708221731509_notnullableIDS.cs" />
+    <Compile Include="Migrations\201708221731509_notnullableIDS.Designer.cs">
+      <DependentUpon>201708221731509_notnullableIDS.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MmmContext.cs" />
@@ -211,32 +182,11 @@
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201705301359478_init.resx">
-      <DependentUpon>201705301359478_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708221722031_initAfterChanges.resx">
+      <DependentUpon>201708221722031_initAfterChanges.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706012032362_userChange.resx">
-      <DependentUpon>201706012032362_userChange.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706012045014_userAndAccountChange.resx">
-      <DependentUpon>201706012045014_userAndAccountChange.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707241201298_Users-Roles-BankAccounts-Transations.resx">
-      <DependentUpon>201707241201298_Users-Roles-BankAccounts-Transations.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707241341327_updatedAccount.resx">
-      <DependentUpon>201707241341327_updatedAccount.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707261122157_changedNVARCHARTOVARCHAR.resx">
-      <DependentUpon>201707261122157_changedNVARCHARTOVARCHAR.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707261124371_BackToOlderVersion.resx">
-      <DependentUpon>201707261124371_BackToOlderVersion.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707311935249_AddedBankAccountToTransactionAndChangedCreatedToSetDate.resx">
-      <DependentUpon>201707311935249_AddedBankAccountToTransactionAndChangedCreatedToSetDate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708211551343_SetConfigurationOfColumnsAndAddedDescriptionField.resx">
-      <DependentUpon>201708211551343_SetConfigurationOfColumnsAndAddedDescriptionField.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708221731509_notnullableIDS.resx">
+      <DependentUpon>201708221731509_notnullableIDS.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

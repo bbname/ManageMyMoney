@@ -7,13 +7,13 @@ namespace MMM.Model.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class BackToOlderVersion : IMigrationMetadata
+    public sealed partial class notnullableIDS : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(BackToOlderVersion));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(notnullableIDS));
         
         string IMigrationMetadata.Id
         {
-            get { return "201707261124371_BackToOlderVersion"; }
+            get { return "201708221731509_notnullableIDS"; }
         }
         
         string IMigrationMetadata.Source

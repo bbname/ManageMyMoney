@@ -8,6 +8,15 @@ namespace MMM.Models
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
+        [Required]
+        [Display(Name = "Login")]
+        public string UserName { get; set; }
+        [Required]
+        [Display(Name = "Imię")]
+        public string FirstName { get; set; }
+        [Required]
+        [Display(Name = "Nazwisko")]
+        public string LastName { get; set; }
     }
 
     public class ExternalLoginListViewModel
