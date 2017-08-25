@@ -11,5 +11,7 @@ namespace MMM.Service.Interfaces
         string GetUserEmailById(string userId);
         bool IsUserNameTaken(string userName);
         bool IsUserEmailTaken(string userEmail);
+        bool IsUserExist(string userId);
+        string GetUserIdByUserName(string userName);
     }
 }

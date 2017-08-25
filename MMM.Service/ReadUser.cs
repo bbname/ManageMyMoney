@@ -62,5 +62,20 @@ namespace MMM.Service
         {
             return this._userReadRepository.GetAllData().Any(u => u.Email == userEmail);
         }
+
+        public bool IsUserExist(string userId)
+        {
+            return this._userReadRepository.GetAllData().Any(u => u.Id == userId);
+        }
+
+        public string GetUserIdByUserName(string userName)
+        {
+            if (this._userReadRepository.GetAllData().Any(u => u.UserName == userName))
+            {
+                return this._userReadRepository.GetAllData().Single(u => u.UserName == userName).Id;
+            }
+
+            return null;
+        }
     }
 }

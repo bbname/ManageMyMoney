@@ -86,6 +86,13 @@ namespace MMM.Controllers
                 return View(model);
             }
 
+            var userId = _readUser.GetUserIdByUserName(model.UserName);
+
+            if (!String.IsNullOrEmpty(userId) && !_readUser.IsUserEmailConfirmed(userId))
+            {
+                return RedirectToAction("EmailActivationFail", new {userId = userId});
+            }
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             //var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
@@ -177,21 +184,42 @@ namespace MMM.Controllers
                 if (result.Succeeded)
                 {
                     UserManager.AddToRole(user.Id, "User");
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    await UserManager.SendEmailAsync(user.Id, "MMM - Potwierdź konto", "Proszę potwierdź utworzenie konta przez kliknięcie w <a href=\"" + callbackUrl + "\">here</a>");
+
+                    return RedirectToAction("SendEmail", "Account", new { userId = user.Id });
+
+                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    //return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult SendEmail(string userId)
+        {
+            if (userId == null || !_readUser.IsUserExist(userId))
+            {
+                return View("Error");
+            }
+
+            return View("SendEmail");
+
         }
 
         //
@@ -336,7 +364,8 @@ namespace MMM.Controllers
 
             if (!isEmailConfirmed && !String.IsNullOrEmpty(userName))
             {
-                return RedirectToAction("EmailConfirmationFailed", "Account");
+                //return RedirectToAction("EmailConfirmationFailed", "Account");
+                return RedirectToAction("EmailActivationFail", new { userId = userId });
             }
             else
             {
@@ -454,11 +483,18 @@ namespace MMM.Controllers
                         if (result.Succeeded)
                         {
                             //codeType = "EmailConfirmation";
-                            await SendEmail("ConfirmEmail", "Account", user, model.Email, "WelcomeEmail", "Confirm your account");
+                            //await SendEmail("ConfirmEmail", "Account", user, model.Email, "WelcomeEmail", "Confirm your account");
                             //return RedirectToAction("ConfirmationEmailSent", "Account");
 
-                            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                            return RedirectToLocal(returnUrl);
+                            var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                            var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                            //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                            await UserManager.SendEmailAsync(user.Id, "MMM - Potwierdź konto", callbackUrl);
+
+                            return RedirectToAction("SendEmail","Account", new {userId = user.Id});
+
+                            //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                            //return RedirectToLocal(returnUrl);
                         }
                     }
 
@@ -493,9 +529,14 @@ namespace MMM.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult EmailConfirmationFailed()
+        public ActionResult EmailActivationFail(string userId)
         {
-            return View();
+            if (userId == null || !_readUser.IsUserExist(userId))
+            {
+                return View("Error");
+            }
+
+            return View("ActivationFail");
         }
 
         //
