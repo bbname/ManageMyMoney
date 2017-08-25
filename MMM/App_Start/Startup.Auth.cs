@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.Facebook;
 using Microsoft.Owin.Security.Google;
 using MMM.Model;
 using Owin;
@@ -23,7 +24,6 @@ namespace MMM
             app.CreatePerOwinContext(MmmContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
-
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
             // Configure the sign in cookie
@@ -59,9 +59,41 @@ namespace MMM
             //   consumerKey: "",
             //   consumerSecret: "");
 
+                #region Facebook
+
             //app.UseFacebookAuthentication(
             //   appId: "",
             //   appSecret: "");
+
+            var facebookAuthenticationOptions = new FacebookAuthenticationOptions()
+            {
+                AppId = ConfigurationManager.AppSettings["FacebookAppId"],
+                AppSecret = ConfigurationManager.AppSettings["FacebookAppSecretKey"],
+                Scope = { "email", "public_profile"},
+                Provider = new FacebookAuthenticationProvider()
+                {
+                    OnAuthenticated = async context =>
+                    {
+                        context.Identity.AddClaim(new Claim("FacebookAccessToken", context.AccessToken));
+                        //foreach (var claim in context.User)
+                        //{
+                        //    var claimType = string.Format("urn:facebook:{0}", claim.Key);
+                        //    string claimValue = claim.Value.ToString();
+                        //    if (!context.Identity.HasClaim(claimType, claimValue))
+                        //    {
+                        //        context.Identity.AddClaim(new Claim(claimType, claimValue, "XmlSchemaString", "Facebook"));
+                        //    }
+                        //}
+                    }
+                }
+            };
+
+            //facebookAuthenticationOptions.Scope.Add("public_profile");
+            //facebookAuthenticationOptions.Scope.Add("email");
+
+            app.UseFacebookAuthentication(facebookAuthenticationOptions);
+
+            #endregion
 
             #region Google
 
@@ -95,13 +127,6 @@ namespace MMM
             googleAuthenticationOptions.Scope.Add("https://www.googleapis.com/auth/plus.login profile");
 
             app.UseGoogleAuthentication(googleAuthenticationOptions);
-
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
-
             #endregion
         }
     }
