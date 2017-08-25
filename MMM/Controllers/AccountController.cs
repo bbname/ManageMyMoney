@@ -419,7 +419,19 @@ namespace MMM.Controllers
                         }
                         else if (loginInfo.Login.LoginProvider == "Facebook")
                         {
-                            
+                            var externalIdentity = AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
+                            var emailClaim = externalIdentity.Result.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email);
+                            var nameClaim = externalIdentity.Result.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name);
+
+                            if (emailClaim != null)
+                                email = emailClaim.Value;
+
+                            if (nameClaim != null)
+                            {
+                                var name = nameClaim.Value;
+                                var claimsLogic = new ClaimsLogic();
+                                claimsLogic.SeparateNameToFirstNameAndLastName(ref name, out firstName, out lastName);
+                            }
                         }
                         else if (loginInfo.Login.LoginProvider == "Linkedin")
                         {

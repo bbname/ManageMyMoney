@@ -9,6 +9,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Facebook;
 using Microsoft.Owin.Security.Google;
+using MMM.App_Start;
 using MMM.Model;
 using Owin;
 using MMM.Models;
@@ -59,39 +60,53 @@ namespace MMM
             //   consumerKey: "",
             //   consumerSecret: "");
 
-                #region Facebook
-
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            #region Facebook
 
             var facebookAuthenticationOptions = new FacebookAuthenticationOptions()
             {
                 AppId = ConfigurationManager.AppSettings["FacebookAppId"],
                 AppSecret = ConfigurationManager.AppSettings["FacebookAppSecretKey"],
-                Scope = { "email", "public_profile"},
-                Provider = new FacebookAuthenticationProvider()
-                {
-                    OnAuthenticated = async context =>
-                    {
-                        context.Identity.AddClaim(new Claim("FacebookAccessToken", context.AccessToken));
-                        //foreach (var claim in context.User)
-                        //{
-                        //    var claimType = string.Format("urn:facebook:{0}", claim.Key);
-                        //    string claimValue = claim.Value.ToString();
-                        //    if (!context.Identity.HasClaim(claimType, claimValue))
-                        //    {
-                        //        context.Identity.AddClaim(new Claim(claimType, claimValue, "XmlSchemaString", "Facebook"));
-                        //    }
-                        //}
-                    }
-                }
+                BackchannelHttpHandler = new FacebookBackChannelHandler(),
+                //UserInformationEndpoint = "https://graph.facebook.com/v2.4/me?fields=id,email"
+                UserInformationEndpoint = "https://graph.facebook.com/v2.4/me?fields=id,name,first_name,last_name,email"
             };
+
+            facebookAuthenticationOptions.Scope.Add("email");
+            facebookAuthenticationOptions.Scope.Add("public_profile");
+
+            app.UseFacebookAuthentication(facebookAuthenticationOptions);
+
+            //app.UseFacebookAuthentication(
+            //   appId: "",
+            //   appSecret: "");
+
+            //var facebookAuthenticationOptions = new FacebookAuthenticationOptions()
+            //{
+            //    AppId = ConfigurationManager.AppSettings["FacebookAppId"],
+            //    AppSecret = ConfigurationManager.AppSettings["FacebookAppSecretKey"],
+            //    //Scope = { "email", "public_profile"},
+            //    Provider = new FacebookAuthenticationProvider()
+            //    {
+            //        OnAuthenticated = async context =>
+            //        {
+            //            context.Identity.AddClaim(new Claim("FacebookAccessToken", context.AccessToken));
+            //            //foreach (var claim in context.User)
+            //            //{
+            //            //    var claimType = string.Format("urn:facebook:{0}", claim.Key);
+            //            //    string claimValue = claim.Value.ToString();
+            //            //    if (!context.Identity.HasClaim(claimType, claimValue))
+            //            //    {
+            //            //        context.Identity.AddClaim(new Claim(claimType, claimValue, "XmlSchemaString", "Facebook"));
+            //            //    }
+            //            //}
+            //        }
+            //    }
+            //};
 
             //facebookAuthenticationOptions.Scope.Add("public_profile");
             //facebookAuthenticationOptions.Scope.Add("email");
 
-            app.UseFacebookAuthentication(facebookAuthenticationOptions);
+            //app.UseFacebookAuthentication(facebookAuthenticationOptions);
 
             #endregion
 
