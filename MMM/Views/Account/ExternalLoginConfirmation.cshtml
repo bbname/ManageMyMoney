@@ -6,7 +6,8 @@
 <h3>Associate your @ViewBag.LoginProvider account.</h3>*@
 @*<h2>Rejestracja</h2>*@
 @*<h3>Powiąż swoje konto z @ViewBag.LoginProvider.</h3>*@
-<h2>Powiąż swoje konto z @ViewBag.LoginProvider.</h2>
+@*<h2>Powiąż swoje konto z @ViewBag.LoginProvider.</h2>*@
+<h2>Powiąż swoje konto z @Model.LoginProviderInfo.</h2>
 
 @using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
@@ -21,7 +22,8 @@
         logging in.
     </p>*@
     <p class="text-info">
-        Poprawna autoryzacja z kontem <strong>@ViewBag.LoginProvider</strong>.
+        @*Poprawna autoryzacja z kontem <strong>@ViewBag.LoginProvider</strong>.*@
+        Poprawna autoryzacja z kontem <strong>@Model.LoginProviderInfo</strong>.
         Proszę, uzupełnij swoje dane o login (możesz później dodać hasło w panelu i korzystać z konta serwisu), imię oraz nazwisko.
         Następnie kliknij w przycisk Zarejestruj się.
     </p>
@@ -53,6 +55,7 @@
             @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
         </div>
     </div>
+    @Html.HiddenFor(m => m.LoginProviderInfo)
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <button type="submit" class="btn btn-primary">Zarejestruj się</button>

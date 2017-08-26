@@ -3,17 +3,36 @@
     ViewBag.Title = "Manage";
 }
 
-<h2>@ViewBag.Title</h2>
+<h2>Zarządzaj kontem</h2>
 
 
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
-    <h4>Change your account settings</h4>
+    @*<h4>Change your account settings</h4>*@
+    <h4>Zmień ustawienia konta</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>Password:</dt>
+        <dt>Hasło:</dt>
         <dd>
+            [
+            @if (Model.HasPassword)
+            {
+                @Html.ActionLink("Zmień", "ChangePassword")
+            }
+            else
+            {
+                @Html.ActionLink("Utwórz", "SetPassword")
+            }
+            ]
+        </dd>
+        <dt>Konta Social Media:</dt>
+        <dd>
+            @Model.Logins.Count [
+            @Html.ActionLink("Zarządzaj", "ManageLogins") ]
+        </dd>
+        @*<dt>Password:</dt>*@
+        @*<dd>
             [
             @if (Model.HasPassword)
             {
@@ -24,7 +43,7 @@
                 @Html.ActionLink("Create", "SetPassword")
             }
             ]
-        </dd>
+        </dd>*@
         @*<dt>External Logins:</dt>
         <dd>
             @Model.Logins.Count [

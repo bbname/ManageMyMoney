@@ -389,35 +389,11 @@ namespace MMM.Controllers
                         var email = loginInfo.Email;
                         var firstName = "";
                         var lastName = "";
+                        var providerInfo = loginInfo.Login.LoginProvider;
 
-                        if (loginInfo.Login.LoginProvider == "Google")
-                        {
-                            var externalIdentity = AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
-                            var emailClaim = externalIdentity.Result.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email);
-                            var nameClaim = externalIdentity.Result.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name);
-
-                            if (emailClaim != null)
-                                email = emailClaim.Value;
-
-                            if (nameClaim != null)
-                            {
-                                var name = nameClaim.Value;
-                                var claimsLogic = new ClaimsLogic();
-                                claimsLogic.SeparateNameToFirstNameAndLastName(ref name, out firstName, out lastName);
-                            }
-
-                            //email = loginInfo.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
-                            //name = loginInfo.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName).Value;
-
-                            //firstName = loginInfo.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").Value;
-                            //lastName = loginInfo.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname").Value;
-                            //var givenName = loginInfo.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname").Value;
-
-
-                            //viewModel.FirstName = loginInfo.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value;
-                            //viewModel.LastName = loginInfo.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Surname).Value;
-                        }
-                        else if (loginInfo.Login.LoginProvider == "Facebook")
+                        if (loginInfo.Login.LoginProvider == "Google" 
+                            || loginInfo.Login.LoginProvider == "Facebook"
+                            || loginInfo.Login.LoginProvider == "LinkedIn")
                         {
                             var externalIdentity = AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
                             var emailClaim = externalIdentity.Result.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email);
@@ -433,16 +409,33 @@ namespace MMM.Controllers
                                 claimsLogic.SeparateNameToFirstNameAndLastName(ref name, out firstName, out lastName);
                             }
                         }
-                        else if (loginInfo.Login.LoginProvider == "Linkedin")
-                        {
+                        //else if (loginInfo.Login.LoginProvider == "Facebook")
+                        //{
+                        //    var externalIdentity = AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
+                        //    var emailClaim = externalIdentity.Result.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email);
+                        //    var nameClaim = externalIdentity.Result.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name);
 
-                        }
+                        //    if (emailClaim != null)
+                        //        email = emailClaim.Value;
+
+                        //    if (nameClaim != null)
+                        //    {
+                        //        var name = nameClaim.Value;
+                        //        var claimsLogic = new ClaimsLogic();
+                        //        claimsLogic.SeparateNameToFirstNameAndLastName(ref name, out firstName, out lastName);
+                        //    }
+                        //}
+                        //else if (loginInfo.Login.LoginProvider == "Linkedin")
+                        //{
+
+                        //}
 
                         var viewModel = new ExternalLoginConfirmationViewModel()
                         {
                             Email = email,
                             FirstName = firstName,
-                            LastName = lastName
+                            LastName = lastName,
+                            LoginProviderInfo = providerInfo
                         };
 
                         return View("ExternalLoginConfirmation", viewModel);
@@ -495,9 +488,6 @@ namespace MMM.Controllers
 
                         if (result.Succeeded)
                         {
-                            //codeType = "EmailConfirmation";
-                            //await SendEmail("ConfirmEmail", "Account", user, model.Email, "WelcomeEmail", "Confirm your account");
-                            //return RedirectToAction("ConfirmationEmailSent", "Account");
 
                             var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                             var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);

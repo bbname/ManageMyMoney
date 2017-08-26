@@ -17,6 +17,8 @@ namespace MMM.Models
         [Required]
         [Display(Name = "Nazwisko")]
         public string LastName { get; set; }
+
+        public string LoginProviderInfo { get; set; }
     }
 
     public class ExternalLoginListViewModel

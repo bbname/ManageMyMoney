@@ -13,6 +13,7 @@ using MMM.App_Start;
 using MMM.Model;
 using Owin;
 using MMM.Models;
+using Owin.Security.Providers.LinkedIn;
 
 namespace MMM
 {
@@ -59,8 +60,25 @@ namespace MMM
             //app.UseTwitterAuthentication(
             //   consumerKey: "",
             //   consumerSecret: "");
+            #region LinkedIn
+
+            var linkedinAuthenticationOptions = new LinkedInAuthenticationOptions()
+            {
+                ClientId = ConfigurationManager.AppSettings["LinkedinClientId"],
+                ClientSecret = ConfigurationManager.AppSettings["LinkedinClientSecretKey"],
+            };
+
+            //linkedinAuthenticationOptions.Scope.Add("r_basicprofile");
+            //linkedinAuthenticationOptions.Scope.Add("r_emailaddress");
+
+            app.UseLinkedInAuthentication(linkedinAuthenticationOptions);
+            #endregion
 
             #region Facebook
+
+            //app.UseFacebookAuthentication(
+            //   appId: "",
+            //   appSecret: "");
 
             var facebookAuthenticationOptions = new FacebookAuthenticationOptions()
             {
@@ -75,39 +93,6 @@ namespace MMM
             facebookAuthenticationOptions.Scope.Add("public_profile");
 
             app.UseFacebookAuthentication(facebookAuthenticationOptions);
-
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
-
-            //var facebookAuthenticationOptions = new FacebookAuthenticationOptions()
-            //{
-            //    AppId = ConfigurationManager.AppSettings["FacebookAppId"],
-            //    AppSecret = ConfigurationManager.AppSettings["FacebookAppSecretKey"],
-            //    //Scope = { "email", "public_profile"},
-            //    Provider = new FacebookAuthenticationProvider()
-            //    {
-            //        OnAuthenticated = async context =>
-            //        {
-            //            context.Identity.AddClaim(new Claim("FacebookAccessToken", context.AccessToken));
-            //            //foreach (var claim in context.User)
-            //            //{
-            //            //    var claimType = string.Format("urn:facebook:{0}", claim.Key);
-            //            //    string claimValue = claim.Value.ToString();
-            //            //    if (!context.Identity.HasClaim(claimType, claimValue))
-            //            //    {
-            //            //        context.Identity.AddClaim(new Claim(claimType, claimValue, "XmlSchemaString", "Facebook"));
-            //            //    }
-            //            //}
-            //        }
-            //    }
-            //};
-
-            //facebookAuthenticationOptions.Scope.Add("public_profile");
-            //facebookAuthenticationOptions.Scope.Add("email");
-
-            //app.UseFacebookAuthentication(facebookAuthenticationOptions);
-
             #endregion
 
             #region Google

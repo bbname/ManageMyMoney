@@ -23,15 +23,16 @@
                 <p>
                     @foreach (AuthenticationDescription p in loginProviders)
                     {
-                        if (p.Caption == "Google")
-                        {
-                            <button type="submit" class="btn btn-lg btn-block btn-social btn-google" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Zaloguj się używając twojego konta @p.Caption"><span class="fa fa-google"></span> Zaloguj się przez Google</button>
-                        }
-                        else if (p.Caption == "Facebook")
+
+                        if (p.Caption == "Facebook")
                         {
                             <button type="submit" class="btn btn-lg btn-block btn-social btn-facebook" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Zaloguj się używając twojego konta @p.Caption"><span class="fa fa-facebook"></span> Zaloguj się przez Facebook</button>
                         }
-                        else if (p.Caption == "Linkedin")
+                        else if (p.Caption == "Google")
+                        {
+                            <button type="submit" class="btn btn-lg btn-block btn-social btn-google" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Zaloguj się używając twojego konta @p.Caption"><span class="fa fa-google"></span> Zaloguj się przez Google</button>
+                        }
+                        else if (p.Caption == "LinkedIn")
                         {
                             <button type="submit" class="btn btn-lg btn-block btn-social btn-linkedin" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Zaloguj się używając twojego konta @p.Caption"><span class="fa fa-linkedin"></span> Zaloguj się przez LinkedIn</button>
                         }
