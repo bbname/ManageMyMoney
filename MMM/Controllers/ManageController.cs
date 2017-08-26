@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using MMM.Models;
+using MMM.Service.Interfaces;
 
 namespace MMM.Controllers
 {
@@ -15,15 +16,18 @@ namespace MMM.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private readonly IReadUser _readUser;
 
-        public ManageController()
+        public ManageController(IReadUser readUser)
         {
+            this._readUser = readUser;
         }
 
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IReadUser readUser)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            this._readUser = readUser;
         }
 
         public ApplicationSignInManager SignInManager
@@ -54,11 +58,20 @@ namespace MMM.Controllers
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
+            //ViewBag.StatusMessage =
+            //    message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
+            //    : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
+            //    : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
+            //    : message == ManageMessageId.Error ? "An error has occurred."
+            //    : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
+            //    : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+            //    : "";
+
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
+                message == ManageMessageId.ChangePasswordSuccess ? "Twoje hasło zostało zmienione."
+                : message == ManageMessageId.SetPasswordSuccess ? "Twoje hasło zostało ustawione."
                 : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
+                : message == ManageMessageId.Error ? "Wystąpił błąd."
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
@@ -66,6 +79,7 @@ namespace MMM.Controllers
             var userId = User.Identity.GetUserId();
             var model = new IndexViewModel
             {
+                User = _readUser.GetUserById(userId),
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),

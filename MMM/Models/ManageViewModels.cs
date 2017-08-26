@@ -2,11 +2,13 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using MMM.Model;
 
 namespace MMM.Models
 {
     public class IndexViewModel
     {
+        public User User { get; set; }
         public bool HasPassword { get; set; }
         public IList<UserLoginInfo> Logins { get; set; }
         public string PhoneNumber { get; set; }
