@@ -43,6 +43,13 @@ function ChangeEditAccountBalance(accountBalanceVal, currency) {
 }
 
 function SetEditAccountBalanceInputValue(accountBalanceInput, valueToReplace, accountBalanceVal, currency) {
+    if (currency == '&#163;') {
+        currency = decodeURI('%C2%A3');
+    }
+    else if (currency == '&#165;') {
+        currency = decodeURI('%C2%A5');
+    }
+
     var valueToSet = accountBalanceVal;
 
     if (!(valueToReplace.indexOf(currency) >= 0)) {
@@ -56,6 +63,13 @@ function SetEditAccountBalanceInputValue(accountBalanceInput, valueToReplace, ac
 function GetEditAccountBalanceInputValue(accountBalanceInput) {
     var accountBalanceInputVal = accountBalanceInput.val();
     var valueToReturn = accountBalanceInputVal;
+
+    if ($currencyVal == '&#163;') {
+        $currencyVal = decodeURI('%C2%A3');
+    }
+    else if ($currencyVal == '&#165;') {
+        $currencyVal = decodeURI('%C2%A5');
+    }
 
     if (accountBalanceInputVal.indexOf($currencyVal) >= 0) {
         var accountBalanceInputReplaceVal = accountBalanceInputVal.replace($currencyVal, '');

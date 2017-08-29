@@ -80,42 +80,36 @@ namespace MMM.Controllers
 
             if (ModelState.IsValid)
             {
-                var userBeforeEdit = await UserManager.FindByIdAsync(viewModel.Id);
-                //var userBeforeEdit = _readUser.GetUserByIdForEditAction(viewModel.Id);
-               // var binder = new FromUserEditViewModel();
-                //var userAfterEdit = binder.GetUserAfterEdit(viewModel, userBeforeEdit);
+                var userToEdit = await UserManager.FindByIdAsync(viewModel.Id);
 
-                if (userBeforeEdit.Email != viewModel.Email)
+                if (userToEdit.Email != viewModel.Email)
                 {
-
-                    userBeforeEdit.FirstName = viewModel.FirstName;
-                    userBeforeEdit.LastName = viewModel.LastName;
-                    userBeforeEdit.Email = viewModel.Email;
-                    userBeforeEdit.EmailConfirmed = false;
-                    var result = await UserManager.UpdateAsync(userBeforeEdit);
-                    //var result = UserManager.Update(userBeforeEdit);
+                    userToEdit.FirstName = viewModel.FirstName;
+                    userToEdit.LastName = viewModel.LastName;
+                    userToEdit.Email = viewModel.Email;
+                    userToEdit.EmailConfirmed = false;
+                    var result = await UserManager.UpdateAsync(userToEdit);
 
                     if (result.Succeeded)
                     {
-                        var code = await UserManager.GenerateEmailConfirmationTokenAsync(userBeforeEdit.Id);
+                        var code = await UserManager.GenerateEmailConfirmationTokenAsync(userToEdit.Id);
                         var callbackUrl = Url.Action("ConfirmEmail", "Account",
-                            new { userId = userBeforeEdit.Id, code = code }, protocol: Request.Url.Scheme);
-                        await UserManager.SendEmailAsync(userBeforeEdit.Id, "MMM - Potwierdź zmianę adresu Email",
+                            new { userId = userToEdit.Id, code = code }, protocol: Request.Url.Scheme);
+                        await UserManager.SendEmailAsync(userToEdit.Id, "MMM - Potwierdź zmianę adresu Email",
                             callbackUrl);
-                        //FormsAuthentication.SignOut();
+
                         var authenticationManager = HttpContext.GetOwinContext().Authentication;
                         authenticationManager.SignOut();
-                        //Roles.DeleteCookie();
                         Session.Clear();
-                        return RedirectToAction("SendEmail", "Account", new { userId = userBeforeEdit.Id });
+
+                        return RedirectToAction("SendEmail", "Account", new { userId = userToEdit.Id });
                     }
                 }
                 else
                 {
-                    userBeforeEdit.FirstName = viewModel.FirstName;
-                    userBeforeEdit.LastName = viewModel.LastName;
-                    var result = await UserManager.UpdateAsync(userBeforeEdit);
-                    //var result = UserManager.Update(userBeforeEdit);
+                    userToEdit.FirstName = viewModel.FirstName;
+                    userToEdit.LastName = viewModel.LastName;
+                    var result = await UserManager.UpdateAsync(userToEdit);
 
                     if (result.Succeeded)
                     {
@@ -125,45 +119,6 @@ namespace MMM.Controllers
                 }
             }
 
-            //if (ModelState.IsValid)
-            //{
-            //    //var userBeforeEdit = _readUser.GetUserById(viewModel.Id);
-            //    var userBeforeEdit = _readUser.GetUserByIdForEditAction(viewModel.Id);
-            //    var binder = new FromUserEditViewModel();
-            //    var userAfterEdit = binder.GetUserAfterEdit(viewModel, userBeforeEdit);
-
-            //    if (userBeforeEdit.Email != viewModel.Email)
-            //    {
-            //        userAfterEdit.EmailConfirmed = false;
-            //        //var result = await UserManager.UpdateAsync(userAfterEdit);
-            //        var result = UserManager.Update(userAfterEdit);
-
-            //        if (result.Succeeded)
-            //        {
-            //            var code = await UserManager.GenerateEmailConfirmationTokenAsync(userAfterEdit.Id);
-            //            var callbackUrl = Url.Action("ConfirmEmail", "Account",
-            //                new {userId = userAfterEdit.Id, code = code}, protocol: Request.Url.Scheme);
-            //            await UserManager.SendEmailAsync(userAfterEdit.Id, "MMM - Potwierdź zmianę adresu Email",
-            //                callbackUrl);
-            //            FormsAuthentication.SignOut();
-            //            Roles.DeleteCookie();
-            //            Session.Clear();
-            //            return RedirectToAction("SendEmail", "Account", new { userId = userAfterEdit.Id });
-            //        }
-            //    }
-            //    else
-            //    {
-            //        //var result = await UserManager.UpdateAsync(userAfterEdit);
-            //        var result = UserManager.Update(userAfterEdit);
-
-            //        if (result.Succeeded)
-            //        {
-            //            message = ManageMessageId.ChangedBasicInformationsSuccess;
-            //            return RedirectToAction("Index", "Manage", new { Message = message });
-            //        }
-            //    }
-            //}
-
             return View(viewModel);
         }
 
@@ -171,15 +126,6 @@ namespace MMM.Controllers
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
-            //ViewBag.StatusMessage =
-            //    message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-            //    : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-            //    : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-            //    : message == ManageMessageId.Error ? "An error has occurred."
-            //    : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-            //    : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
-            //    : "";
-
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Twoje hasło zostało zmienione."
                 : message == ManageMessageId.SetPasswordSuccess ? "Twoje hasło zostało ustawione."

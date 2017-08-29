@@ -45,6 +45,13 @@ function ChangeAccountBalance(modelAccountBalanceValue, modelCurrency) {
 }
 
 function SetAccountBalanceInputValue(accountBalanceInput, valueToReplace, modelAccountBalanceValue, modelCurrency) {
+    if (modelCurrency == '&#163;') {
+        modelCurrency = decodeURI('%C2%A3');
+    }
+    else if (modelCurrency == '&#165;') {
+        modelCurrency = decodeURI('%C2%A5');
+    }
+
     //var accountBalanceInputVal = accountBalanceInput.val();
     var valueToSet = modelAccountBalanceValue;
 
@@ -59,6 +66,13 @@ function SetAccountBalanceInputValue(accountBalanceInput, valueToReplace, modelA
 function GetAccountBalanceInputValue(accountBalanceInput) {
     var accountBalanceInputVal = accountBalanceInput.val();
     var valueToReturn = accountBalanceInputVal;
+
+    if ($currencyValue == '&#163;') {
+        $currencyValue = decodeURI('%C2%A3');
+    }
+    else if ($currencyValue == '&#165;') {
+        $currencyValue = decodeURI('%C2%A5');
+    }
 
     if (accountBalanceInputVal.indexOf($currencyValue) >= 0) {
         var accountBalanceInputReplaceVal = accountBalanceInputVal.replace($currencyValue, '');

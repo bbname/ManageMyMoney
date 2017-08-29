@@ -14,16 +14,5 @@ namespace MMM.ModelBinders.Manage
             return userBeforeEdit;
         }
 
-        //public User GetUserAfterEdit(UserEditViewModel viewModel, User userBeforeEdit)
-        //{
-        //    var userAfterEdit = userBeforeEdit;
-
-        //    userAfterEdit.Id = viewModel.Id;
-        //    userAfterEdit.FirstName = viewModel.FirstName;
-        //    userAfterEdit.LastName = viewModel.LastName;
-        //    userAfterEdit.Email = viewModel.Email;
-
-        //    return userAfterEdit;
-        //}
     }
 }
