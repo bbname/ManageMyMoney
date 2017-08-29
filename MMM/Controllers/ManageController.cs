@@ -3,9 +3,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Provider;
+using MMM.ModelBinders.Manage;
 using MMM.Models;
 using MMM.Service.Interfaces;
 
@@ -54,6 +57,116 @@ namespace MMM.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult ChangeBasicInformations(string userId)
+        {
+            if (!String.IsNullOrEmpty(userId))
+            {
+                var user = _readUser.GetUserById(userId);
+                var binder = new ToUserEditViewModel();
+                var viewModel = binder.GetViewModel(user);
+
+                return View("ChangeBasicInformations", viewModel);
+            }
+
+            return View("Error");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangeBasicInformations(UserEditViewModel viewModel)
+        {
+            ManageMessageId? message;
+
+            if (ModelState.IsValid)
+            {
+                var userBeforeEdit = await UserManager.FindByIdAsync(viewModel.Id);
+                //var userBeforeEdit = _readUser.GetUserByIdForEditAction(viewModel.Id);
+               // var binder = new FromUserEditViewModel();
+                //var userAfterEdit = binder.GetUserAfterEdit(viewModel, userBeforeEdit);
+
+                if (userBeforeEdit.Email != viewModel.Email)
+                {
+
+                    userBeforeEdit.FirstName = viewModel.FirstName;
+                    userBeforeEdit.LastName = viewModel.LastName;
+                    userBeforeEdit.Email = viewModel.Email;
+                    userBeforeEdit.EmailConfirmed = false;
+                    var result = await UserManager.UpdateAsync(userBeforeEdit);
+                    //var result = UserManager.Update(userBeforeEdit);
+
+                    if (result.Succeeded)
+                    {
+                        var code = await UserManager.GenerateEmailConfirmationTokenAsync(userBeforeEdit.Id);
+                        var callbackUrl = Url.Action("ConfirmEmail", "Account",
+                            new { userId = userBeforeEdit.Id, code = code }, protocol: Request.Url.Scheme);
+                        await UserManager.SendEmailAsync(userBeforeEdit.Id, "MMM - Potwierdź zmianę adresu Email",
+                            callbackUrl);
+                        //FormsAuthentication.SignOut();
+                        var authenticationManager = HttpContext.GetOwinContext().Authentication;
+                        authenticationManager.SignOut();
+                        //Roles.DeleteCookie();
+                        Session.Clear();
+                        return RedirectToAction("SendEmail", "Account", new { userId = userBeforeEdit.Id });
+                    }
+                }
+                else
+                {
+                    userBeforeEdit.FirstName = viewModel.FirstName;
+                    userBeforeEdit.LastName = viewModel.LastName;
+                    var result = await UserManager.UpdateAsync(userBeforeEdit);
+                    //var result = UserManager.Update(userBeforeEdit);
+
+                    if (result.Succeeded)
+                    {
+                        message = ManageMessageId.ChangedBasicInformationsSuccess;
+                        return RedirectToAction("Index", "Manage", new { Message = message });
+                    }
+                }
+            }
+
+            //if (ModelState.IsValid)
+            //{
+            //    //var userBeforeEdit = _readUser.GetUserById(viewModel.Id);
+            //    var userBeforeEdit = _readUser.GetUserByIdForEditAction(viewModel.Id);
+            //    var binder = new FromUserEditViewModel();
+            //    var userAfterEdit = binder.GetUserAfterEdit(viewModel, userBeforeEdit);
+
+            //    if (userBeforeEdit.Email != viewModel.Email)
+            //    {
+            //        userAfterEdit.EmailConfirmed = false;
+            //        //var result = await UserManager.UpdateAsync(userAfterEdit);
+            //        var result = UserManager.Update(userAfterEdit);
+
+            //        if (result.Succeeded)
+            //        {
+            //            var code = await UserManager.GenerateEmailConfirmationTokenAsync(userAfterEdit.Id);
+            //            var callbackUrl = Url.Action("ConfirmEmail", "Account",
+            //                new {userId = userAfterEdit.Id, code = code}, protocol: Request.Url.Scheme);
+            //            await UserManager.SendEmailAsync(userAfterEdit.Id, "MMM - Potwierdź zmianę adresu Email",
+            //                callbackUrl);
+            //            FormsAuthentication.SignOut();
+            //            Roles.DeleteCookie();
+            //            Session.Clear();
+            //            return RedirectToAction("SendEmail", "Account", new { userId = userAfterEdit.Id });
+            //        }
+            //    }
+            //    else
+            //    {
+            //        //var result = await UserManager.UpdateAsync(userAfterEdit);
+            //        var result = UserManager.Update(userAfterEdit);
+
+            //        if (result.Succeeded)
+            //        {
+            //            message = ManageMessageId.ChangedBasicInformationsSuccess;
+            //            return RedirectToAction("Index", "Manage", new { Message = message });
+            //        }
+            //    }
+            //}
+
+            return View(viewModel);
+        }
+
         //
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
@@ -74,6 +187,7 @@ namespace MMM.Controllers
                 : message == ManageMessageId.Error ? "Wystąpił błąd."
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                : message == ManageMessageId.ChangedBasicInformationsSuccess ? "Twoje podstawowe dane zostały zmienione."
                 : "";
 
             var userId = User.Identity.GetUserId();
@@ -395,7 +509,8 @@ namespace MMM.Controllers
             SetPasswordSuccess,
             RemoveLoginSuccess,
             RemovePhoneSuccess,
-            Error
+            Error,
+            ChangedBasicInformationsSuccess
         }
 
 #endregion

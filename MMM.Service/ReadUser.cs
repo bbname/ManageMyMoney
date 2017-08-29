@@ -14,6 +14,12 @@ namespace MMM.Service
         {
             this._userReadRepository = userReadRepository;
         }
+
+        public User GetUserByIdForEditAction(string id)
+        {
+            return this._userReadRepository.GetUserByIdForEditAction(id);
+        }
+
         public User GetUserById(string id)
         {
             return this._userReadRepository.GetUserById(id);

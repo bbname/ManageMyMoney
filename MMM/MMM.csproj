@@ -18,8 +18,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>
-    </IISExpressSSLPort>
+    <IISExpressSSLPort>44339</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -427,6 +426,8 @@
     <Compile Include="ModelBinders\BankAccount\FromBankAccountCreateViewModel.cs" />
     <Compile Include="ModelBinders\BankAccount\FromBankAccountEditViewModel.cs" />
     <Compile Include="ModelBinders\BindModelToViewModel.cs" />
+    <Compile Include="ModelBinders\Manage\FromUserEditViewModel.cs" />
+    <Compile Include="ModelBinders\Manage\ToUserEditViewModel.cs" />
     <Compile Include="ModelBinders\Transaction\FromTransactionCreateViewModel.cs" />
     <Compile Include="ModelBinders\Transaction\FromTransactionEditViewModel.cs" />
     <Compile Include="ModelBinders\Transaction\ToTransactionCreateViewModel.cs" />
@@ -637,9 +638,11 @@
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\SendEmail.cshtml" />
     <Content Include="Views\Account\ActivationFail.cshtml" />
+    <Content Include="Views\Manage\ChangeBasicInformations.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ModelBinders\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

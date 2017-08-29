@@ -1,11 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using MMM.Model;
 
 namespace MMM.Models
 {
+    public class UserEditViewModel
+    {
+        [HiddenInput(DisplayValue = false)]
+        public string Id { get; set; }
+        [Required]
+        [Display(Name = "Imię")]
+        public string FirstName { get; set; }
+        [Required]
+        [Display(Name = "Nazwisko")]
+        public string LastName { get; set; }
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+    }
+
     public class IndexViewModel
     {
         public User User { get; set; }
@@ -37,7 +54,7 @@ namespace MMM.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -56,7 +73,7 @@ namespace MMM.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
 

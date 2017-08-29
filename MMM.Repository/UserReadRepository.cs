@@ -18,6 +18,11 @@ namespace MMM.Repository
             return _dbSet.Find(id);
         }
 
+        public User GetUserByIdForEditAction(string id)
+        {
+            return _dbSet.AsNoTracking().SingleOrDefault(u => u.Id == id);
+        }
+
         public string GetUserIdByProviderKey(string providerKey)
         {
             //var userId = _dbSet.Select(u => u.Logins.FirstOrDefault(l => l.ProviderKey == providerKey).UserId).ToString();

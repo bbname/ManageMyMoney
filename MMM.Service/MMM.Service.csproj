@@ -180,6 +180,7 @@
     <Compile Include="ReadUser.cs" />
     <Compile Include="WriteBankAccount.cs" />
     <Compile Include="WriteTransaction.cs" />
+    <Compile Include="WriteUser.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MMM.Model\MMM.Model.csproj">
